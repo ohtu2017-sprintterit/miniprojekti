@@ -7,7 +7,7 @@ import static spark.Spark.*;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
 public class Main {
-    
+
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         // Osoite: http://osoitetuleetahan.herokuapp.com/
         // Paikallinen versio: http://localhost:4567/
@@ -29,6 +29,13 @@ public class Main {
             map.put("title", "Viitteidenhallinta");
 
             return new ModelAndView(map, "index");
+        }, new ThymeleafTemplateEngine());
+
+        get("/article", (req, res) -> {
+            HashMap map = new HashMap<>();
+            map.put("title", "Viitteidenhallinta");
+
+            return new ModelAndView(map, "article");
         }, new ThymeleafTemplateEngine());
     }
 }
