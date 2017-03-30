@@ -16,7 +16,8 @@ dependencies {
     compile 'com.sparkjava:spark-core:2.5.5'
     compile 'com.sparkjava:spark-template-thymeleaf:2.5.5'
     compile 'org.xerial:sqlite-jdbc:3.16.1'
-
+    compile 'org.postgresql:postgresql:42.0.0'
+    
     // Declare the dependency for your favourite test framework you want to use in your tests.
     // TestNG is also supported by the Gradle Test task. Just change the
     // testCompile dependency to testCompile 'org.testng:testng:6.8.1' and add
@@ -30,8 +31,17 @@ jar {
     manifest {
         attributes 'Main-Class': 'sprintterit.Main'
     }
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } } {
+        exclude 'META-INF/*.SF'
+        exclude 'META-INF/*.DSA'
+        exclude 'META-INF/*.RSA'
+    }
 }
 
 run {
     standardInput = System.in
+}
+
+task stage {
+    dependsOn build
 }
