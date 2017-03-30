@@ -32,10 +32,13 @@ public class Main {
         }, new ThymeleafTemplateEngine());
 
         get("/article", (req, res) -> {
-            HashMap map = new HashMap<>();
-            map.put("title", "Viitteidenhallinta");
-
+            HashMap map = new HashMap<>();        
             return new ModelAndView(map, "article");
+        }, new ThymeleafTemplateEngine());
+
+        get("/book", (req, res) -> {
+            HashMap map = new HashMap<>();
+            return new ModelAndView(map, "book");
         }, new ThymeleafTemplateEngine());
     }
 }
