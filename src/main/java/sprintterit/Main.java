@@ -25,7 +25,7 @@ public class Main {
             jdbcOsoite = System.getenv("DATABASE_URL");
         }
         Database database = new Database(jdbcOsoite);
-        //database.init();
+        database.init();
 
         get("/", (req, res) -> {
             HashMap map = new HashMap<>();
