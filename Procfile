@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -cp build/classes:build/libs/* sprintterit.Main
+web: java -Dserver.port=$PORT $JAVA_OPTS -jar build/libs/*.jar
