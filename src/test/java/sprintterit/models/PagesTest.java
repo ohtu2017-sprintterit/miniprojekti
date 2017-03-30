@@ -2,8 +2,13 @@ package sprintterit.models;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Rule;
+import org.junit.rules.ExpectedException;
 
 public class PagesTest {
+
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
     @Test
     public void constructorWorksCorrectly() {
@@ -12,13 +17,17 @@ public class PagesTest {
         assertEquals(46, pages.getEnd());
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void throwsExceptionWhenBeginWhenLessThanOne() {
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("Illegal page interval 0--5");
         Pages pages = new Pages(0, 5);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void throwsExceptionWhenBeginGreaterThanEnd() {
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("Illegal page interval 5--4");
         Pages pages = new Pages(5, 4);
     }
 

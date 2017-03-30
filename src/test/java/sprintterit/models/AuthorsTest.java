@@ -5,8 +5,13 @@ import java.util.Arrays;
 import java.util.List;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Rule;
+import org.junit.rules.ExpectedException;
 
 public class AuthorsTest {
+
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
     @Test
     public void varargsConstuctorWorksCorrectly() {
@@ -38,6 +43,22 @@ public class AuthorsTest {
         List<String> list = new ArrayList<>();
         Authors authors = new Authors(list);
         assertEquals(true, authors.getList().isEmpty());
+    }
+
+    @Test
+    public void varargsConstructorThrowsExceptionWhenArrayIsNull() {
+        thrown.expect(NullPointerException.class);
+        thrown.expectMessage("authors must not be null");
+        String[] array = null;
+        Authors authors = new Authors(array);
+    }
+
+    @Test
+    public void listConstructorThrowsExceptionWhenListIsNull() {
+        thrown.expect(NullPointerException.class);
+        thrown.expectMessage("authors must not be null");
+        List<String> list = null;
+        Authors authors = new Authors(list);
     }
 
     @Test

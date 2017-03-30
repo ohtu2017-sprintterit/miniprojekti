@@ -10,11 +10,12 @@ public class Authors {
     private final List<String> authors;
 
     public Authors(String... authors) {
+        authors = Objects.requireNonNull(authors, "authors must not be null");
         this.authors = new ArrayList<>(Arrays.asList(authors));
     }
 
     public Authors(List<String> authors) {
-        this.authors = Objects.requireNonNull(authors);
+        this.authors = Objects.requireNonNull(authors, "authors must not be null");
     }
 
     public List<String> getList() {
