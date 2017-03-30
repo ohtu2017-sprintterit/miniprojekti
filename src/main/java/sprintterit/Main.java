@@ -5,6 +5,7 @@ import java.util.HashMap;
 import spark.ModelAndView;
 import static spark.Spark.*;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
+import sprintterit.database.Database;
 
 public class Main {
 
@@ -19,10 +20,12 @@ public class Main {
 
         // Käytetään oletuksena paikallista sqlite-tietokantaa
         // Jos heroku antaa käyttöömme tietokantaosoitteen, otetaan se käyttöön
-        String jdbcOsoite = "jdbc:sqlite:tietokannat/tietokantatiedosto.db";
+        String jdbcOsoite = "jdbc:sqlite:tietokantatiedosto.db";
         if (System.getenv("DATABASE_URL") != null) {
             jdbcOsoite = System.getenv("DATABASE_URL");
         }
+        Database database = new Database(jdbcOsoite);
+        database.init();
 
         get("/", (req, res) -> {
             HashMap map = new HashMap<>();
@@ -32,7 +35,7 @@ public class Main {
         }, new ThymeleafTemplateEngine());
 
         get("/article", (req, res) -> {
-            HashMap map = new HashMap<>();        
+            HashMap map = new HashMap<>();
             return new ModelAndView(map, "article");
         }, new ThymeleafTemplateEngine());
 
