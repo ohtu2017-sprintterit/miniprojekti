@@ -33,7 +33,7 @@ public class Database {
         ArrayList<String> lista = new ArrayList<>();
 
         lista.add("CREATE TABLE Reference (id integer PRIMARY KEY, authors varchar(200), title varchar(100), year integer);");
-        lista.add("CREATE TABLE Article (journal varchar(100), volume integer, number integer, pages varchar(50), publisher varchar(100), address varchar(100), FOREIGN KEY(id) REFERENCES Reference(id));");
+        lista.add("CREATE TABLE Article (journal varchar(100), volume integer, number integer, pages varchar(50), publisher varchar(100), address varchar(100), id integer, FOREIGN KEY(id) REFERENCES Reference(id));");
 
         return lista;
     }
