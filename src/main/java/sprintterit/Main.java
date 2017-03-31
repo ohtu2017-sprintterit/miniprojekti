@@ -6,6 +6,7 @@ import spark.ModelAndView;
 import static spark.Spark.*;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 import sprintterit.database.ArticleDao;
+import sprintterit.database.BookDao;
 import sprintterit.database.Database;
 
 public class Main {
@@ -29,6 +30,7 @@ public class Main {
         database.init();
 
         ArticleDao articleDao = new ArticleDao(database);
+        BookDao bookDao = new BookDao(database);
 
         get("/", (req, res) -> {
             HashMap map = new HashMap<>();
@@ -61,6 +63,20 @@ public class Main {
             int year = Integer.parseInt(req.queryParams("year")); // error, jos jättää tyhjäksi
 
             articleDao.addArticle(id, authors, title, year, journal, volume, number, pages, publisher, address);
+            res.redirect("/");
+            return "";
+        });
+
+        post("/book", (req, res) -> {
+            String id = req.queryParams("id");
+            String authors = req.queryParams("authors");
+            String title = req.queryParams("title");
+            String publisher = req.queryParams("publisher");
+            String address = req.queryParams("address");
+
+            int year = Integer.parseInt(req.queryParams("year")); // error, jos jättää tyhjäksi
+
+            bookDao.addBook(id, authors, title, year, publisher, address);
             res.redirect("/");
             return "";
         });
