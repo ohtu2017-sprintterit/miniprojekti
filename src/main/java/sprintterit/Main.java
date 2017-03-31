@@ -5,6 +5,7 @@ import java.util.HashMap;
 import spark.ModelAndView;
 import static spark.Spark.*;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
+import sprintterit.database.ArticleDao;
 import sprintterit.database.Database;
 
 public class Main {
@@ -27,6 +28,8 @@ public class Main {
         Database database = new Database(jdbcOsoite);
         database.init();
 
+        ArticleDao articleDao = new ArticleDao(database);
+
         get("/", (req, res) -> {
             HashMap map = new HashMap<>();
             map.put("title", "Viitteidenhallinta");
@@ -43,5 +46,23 @@ public class Main {
             HashMap map = new HashMap<>();
             return new ModelAndView(map, "book");
         }, new ThymeleafTemplateEngine());
+
+        post("/article", (req, res) -> {
+            String id = req.queryParams("id");
+            String authors = req.queryParams("authors");
+            String title = req.queryParams("title");
+            String journal = req.queryParams("journal");
+            String pages = req.queryParams("pages");
+            String publisher = req.queryParams("publisher");
+            String address = req.queryParams("address");
+
+            int volume = Integer.parseInt(req.queryParams("volume")); // error, jos jättää tyhjäksi
+            int number = Integer.parseInt(req.queryParams("number")); // error, jos jättää tyhjäksi
+            int year = Integer.parseInt(req.queryParams("year")); // error, jos jättää tyhjäksi
+
+            articleDao.addArticle(id, authors, title, year, journal, volume, number, pages, publisher, address);
+            res.redirect("/");
+            return "";
+        });
     }
 }
