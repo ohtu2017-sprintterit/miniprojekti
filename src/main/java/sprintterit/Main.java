@@ -57,10 +57,9 @@ public class Main {
             String pages = req.queryParams("pages");
             String publisher = req.queryParams("publisher");
             String address = req.queryParams("address");
-
-            int volume = Integer.parseInt(req.queryParams("volume")); // error, jos jättää tyhjäksi
-            int number = Integer.parseInt(req.queryParams("number")); // error, jos jättää tyhjäksi
-            int year = Integer.parseInt(req.queryParams("year")); // error, jos jättää tyhjäksi
+            int volume = Integer.parseInt("0" + req.queryParams("volume"));
+            int number = Integer.parseInt("0" + req.queryParams("number"));
+            int year = Integer.parseInt("0" + req.queryParams("year"));
 
             articleDao.addArticle(id, authors, title, year, journal, volume, number, pages, publisher, address);
             res.redirect("/");
@@ -73,8 +72,7 @@ public class Main {
             String title = req.queryParams("title");
             String publisher = req.queryParams("publisher");
             String address = req.queryParams("address");
-
-            int year = Integer.parseInt(req.queryParams("year")); // error, jos jättää tyhjäksi
+            int year = Integer.parseInt("0" + req.queryParams("year"));
 
             bookDao.addBook(id, authors, title, year, publisher, address);
             res.redirect("/");
