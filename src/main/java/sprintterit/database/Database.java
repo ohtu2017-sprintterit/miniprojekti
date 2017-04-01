@@ -35,6 +35,7 @@ public class Database {
         lista.add("CREATE TABLE IF NOT EXISTS Reference (id varchar(50) PRIMARY KEY, authors varchar(200), title varchar(100), year integer);");
         lista.add("CREATE TABLE IF NOT EXISTS Article (journal varchar(100), volume integer, number integer, pages varchar(50), publisher varchar(100), address varchar(100), id varchar(50), FOREIGN KEY(id) REFERENCES Reference(id));");
         lista.add("CREATE TABLE IF NOT EXISTS Book (publisher varchar(100), address varchar(100), id varchar(50), FOREIGN KEY(id) REFERENCES Reference(id));");
+        lista.add("CREATE TABLE IF NOT EXISTS Inproceedings (booktitle varchar(100), pages varchar(50), publisher varchar(100), address varchar(100), id varchar(50), FOREIGN KEY(id) REFERENCES Reference(id));");
 
         return lista;
     }
