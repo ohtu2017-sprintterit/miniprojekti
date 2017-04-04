@@ -3,3 +3,4 @@ build/
 .DS_Store
 /.nb-gradle/
 tietokantatiedosto.db
+testitietokanta.db
