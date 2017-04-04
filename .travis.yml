@@ -1,5 +1,12 @@
 language: java
 dist: trusty
 jdk:
-  - oraclejdk8
-  - openjdk8
+- oraclejdk8
+- openjdk8
+
+deploy:
+  provider: heroku
+  api_key:
+    secure: oEE+pMB6vpNd/H1OE5z05SPc94LXdA8BWgCVieu7obmvQXp5/zZawBwXLhxx6R1hcIRvMOC+R1/5b/JpLGbxOM6o3KWxWem66oLK/zRW7o9SIf8/Ib7POT6THDBQN3JlDRf5itf2Se1J3BscgQVNUTafanftZyFI6YAsyM5TSgRoRlQL+8Z5YatL5U4DMmq0ELGOfTDLrNxfLdIqGbs2OJMbYBlg1kcYwcH1TVimOPH2xMDtFgGVGLmUlUM6cr09bSiEX/SnPSyHoBwakTMTKI41Nwr+w5RtWLbXRksWoo80MK5G3npo5mQkFeoO2COnkhHmhn+w3cHcQvS6ICR/FJP6lWwvYf37fwIXZFNETJ47tQHQByiRI/+G8MRtPGlOSjnM7GjffLJx1jIViE8LlNKI8d1a0xGfVKgFVB/ZAXAhmT6U9+mISOTOwjgtB7iDDOiy3kIYwt6dZ77VJLc2BNC8HGamJ1hq6qoZikXCKwiF8GMi4WxrqTVBJczeLG3VWQPAvOPUk0poe9hnVN+vMKgMBgNYAfudo4j9wbHiSPTqoFbBUM5csNRDZAiZvtERoXjQDi7KyEqQ/5HtgnFi+6t7uoFQTlUi2hsziBJZSbzyThA7+aVlG9v/bXV4s4qCAGwshcqdyTRkJAdKhUgHkIm7/HVFH+LqZBdHNdV3KMc=
+  strategy: git
+  app: sprintterit-bibtex
