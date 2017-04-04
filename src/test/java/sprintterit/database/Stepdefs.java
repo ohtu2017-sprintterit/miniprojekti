@@ -6,11 +6,8 @@ import cucumber.api.java.en.When;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
 import static org.junit.Assert.*;
+import sprintterit.models.Article;
 
 public class Stepdefs {
 
@@ -28,21 +25,17 @@ public class Stepdefs {
         database = new Database("jdbc:sqlite:testitietokanta.db");
         database.init();
         articleDao = new ArticleDao(database);
-        connection = database.getConnection();
     }
 
-    @When("^Article is added with id \"([^\"]*)\" author \"([^\"]*)\" year (\\d+)$")
-    public void journal_is_set_to(String id, String authors, int year) throws Throwable {
-        articleDao.addArticle(id, authors, "", year, "", 0, 0, "", "", "");
+    @When("^Article is added with id \"([^\"]*)\", author \"([^\"]*)\", startpage (\\d+), endpage (\\d+), year (\\d+)$")
+    public void journal_is_set_to(String id, String authors, int startpage, int endpage, int year) throws Throwable {
+        articleDao.addArticle(id, authors, "", year, "", 0, 0, startpage, endpage, "", "");
     }
 
-    @Then("^From database field \"([^\"]*)\" author is set to \"([^\"]*)\" and year (\\d+)$")
-    public void journal_value(String id, String authors, int year) throws Throwable {
-        PreparedStatement statement = connection.prepareStatement(
-                "SELECT authors, year FROM Reference WHERE id = ?");
-        statement.setString(1, id);
-        ResultSet s = statement.executeQuery();
-        assertEquals(s.getString(1), authors);
-        assertEquals(s.getInt(2), year);
+    @Then("^From database field \"([^\"]*)\", author is set to \"([^\"]*)\", startpage (\\d+), endpage (\\d+), year (\\d+)$")
+    public void journal_value(String id, String authors, int startpage, int endpage, int year) throws Throwable {
+        Article article = articleDao.findOne(id);
+        assertEquals(article.getAuthors().toString(), authors);
+        assertEquals(article.getYear(), year);
     }
 }

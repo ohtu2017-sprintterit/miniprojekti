@@ -53,15 +53,16 @@ public class Main {
             String id = req.queryParams("id");
             String authors = req.queryParams("authors");
             String title = req.queryParams("title");
+            int year = Integer.parseInt("0" + req.queryParams("year"));
             String journal = req.queryParams("journal");
-            String pages = req.queryParams("pages");
-            String publisher = req.queryParams("publisher");
-            String address = req.queryParams("address");
             int volume = Integer.parseInt("0" + req.queryParams("volume"));
             int number = Integer.parseInt("0" + req.queryParams("number"));
-            int year = Integer.parseInt("0" + req.queryParams("year"));
+            int startpage = Integer.parseInt("0" + req.queryParams("startpage"));
+            int endpage = Integer.parseInt("0" + req.queryParams("endpage"));
+            String publisher = req.queryParams("publisher");
+            String address = req.queryParams("address");
 
-            articleDao.addArticle(id, authors, title, year, journal, volume, number, pages, publisher, address);
+            articleDao.addArticle(id, authors, title, year, journal, volume, number, startpage, endpage, publisher, address);
             res.redirect("/");
             return "";
         });

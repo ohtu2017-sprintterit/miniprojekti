@@ -8,19 +8,19 @@ import java.util.Objects;
  */
 public abstract class Reference {
 
-    private final int id;
+    private final String id;
     private Authors authors;
     private String title;
     private int year;
 
-    protected Reference(int id, Authors authors, String title, int year) {
+    protected Reference(String id, Authors authors, String title, int year) {
         this.id = id;
         this.authors = Objects.requireNonNull(authors);
         this.title = title;
         this.year = year;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 

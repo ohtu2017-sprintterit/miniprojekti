@@ -12,16 +12,16 @@ public class ArticleTest {
 
     @Before
     public void setUp() {
-        authors = new Authors("Allan Collins", "John Seely Brown", "Ann Holum");
+        authors = new Authors("Collins, Allan\nBrown, John Seely\nHolum, Ann");
         pages = new Pages(38, 46);
-        article = new Article(1, authors, "Cognitive apprenticeship: making thinking visible",
+        article = new Article("1", authors, "Cognitive apprenticeship: making thinking visible",
                 "American Educator", 6, 0, pages, 1991);
     }
 
     @Test
     public void constructorWorksCorrectly() {
-        assertEquals(authors, article.getAuthors());
-        assertEquals(1, article.getId());
+        assertEquals(authors.toString(), article.getAuthors().toString());
+        assertEquals("1", article.getId());
         assertEquals("Cognitive apprenticeship: making thinking visible", article.getTitle());
         assertEquals("American Educator", article.getJournal());
         assertEquals(6, article.getVolume());
@@ -31,7 +31,7 @@ public class ArticleTest {
 
     @Test
     public void setAuthorsWorkCorrectly() {
-        Authors a = new Authors("Bruhn, Russel E.", "Burton, Philip J.");
+        Authors a = new Authors("Bruhn, Russel E.\nBurton, Philip J.");
         article.setAuthors(a);
         assertEquals(a, article.getAuthors());
     }

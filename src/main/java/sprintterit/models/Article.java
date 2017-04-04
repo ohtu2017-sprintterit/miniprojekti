@@ -13,7 +13,7 @@ public class Article extends Reference {
     private String publisher;
     private String address;
 
-    public Article(int id,
+    public Article(String id,
             Authors authors,
             String title,
             String journal,
@@ -24,7 +24,7 @@ public class Article extends Reference {
         this(id, authors, title, journal, volume, number, pages, year, null, null);
     }
 
-    public Article(int id,
+    public Article(String id,
             Authors authors,
             String title,
             String journal,

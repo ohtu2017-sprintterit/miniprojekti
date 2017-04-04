@@ -8,10 +8,16 @@ import java.util.Objects;
 public class Authors {
 
     private final List<String> authors;
+    
+    public Authors() {
+        this.authors = new ArrayList<>();
+    }
 
-    public Authors(String... authors) {
+    public Authors(String authors) {
         authors = Objects.requireNonNull(authors, "authors must not be null");
-        this.authors = new ArrayList<>(Arrays.asList(authors));
+        String[] a = authors.split("\\r?\\n");
+        this.authors = new ArrayList<>();
+        this.authors.addAll(Arrays.asList(a));
     }
 
     public Authors(List<String> authors) {
@@ -19,12 +25,12 @@ public class Authors {
     }
 
     public List<String> getList() {
-        return authors;
+        return this.authors;
     }
 
     @Override
     public String toString() {
-        return String.join(" and ", authors);
+        return String.join(" and ", this.authors);
     }
 
     @Override
