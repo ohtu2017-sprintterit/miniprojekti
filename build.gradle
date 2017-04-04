@@ -56,5 +56,5 @@ run {
 }
 
 task stage {
-    dependsOn build
+    dependsOn installDist
 }
