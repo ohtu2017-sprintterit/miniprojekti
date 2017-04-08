@@ -64,7 +64,7 @@ public class InproceedingDao {
     public Inproceeding findOne(String id) throws SQLException {
         Connection connection = database.getConnection();
         PreparedStatement statement = connection.prepareStatement(
-                "SELECT * FROM Reference r INNER JOIN Inproceeding i "
+                "SELECT * FROM Reference r INNER JOIN Inproceedings i "
                         + "ON r.id = i.id WHERE r.id = ?");
         statement.setString(1, id);
         ResultSet rs = statement.executeQuery();
@@ -79,7 +79,7 @@ public class InproceedingDao {
     public List<Inproceeding> findAll() throws SQLException {
         Connection connection = database.getConnection();
         PreparedStatement statement = connection.prepareStatement(
-                "SELECT * FROM Reference r INNER JOIN Inproceeding i "
+                "SELECT * FROM Reference r INNER JOIN Inproceedings i "
                         + "ON r.id = i.id");
         ResultSet rs = statement.executeQuery();
         List<Inproceeding> inproceedings = new ArrayList<>();
