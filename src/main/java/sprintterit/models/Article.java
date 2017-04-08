@@ -126,4 +126,21 @@ public class Article extends Reference {
     public void setKey(String key) {
         this.key = key;
     }
+
+    @Override
+    public String toString() {
+        return String.join(
+                "\n",
+                "@article{" + getId() + ",",
+                "  author = {" + getAuthors().toString() + "},",
+                "  title = {" + getTitle() + "},",
+                "  year = \"" + getYear() + "\",",
+                getVolume() == 0 ? "" : "  volume = \"" + getVolume() + "\",",
+                getNumber() == 0 ? "" : "  number = \"" + getNumber() + "\",",
+                pages == null ? "" : "  pages = \"" + pages.toString() + "\",",
+                month == null ? "" : "  month = \"" + month + "\",",
+                note == null ? "" : "  note = \"" + note + "\",",
+                "}"
+        );
+    }
 }

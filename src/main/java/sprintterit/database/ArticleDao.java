@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 import sprintterit.models.Article;
 import sprintterit.models.Authors;
 import sprintterit.models.Pages;
@@ -65,6 +68,31 @@ public class ArticleDao {
         if (!rs.isBeforeFirst()) {
             return null;
         }
+
+        Article article = buildArticle(rs);
+        
+        statement.close();
+        connection.close();
+        return article;
+    }
+
+    public List<Article> findAll() throws SQLException {
+        List<Article> articles = new ArrayList<>();
+        Connection connection = database.getConnection();
+        PreparedStatement statement = connection.prepareStatement(
+                "SELECT * FROM Reference r INNER JOIN Article a ON r.id = a.id"
+        );
+        ResultSet rs = statement.executeQuery();
+
+        while (rs.next()) {
+            articles.add(buildArticle(rs));
+        }
+
+        return articles;
+    }
+
+    private Article buildArticle(ResultSet rs) throws SQLException {
+        String id = rs.getString("id");
         Authors authors = new Authors(rs.getString("authors"));
         String title = rs.getString("title");
         int year = rs.getInt("year");
@@ -77,11 +105,9 @@ public class ArticleDao {
         String address = rs.getString("address");
         String note = rs.getString("note");
         String key = rs.getString("key");
-        Article article = new Article(id, authors, title, journal, 
+        Article article = new Article(id, authors, title, journal,
                 volume, number, month, pages, year, publisher, address, note, key);
-        
-        statement.close();
-        connection.close();
+
         return article;
     }
 }
