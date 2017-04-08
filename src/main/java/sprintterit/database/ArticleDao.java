@@ -18,8 +18,8 @@ public class ArticleDao {
 
     public void addArticle(String id, String authors, String title,
             int year, String journal, int volume,
-            int number, int startpage, int endpage,
-            String publisher, String address) throws SQLException {
+            String month, int number, int startpage, int endpage,
+            String publisher, String address, String note, String key) throws SQLException {
         Connection connection = database.getConnection();
 
         PreparedStatement statement = connection.prepareStatement(
@@ -33,18 +33,21 @@ public class ArticleDao {
         statement.execute();
 
         statement = connection.prepareStatement(
-                "INSERT INTO Article (journal, volume, number, startpage, "
-                + "endpage, publisher, address, id)"
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+                "INSERT INTO Article (journal, volume, number, month, startpage, "
+                + "endpage, publisher, address, note, key, id)"
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
         statement.setString(1, journal);
         statement.setInt(2, volume);
         statement.setInt(3, number);
-        statement.setInt(4, startpage);
-        statement.setInt(5, endpage);
-        statement.setString(6, publisher);
-        statement.setString(7, address);
-        statement.setString(8, id);
+        statement.setString(4, month);
+        statement.setInt(5, startpage);
+        statement.setInt(6, endpage);
+        statement.setString(7, publisher);
+        statement.setString(8, address);
+        statement.setString(9, note);
+        statement.setString(10, key);
+        statement.setString(11, id);
         statement.execute();
 
         statement.close();
@@ -68,10 +71,14 @@ public class ArticleDao {
         String journal = rs.getString("journal");
         int volume = rs.getInt("volume");
         int number = rs.getInt("number");
+        String month = rs.getString("month");
         Pages pages = new Pages(rs.getInt("startpage"), rs.getInt("endpage"));
         String publisher = rs.getString("publisher");
         String address = rs.getString("address");
-        Article article = new Article(id, authors, title, journal, volume, number, pages, year);
+        String note = rs.getString("note");
+        String key = rs.getString("key");
+        Article article = new Article(id, authors, title, journal, 
+                volume, number, month, pages, year, publisher, address, note, key);
         
         statement.close();
         connection.close();

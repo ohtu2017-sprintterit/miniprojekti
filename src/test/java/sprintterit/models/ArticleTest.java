@@ -15,7 +15,7 @@ public class ArticleTest {
         authors = new Authors("Collins, Allan\nBrown, John Seely\nHolum, Ann");
         pages = new Pages(38, 46);
         article = new Article("1", authors, "Cognitive apprenticeship: making thinking visible",
-                "American Educator", 6, 0, pages, 1991);
+                "American Educator", 6, 0, "Feb", pages, 1991, "publisher", "address", "note", "key");
     }
 
     @Test
@@ -25,8 +25,13 @@ public class ArticleTest {
         assertEquals("Cognitive apprenticeship: making thinking visible", article.getTitle());
         assertEquals("American Educator", article.getJournal());
         assertEquals(6, article.getVolume());
+        assertEquals("Feb", article.getMonth());
         assertEquals(pages, article.getPages());
         assertEquals(1991, article.getYear());
+        assertEquals("publisher", article.getPublisher());
+        assertEquals("address", article.getAddress());
+        assertEquals("note", article.getNote());
+        assertEquals("key", article.getKey());
     }
 
     @Test

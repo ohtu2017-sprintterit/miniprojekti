@@ -29,7 +29,7 @@ public class Stepdefs {
 
     @When("^Article is added with id \"([^\"]*)\", author \"([^\"]*)\", startpage (\\d+), endpage (\\d+), year (\\d+)$")
     public void journal_is_set_to(String id, String authors, int startpage, int endpage, int year) throws Throwable {
-        articleDao.addArticle(id, authors, "", year, "", 0, 0, startpage, endpage, "", "");
+        articleDao.addArticle(id, authors, "", year, "", 0, "", 0, startpage, endpage, "", "", "", "");
     }
 
     @Then("^From database field \"([^\"]*)\", author is set to \"([^\"]*)\", startpage (\\d+), endpage (\\d+), year (\\d+)$")

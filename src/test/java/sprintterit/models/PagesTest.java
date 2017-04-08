@@ -17,11 +17,18 @@ public class PagesTest {
         assertEquals(46, pages.getEnd());
     }
 
+//    @Test
+//    public void throwsExceptionWhenBeginWhenLessThanOne() {
+//        thrown.expect(IllegalArgumentException.class);
+//        thrown.expectMessage("Illegal page interval 0--5");
+//        Pages pages = new Pages(0, 5);
+//    }
+    
     @Test
-    public void throwsExceptionWhenBeginWhenLessThanOne() {
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Illegal page interval 0--5");
+    public void bothSetToZeroIfBeginningLessThanOne() {
         Pages pages = new Pages(0, 5);
+        assertEquals(0, pages.getBegin());
+        assertEquals(0, pages.getEnd());
     }
 
     @Test

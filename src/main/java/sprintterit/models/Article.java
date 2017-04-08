@@ -3,44 +3,56 @@ package sprintterit.models;
 /**
  * We'll probably want to allow (some) null values in attributes (to signify
  * fields which have no value)
+ * 
+ * >>> At this point empty values are empty strings, is there a need for
+ * null values?
+ * 
  */
 public class Article extends Reference {
 
     private String journal;
     private int volume;
     private int number;
+    private String month;
     private Pages pages;
     private String publisher;
     private String address;
+    private String note;
+    private String key;
 
-    public Article(String id,
+ //    public Article(String id,
+//            Authors authors,
+//            String title,
+//            String journal,
+//            int volume,
+//            int number,
+//            Pages pages,
+//            int year) {
+//        this(id, authors, title, journal, volume, number, pages, year, null, null);
+//    }
+    public Article (String id,
             Authors authors,
             String title,
             String journal,
             int volume,
             int number,
-            Pages pages,
-            int year) {
-        this(id, authors, title, journal, volume, number, pages, year, null, null);
-    }
-
-    public Article(String id,
-            Authors authors,
-            String title,
-            String journal,
-            int volume,
-            int number,
+            String month,
             Pages pages,
             int year,
             String publisher,
-            String address) {
+            String address,
+            String note,
+            String key) {
         super(id, authors, title, year);
         this.journal = journal;
         this.volume = volume;
         this.number = number;
+        this.month = month;
         this.pages = pages;
         this.publisher = publisher;
         this.address = address;
+        this.note = note;
+        this.key = key;
     }
 
     public String getJournal() {
@@ -67,6 +79,14 @@ public class Article extends Reference {
         this.number = number;
     }
 
+    public String getMonth() {
+        return month;
+    }
+
+    public void setMonth(String month) {
+        this.month = month;
+    }
+
     public Pages getPages() {
         return pages;
     }
@@ -91,4 +111,19 @@ public class Article extends Reference {
         this.address = address;
     }
 
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
 }
