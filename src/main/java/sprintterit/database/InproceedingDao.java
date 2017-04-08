@@ -1,9 +1,15 @@
 package sprintterit.database;
 
+import sprintterit.models.Authors;
+import sprintterit.models.Inproceeding;
+import sprintterit.models.Pages;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class InproceedingDao {
 
@@ -55,4 +61,52 @@ public class InproceedingDao {
         connection.close();
     }
 
+    public Inproceeding findOne(String id) throws SQLException {
+        Connection connection = database.getConnection();
+        PreparedStatement statement = connection.prepareStatement(
+                "SELECT * FROM Reference r INNER JOIN Inproceeding i "
+                        + "ON r.id = i.id WHERE r.id = ?");
+        statement.setString(1, id);
+        ResultSet rs = statement.executeQuery();
+
+        if (!rs.isBeforeFirst()) {
+            return null;
+        }
+
+        return buildInproceeding(rs);
+    }
+
+    public List<Inproceeding> findAll() throws SQLException {
+        Connection connection = database.getConnection();
+        PreparedStatement statement = connection.prepareStatement(
+                "SELECT * FROM Reference r INNER JOIN Inproceeding i "
+                        + "ON r.id = i.id");
+        ResultSet rs = statement.executeQuery();
+        List<Inproceeding> inproceedings = new ArrayList<>();
+
+        while (rs.next()) {
+            inproceedings.add(buildInproceeding(rs));
+        }
+        
+        return inproceedings;
+    }
+
+    private Inproceeding buildInproceeding(ResultSet rs) throws SQLException {
+        return new Inproceeding(
+                rs.getString("id"),
+                new Authors(rs.getString("authors")),
+                rs.getString("title"),
+                rs.getString("booktitle"),
+                new Pages(rs.getInt("startpage"), rs.getInt("endpage")),
+                rs.getInt("year"),
+                rs.getString("editor"),
+                rs.getString("series"),
+                rs.getString("month"),
+                rs.getString("organization"),
+                rs.getString("publisher"),
+                rs.getString("address"),
+                rs.getString("note"),
+                rs.getString("key")
+        );
+    }
 }

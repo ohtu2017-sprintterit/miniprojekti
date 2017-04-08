@@ -120,4 +120,26 @@ public class Inproceeding extends Reference {
     public void setKey(String key) {
         this.key = key;
     }
+
+    @Override
+    public String toString() {
+        return String.join(
+                "",
+                "@inproceedings{" + getId() + ",\n",
+                "  author = {" + getAuthors().toString() + "},\n",
+                "  title = {" + getTitle() + "},\n",
+                "  booktitle = {" + getBooktitle() + "},\n",
+                "  editor = {" + getEditor() + "},\n",
+                "  volume = \"" + volume + "\",\n",
+                "  series = {" + series + "},\n",
+                "  pages = {" + getPages().toString() + "},\n",
+                "  address = {" + getAddress() + "},\n",
+                "  organization = {" + getOrganization() + "},\n",
+                "  publisher = {" + getPublisher() + "},\n",
+                "  year = \"" + getYear() + "\",\n",
+                "  month = \"" + getMonth() + "\",\n",
+                "  note = \"" + getNote() + "\",\n",
+                "}\n"
+        );
+    }
 }

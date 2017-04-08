@@ -5,10 +5,12 @@ import java.util.HashMap;
 import spark.ModelAndView;
 import static spark.Spark.*;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
+import sprintterit.bibtexgen.BibtexGenerator;
 import sprintterit.database.ArticleDao;
 import sprintterit.database.BookDao;
 import sprintterit.database.Database;
 import sprintterit.database.InproceedingDao;
+import sprintterit.database.ReferenceDao;
 
 public class Main {
 
@@ -33,6 +35,7 @@ public class Main {
         ArticleDao articleDao = new ArticleDao(database);
         BookDao bookDao = new BookDao(database);
         InproceedingDao inproceedingDao = new InproceedingDao(database);
+        ReferenceDao referenceDao = new ReferenceDao(database);
 
         get("/", (req, res) -> {
             HashMap map = new HashMap<>();
@@ -121,6 +124,22 @@ public class Main {
                     organization, publisher, address, note, key);
             res.redirect("/");
             return "";
+        });
+
+        post("/generatebibtex", (req, res) -> {
+            String filename = "" + req.queryParams("filename");
+            if (filename.length() == 0) {
+                res.redirect("/");
+            } else {
+                filename = filename.replaceAll("\\.bib$", "") + ".bib";
+
+                BibtexGenerator gen = new BibtexGenerator();
+                res.type("application/x-bibtex");
+                res.header("Content-Disposition", String.format("attachment; filename=%s", filename));
+                res.body(gen.generateBibtexFile(referenceDao.findAll()));
+            }
+
+            return res.body();
         });
     }
 }

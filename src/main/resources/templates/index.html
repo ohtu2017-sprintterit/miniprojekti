@@ -9,5 +9,11 @@
         <p><a href="/article">Add article</a></p>
         <p><a href="/book">Add book</a></p>
         <p><a href="/inproceeding">Add inproceeding</a></p>
+        <h3>Generate bibtex file</h3>
+        <form method="post" action="/generatebibtex">
+            <label for="filename">Filename:</label>
+            <input type="text" name="filename" id="filename">
+            <input type="submit" value="Generate">
+        </form>
     </body>
 </html>
