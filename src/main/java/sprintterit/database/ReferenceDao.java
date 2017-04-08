@@ -25,7 +25,7 @@ public class ReferenceDao {
         references.addAll(bookDao.findAll());
         references.addAll(inproceedingDao.findAll());
 
-        Collections.sort(references, Comparator.comparing(Reference::getId));
+        Collections.sort(references, Comparator.comparing(s -> s.getId().toLowerCase()));
 
         return references;
     }
