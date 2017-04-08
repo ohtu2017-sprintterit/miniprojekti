@@ -87,7 +87,7 @@ public class InproceedingDao {
         while (rs.next()) {
             inproceedings.add(buildInproceeding(rs));
         }
-        
+
         return inproceedings;
     }
 

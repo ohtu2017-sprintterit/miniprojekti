@@ -18,10 +18,12 @@ public class ReferenceDao {
     public List<Reference> findAll() throws SQLException {
         ArticleDao articleDao = new ArticleDao(database);
         BookDao bookDao = new BookDao(database);
+        InproceedingDao inproceedingDao = new InproceedingDao(database);
         List<Reference> references = new ArrayList<>();
 
         references.addAll(articleDao.findAll());
         references.addAll(bookDao.findAll());
+        references.addAll(inproceedingDao.findAll());
 
         Collections.sort(references, Comparator.comparing(Reference::getId));
 
