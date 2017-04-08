@@ -106,13 +106,14 @@ public class Book extends Reference {
                 "  author = {" + getAuthors().toString() + "},\n",
                 "  title = {" + getTitle() + "},\n",
                 "  publisher = {" + getPublisher() + "},\n",
-                volume == 0 ? "" : "  volume = \"" + volume + "\",\n",
-                series == null ? "" : "  series = \"" + series + "\",\n",
-                address ==  null ? "" : "  address = \"" + address + "\",\n",
-                edition == null ? "" : "  edition = \"" + edition + "\",\n",
                 "  year = \"" + getYear() + "\",\n",
-                month == null ? "" : "  month = \"" + month + "\",\n",
-                note == null ? "" : "  note = {" + note + "},\n",
+                getVolume() == 0 ? "" : "  volume = \"" + getVolume() + "\",\n",
+                getSeries().length() == 0 ? "" : "  series = \"" + getSeries() + "\",\n",
+                getAddress().length() ==  0 ? "" : "  address = \"" + getAddress() + "\",\n",
+                getEdition().length() == 0 ? "" : "  edition = \"" + getEdition() + "\",\n",
+                getMonth().length() == 0 ? "" : "  month = " + getMonth() + ",\n",
+                getNote().length() == 0 ? "" : "  note = {" + getNote() + "},\n",
+                getKey().length() == 0 ? "" : "  key = {" + getKey() + "},\n",
                 "}\n"
         );
     }

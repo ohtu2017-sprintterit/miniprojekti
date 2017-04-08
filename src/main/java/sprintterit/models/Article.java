@@ -134,12 +134,14 @@ public class Article extends Reference {
                 "@article{" + getId() + ",\n",
                 "  author = {" + getAuthors().toString() + "},\n",
                 "  title = {" + getTitle() + "},\n",
+                "  journal = {" + getJournal() + "},\n",
                 "  year = \"" + getYear() + "\",\n",
-                getVolume() == 0 ? "" : "  volume = \"" + getVolume() + "\",\n",
+                "  volume = \"" + getVolume() + "\",\n",
                 getNumber() == 0 ? "" : "  number = \"" + getNumber() + "\",\n",
-                pages == null ? "" : "  pages = \"" + pages.toString() + "\",\n",
-                month == null ? "" : "  month = \"" + month + "\",\n",
-                note == null ? "" : "  note = \"" + note + "\",\n",
+                getPages().getEnd() == 0 ? "" : "  pages = \"" + pages.toString() + "\",\n",
+                getMonth().length() == 0 ? "" : "  month = " + getMonth() + ",\n",
+                getNote().length() == 0 ? "": "  note = \"" + getNote() + "\",\n",
+                getKey().length() == 0 ? "" : "  key = {" + getKey() + "}\n",
                 "}\n"
         );
     }
