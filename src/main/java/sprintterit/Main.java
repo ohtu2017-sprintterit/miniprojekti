@@ -133,16 +133,15 @@ public class Main {
             String filename = "" + req.queryParams("filename");
             if (filename.length() == 0) {
                 res.redirect("/");
+                return "";
             } else {
                 filename = filename.replaceAll("\\.bib$", "") + ".bib";
 
                 BibtexGenerator gen = new BibtexGenerator();
                 res.type("application/x-bibtex");
                 res.header("Content-Disposition", String.format("attachment; filename=%s", filename));
-                res.body(gen.generateBibtexFile(referenceDao.findAll()));
+                return gen.generateBibtexFile(referenceDao.findAll());
             }
-
-            return res.body();
         });
     }
 }
