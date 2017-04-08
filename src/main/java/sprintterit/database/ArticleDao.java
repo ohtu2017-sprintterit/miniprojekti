@@ -88,6 +88,9 @@ public class ArticleDao {
             articles.add(buildArticle(rs));
         }
 
+        statement.close();
+        connection.close();
+
         return articles;
     }
 

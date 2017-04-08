@@ -76,6 +76,9 @@ public class BookDao {
             books.add(buildBook(rs));
         }
 
+        statement.close();
+        connection.close();
+
         return books;
     }
 

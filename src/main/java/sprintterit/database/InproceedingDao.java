@@ -88,6 +88,9 @@ public class InproceedingDao {
             inproceedings.add(buildInproceeding(rs));
         }
 
+        statement.close();
+        connection.close();
+
         return inproceedings;
     }
 
