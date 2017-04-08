@@ -130,17 +130,17 @@ public class Article extends Reference {
     @Override
     public String toString() {
         return String.join(
-                "\n",
-                "@article{" + getId() + ",",
-                "  author = {" + getAuthors().toString() + "},",
-                "  title = {" + getTitle() + "},",
-                "  year = \"" + getYear() + "\",",
-                getVolume() == 0 ? "" : "  volume = \"" + getVolume() + "\",",
-                getNumber() == 0 ? "" : "  number = \"" + getNumber() + "\",",
-                pages == null ? "" : "  pages = \"" + pages.toString() + "\",",
-                month == null ? "" : "  month = \"" + month + "\",",
-                note == null ? "" : "  note = \"" + note + "\",",
-                "}"
+                "",
+                "@article{" + getId() + ",\n",
+                "  author = {" + getAuthors().toString() + "},\n",
+                "  title = {" + getTitle() + "},\n",
+                "  year = \"" + getYear() + "\",\n",
+                getVolume() == 0 ? "" : "  volume = \"" + getVolume() + "\",\n",
+                getNumber() == 0 ? "" : "  number = \"" + getNumber() + "\",\n",
+                pages == null ? "" : "  pages = \"" + pages.toString() + "\",\n",
+                month == null ? "" : "  month = \"" + month + "\",\n",
+                note == null ? "" : "  note = \"" + note + "\",\n",
+                "}\n"
         );
     }
 }

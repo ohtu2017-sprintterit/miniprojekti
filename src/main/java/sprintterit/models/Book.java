@@ -97,4 +97,23 @@ public class Book extends Reference {
     public void setKey(String key) {
         this.key = key;
     }
+
+    @Override
+    public String toString() {
+        return String.join(
+                "",
+                "@book{" + getId() + ",\n",
+                "  author = {" + getAuthors().toString() + "},\n",
+                "  title = {" + getTitle() + "},\n",
+                "  publisher = {" + getPublisher() + "},\n",
+                volume == 0 ? "" : "  volume = \"" + volume + "\",\n",
+                series == null ? "" : "  series = \"" + series + "\",\n",
+                address ==  null ? "" : "  address = \"" + address + "\",\n",
+                edition == null ? "" : "  edition = \"" + edition + "\",\n",
+                "  year = \"" + getYear() + "\",\n",
+                month == null ? "" : "  month = \"" + month + "\",\n",
+                note == null ? "" : "  note = {" + note + "},\n",
+                "}\n"
+        );
+    }
 }

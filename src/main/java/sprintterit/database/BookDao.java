@@ -1,8 +1,14 @@
 package sprintterit.database;
 
+import sprintterit.models.Authors;
+import sprintterit.models.Book;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BookDao {
 
@@ -43,4 +49,50 @@ public class BookDao {
         connection.close();
     }
 
+    public Book findOne(String id) throws SQLException {
+        Connection connection = database.getConnection();
+        PreparedStatement statement = connection.prepareStatement(
+                "SELECT * FROM Reference r INNER JOIN Book b "
+                        + "ON r.id = b.id WHERE r.id = ?");
+        statement.setString(1, id);
+        ResultSet rs = statement.executeQuery();
+
+        if (!rs.isBeforeFirst()) {
+            return null;
+        }
+
+        return buildBook(rs);
+    }
+
+    public List<Book> findAll() throws SQLException {
+        Connection connection = database.getConnection();
+        PreparedStatement statement = connection.prepareStatement(
+                "SELECT * FROM Reference r INNER JOIN Book b "
+                        + "ON r.id = b.id");
+        ResultSet rs = statement.executeQuery();
+        List<Book> books = new ArrayList<>();
+
+        while (rs.next()) {
+            books.add(buildBook(rs));
+        }
+
+        return books;
+    }
+
+    private Book buildBook(ResultSet rs) throws SQLException {
+        return new Book(
+                rs.getString("id"),
+                new Authors(rs.getString("authors")),
+                rs.getString("title"),
+                rs.getInt("year"),
+                rs.getString("publisher"),
+                rs.getString("address"),
+                rs.getInt("volume"),
+                rs.getString("series"),
+                rs.getString("edition"),
+                rs.getString("month"),
+                rs.getString("note"),
+                rs.getString("key")
+        );
+    }
 }
