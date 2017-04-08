@@ -65,6 +65,14 @@ public class Inproceeding extends Reference {
         this.editor = editor;
     }
 
+    public int getVolume() {
+        return volume;
+    }
+
+    public void setVolume(int volume) {
+        this.volume = volume;
+    }
+
     public String getSeries() {
         return series;
     }

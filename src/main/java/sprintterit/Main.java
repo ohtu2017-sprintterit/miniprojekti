@@ -40,6 +40,9 @@ public class Main {
         get("/", (req, res) -> {
             HashMap map = new HashMap<>();
             map.put("title", "Viitteidenhallinta");
+            map.put("articles", articleDao.findAll());
+            map.put("books", bookDao.findAll());
+            map.put("inproceedings", inproceedingDao.findAll());
 
             return new ModelAndView(map, "index");
         }, new ThymeleafTemplateEngine());
@@ -119,8 +122,8 @@ public class Main {
             String note = req.queryParams("note");
             String key = req.queryParams("key");
 
-            inproceedingDao.addInproceeding(id, authors, title, year, booktitle, 
-                    editor, volume, series, month, startpage, endpage, 
+            inproceedingDao.addInproceeding(id, authors, title, year, booktitle,
+                    editor, volume, series, month, startpage, endpage,
                     organization, publisher, address, note, key);
             res.redirect("/");
             return "";

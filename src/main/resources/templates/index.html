@@ -6,14 +6,129 @@
     </head>
     <body>
         <h1>Reference Management</h1>
-        <p><a href="/article">Add article</a></p>
-        <p><a href="/book">Add book</a></p>
-        <p><a href="/inproceeding">Add inproceeding</a></p>
-        <h3>Generate bibtex file</h3>
+        <p><a href="/article">Add article</a> | <a href="/book">Add book</a> | <a href="/inproceeding">Add inproceeding</a></p>
+
+        <h2>Articles</h2>
+        <div th:if="${!articles.empty}">
+            <table>
+                <tr>
+                    <th>BibTeX key</th>
+                    <th>Authors</th>
+                    <th>Journal</th>
+                    <th>Volume</th>
+                    <th>Number</th>
+                    <th>Year</th>
+                    <th>Pages</th>
+                    <th>Publisher</th>
+                    <th>Address</th>
+                    <th>Note</th>
+                    <th>Key</th>
+                </tr>
+                <tr th:each="article : ${articles}">
+                    <td th:text="${article.id}"></td>
+                    <td th:text="${article.authors}"></td>
+                    <td th:text="${article.journal}"></td>
+                    <td th:text="${article.volume}"></td>
+                    <td th:text="${article.number}"></td>
+                    <td th:text="${article.year}"></td>
+                    <td th:text="${article.pages}"></td>
+                    <td th:text="${article.publisher}"></td>
+                    <td th:text="${article.address}"></td>
+                    <td th:text="${article.note}"></td>
+                    <td th:text="${article.key}"></td>
+                </tr>
+            </table>
+        </div>
+        <div th:if="${articles.empty}">
+            <p>No articles</p>
+        </div>
+
+        <h2>Books</h2>
+        <div th:if="${!books.empty}">
+            <table>
+                <tr>
+                    <th>BibTeX key</th>
+                    <th>Authors</th>
+                    <th>Title</th>
+                    <th>Year</th>
+                    <th>Month</th>
+                    <th>Volume</th>
+                    <th>Series</th>
+                    <th>Edition</th>
+                    <th>Publisher</th>
+                    <th>Address</th>
+                    <th>Note</th>
+                    <th>Key</th>
+                </tr>
+                <tr th:each="book : ${books}">
+                    <td th:text="${book.id}"></td>
+                    <td th:text="${book.authors}"></td>
+                    <td th:text="${book.title}"></td>
+                    <td th:text="${book.year}"></td>
+                    <td th:text="${book.month}"></td>
+                    <td th:text="${book.volume}"></td>
+                    <td th:text="${book.series}"></td>
+                    <td th:text="${book.edition}"></td>
+                    <td th:text="${book.publisher}"></td>
+                    <td th:text="${book.address}"></td>
+                    <td th:text="${book.note}"></td>
+                    <td th:text="${book.key}"></td>
+                </tr>
+            </table>
+        </div>
+        <div th:if="${books.empty}">
+            <p>No books</p>
+        </div>
+
+        <h2>Inproceedings</h2>
+        <div th:if="${!inproceedings.empty}">
+            <table>
+                <tr>
+                    <th>BibTeX key</th>
+                    <th>Authors</th>
+                    <th>Title</th>
+                    <th>Booktitle</th>
+                    <th>Editor</th>
+                    <th>Volume</th>
+                    <th>Series</th>
+                    <th>Month</th>
+                    <th>Year</th>
+                    <th>Pages</th>
+                    <th>Organization</th>
+                    <th>Publisher</th>
+                    <th>Address</th>
+                    <th>Note</th>
+                    <th>Key</th>
+                </tr>
+                <tr th:each="inproceeding : ${inproceedings}">
+                    <td th:text="${inproceeding.id}"></td>
+                    <td th:text="${inproceeding.authors}"></td>
+                    <td th:text="${inproceeding.title}"></td>
+                    <td th:text="${inproceeding.booktitle}"></td>
+                    <td th:text="${inproceeding.editor}"></td>
+                    <td th:text="${inproceeding.volume}"></td>
+                    <td th:text="${inproceeding.series}"></td>
+                    <td th:text="${inproceeding.month}"></td>
+                    <td th:text="${inproceeding.year}"></td>
+                    <td th:text="${inproceeding.pages}"></td>
+                    <td th:text="${inproceeding.organization}"></td>
+                    <td th:text="${inproceeding.publisher}"></td>
+                    <td th:text="${inproceeding.address}"></td>
+                    <td th:text="${inproceeding.note}"></td>
+                    <td th:text="${inproceeding.key}"></td>
+                </tr>
+            </table>
+        </div>
+        <div th:if="${inproceedings.empty}">
+            <p>No inproceedings</p>
+        </div>
+
+        <h3>Generate BibTeX file</h3>
         <form method="post" action="/generatebibtex">
             <label for="filename">Filename:</label>
             <input type="text" name="filename" id="filename">
             <input type="submit" value="Generate">
         </form>
+
     </body>
 </html>
