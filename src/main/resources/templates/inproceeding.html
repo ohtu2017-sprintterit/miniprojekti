@@ -3,8 +3,10 @@
     <head>
         <title>New inproceeding</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </head>
-    <body>
+    <body class="container">
         <h1>New inproceeding</h1>
         <form method="POST" action="/inproceeding">
             <table>
@@ -26,8 +28,7 @@
                 <tr><td>Note:</td><td><textarea name="note" id="note" rows="3" cols="30"></textarea></td></tr>
                 <tr><td>Key:</td><td><input type="text" name="key" id="key"/></td></tr>
             </table>
-            <p><input type="submit" value="Add"/></p>
+            <br><div><a href="/" class="btn btn-default">Back</a> <input type="submit" value="Add" class="btn btn-primary"/></div>
         </form>
-        <p><a href="/">Back</a></p>
     </body>
 </html>

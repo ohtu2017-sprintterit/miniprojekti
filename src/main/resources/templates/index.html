@@ -3,14 +3,16 @@
     <head>
         <title>Start Page</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </head>
-    <body>
+    <body class="container">
         <h1>Reference Management</h1>
-        <p><a href="/article">Add article</a> | <a href="/book">Add book</a> | <a href="/inproceeding">Add inproceeding</a></p>
+        <p><a href="/article" class="btn btn-primary">Add article</a> <a href="/book" class="btn btn-primary">Add book</a> <a href="/inproceeding" class="btn btn-primary">Add inproceeding</a></p>
 
         <h2>Articles</h2>
         <div th:if="${!articles.empty}">
-            <table>
+            <table class="table">
                 <tr>
                     <th>BibTeX key</th>
                     <th>Authors</th>
@@ -45,7 +47,7 @@
 
         <h2>Books</h2>
         <div th:if="${!books.empty}">
-            <table>
+            <table class="table">
                 <tr>
                     <th>BibTeX key</th>
                     <th>Authors</th>
@@ -82,7 +84,7 @@
 
         <h2>Inproceedings</h2>
         <div th:if="${!inproceedings.empty}">
-            <table>
+            <table class="table">
                 <tr>
                     <th>BibTeX key</th>
                     <th>Authors</th>
@@ -127,7 +129,7 @@
         <form method="post" action="/generatebibtex">
             <label for="filename">Filename:</label>
             <input type="text" name="filename" id="filename">
-            <input type="submit" value="Generate">
+            <input type="submit" value="Generate" class="btn btn-primary">
         </form>
 
     </body>
