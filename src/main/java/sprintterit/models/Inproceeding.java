@@ -138,15 +138,15 @@ public class Inproceeding extends Reference {
                 "  title = {" + getTitle() + "},\n",
                 "  booktitle = {" + getBooktitle() + "},\n",
                 "  year = \"" + getYear() + "\",\n",
-                getEditor().length() == 0 ? "" : "  editor = {" + getEditor() + "},\n",
-                getSeries().length() == 0 ? "" : "  series = {" + getSeries() + "},\n",
+                (getEditor() == null || getEditor().length() == 0) ? "" : "  editor = {" + getEditor() + "},\n",
+                (getSeries() == null || getSeries().length() == 0) ? "" : "  series = {" + getSeries() + "},\n",
                 getPages().getEnd() == 0 ? "" : "  pages = {" + getPages().toString() + "},\n",
-                getAddress().length() == 0 ? "" : "  address = {" + getAddress() + "},\n",
-                getOrganization().length() == 0 ? "" : "  organization = {" + getOrganization() + "},\n",
-                getPublisher().length() == 0 ? "" : "  publisher = {" + getPublisher() + "},\n",
-                getMonth().length() == 0 ? "" : "  month = " + getMonth() + ",\n",
-                getNote().length() == 0 ? "" : "  note = {" + getNote() + "},\n",
-                getKey().length() == 0 ? "" : "  key = {" + getKey() + "},\n",
+                (getAddress() == null || getAddress().length() == 0) ? "" : "  address = {" + getAddress() + "},\n",
+                (getOrganization() == null || getOrganization().length() == 0) ? "" : "  organization = {" + getOrganization() + "},\n",
+                (getPublisher() == null || getPublisher().length() == 0) ? "" : "  publisher = {" + getPublisher() + "},\n",
+                (getMonth() == null || getMonth().length() == 0) ? "" : "  month = " + getMonth() + ",\n",
+                (getNote() == null || getNote().length() == 0) ? "" : "  note = {" + getNote() + "},\n",
+                (getKey() == null || getKey().length() == 0) ? "" : "  key = {" + getKey() + "},\n",
                 "}\n"
         );
     }

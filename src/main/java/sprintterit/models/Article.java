@@ -139,9 +139,9 @@ public class Article extends Reference {
                 "  volume = \"" + getVolume() + "\",\n",
                 getNumber() == 0 ? "" : "  number = \"" + getNumber() + "\",\n",
                 getPages().getEnd() == 0 ? "" : "  pages = \"" + pages.toString() + "\",\n",
-                getMonth().length() == 0 ? "" : "  month = " + getMonth() + ",\n",
-                getNote().length() == 0 ? "": "  note = \"" + getNote() + "\",\n",
-                getKey().length() == 0 ? "" : "  key = {" + getKey() + "}\n",
+                (getMonth() == null || getMonth().length() == 0) ? "" : "  month = " + getMonth() + ",\n",
+                (getNote() == null || getNote().length() == 0) ? "": "  note = \"" + getNote() + "\",\n",
+                (getKey() == null || getKey().length() == 0) ? "" : "  key = {" + getKey() + "}\n",
                 "}\n"
         );
     }

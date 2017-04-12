@@ -108,12 +108,12 @@ public class Book extends Reference {
                 "  publisher = {" + getPublisher() + "},\n",
                 "  year = \"" + getYear() + "\",\n",
                 getVolume() == 0 ? "" : "  volume = \"" + getVolume() + "\",\n",
-                getSeries().length() == 0 ? "" : "  series = \"" + getSeries() + "\",\n",
-                getAddress().length() ==  0 ? "" : "  address = \"" + getAddress() + "\",\n",
-                getEdition().length() == 0 ? "" : "  edition = \"" + getEdition() + "\",\n",
-                getMonth().length() == 0 ? "" : "  month = " + getMonth() + ",\n",
-                getNote().length() == 0 ? "" : "  note = {" + getNote() + "},\n",
-                getKey().length() == 0 ? "" : "  key = {" + getKey() + "},\n",
+                (getSeries() == null || getSeries().length() == 0) ? "" : "  series = \"" + getSeries() + "\",\n",
+                (getAddress() == null || getAddress().length() == 0) ? "" : "  address = \"" + getAddress() + "\",\n",
+                (getEdition() == null || getEdition().length() == 0) ? "" : "  edition = \"" + getEdition() + "\",\n",
+                (getMonth() == null || getMonth().length() == 0) ? "" : "  month = " + getMonth() + ",\n",
+                (getNote() == null || getNote().length() == 0) ? "" : "  note = {" + getNote() + "},\n",
+                (getKey() == null || getKey().length() == 0) ? "" : "  key = {" + getKey() + "},\n",
                 "}\n"
         );
     }

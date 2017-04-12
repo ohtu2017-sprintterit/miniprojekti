@@ -4,3 +4,4 @@ build/
 /.nb-gradle/
 tietokantatiedosto.db
 testitietokanta.db
+.idea
