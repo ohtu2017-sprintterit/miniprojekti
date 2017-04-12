@@ -6,6 +6,7 @@ import spark.ModelAndView;
 import static spark.Spark.*;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 import sprintterit.bibtexgen.BibtexGenerator;
+import sprintterit.controllers.AddArticle;
 import sprintterit.database.ArticleDao;
 import sprintterit.database.BookDao;
 import sprintterit.database.Database;
@@ -62,27 +63,29 @@ public class Main {
             return new ModelAndView(map, "inproceeding");
         }, new ThymeleafTemplateEngine());
 
-        post("/article", (req, res) -> {
-            String id = req.queryParams("id");
-            String authors = req.queryParams("authors");
-            String title = req.queryParams("title");
-            int year = Integer.parseInt("0" + req.queryParams("year"));
-            String journal = req.queryParams("journal");
-            int volume = Integer.parseInt("0" + req.queryParams("volume"));
-            int number = Integer.parseInt("0" + req.queryParams("number"));
-            String month = req.queryParams("month");
-            int startpage = Integer.parseInt("0" + req.queryParams("startpage"));
-            int endpage = Integer.parseInt("0" + req.queryParams("endpage"));
-            String publisher = req.queryParams("publisher");
-            String address = req.queryParams("address");
-            String note = req.queryParams("note");
-            String key = req.queryParams("key");
+//        post("/article", (req, res) -> {
+//            String id = req.queryParams("id");
+//            String authors = req.queryParams("authors");
+//            String title = req.queryParams("title");
+//            int year = Integer.parseInt("0" + req.queryParams("year"));
+//            String journal = req.queryParams("journal");
+//            int volume = Integer.parseInt("0" + req.queryParams("volume"));
+//            int number = Integer.parseInt("0" + req.queryParams("number"));
+//            String month = req.queryParams("month");
+//            int startpage = Integer.parseInt("0" + req.queryParams("startpage"));
+//            int endpage = Integer.parseInt("0" + req.queryParams("endpage"));
+//            String publisher = req.queryParams("publisher");
+//            String address = req.queryParams("address");
+//            String note = req.queryParams("note");
+//            String key = req.queryParams("key");
+//
+//            articleDao.addArticle(id, authors, title, year, journal,
+//                    volume, month, number, startpage, endpage, publisher, address, note, key);
+//            res.redirect("/");
+//            return "";
+//        });
 
-            articleDao.addArticle(id, authors, title, year, journal,
-                    volume, month, number, startpage, endpage, publisher, address, note, key);
-            res.redirect("/");
-            return "";
-        });
+        post("/article", new AddArticle(articleDao), new ThymeleafTemplateEngine());
 
         post("/book", (req, res) -> {
             String id = req.queryParams("id");
