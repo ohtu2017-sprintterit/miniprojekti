@@ -21,7 +21,7 @@ public class BibtexGenerator {
 
     public String generateBibtexFile(List<Reference> references) {
         String file = references.stream().map(ref -> ref.toString()).collect(Collectors.joining("\n"));
-        specialCharacters.entrySet().forEach(e -> file.replace(e.getKey(), e.getValue()));
+        file = specialCharacters.keySet().stream().reduce(file, (f, k) -> f.replace(k, specialCharacters.get(k)));
 
         return file;
     }

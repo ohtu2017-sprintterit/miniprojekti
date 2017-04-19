@@ -157,6 +157,6 @@ public class Article extends Reference {
                 (getNote() == null || getNote().length() == 0) ? "": "  note = \"" + getNote() + "\",\n",
                 (getKey() == null || getKey().length() == 0) ? "" : "  key = {" + getKey() + "}\n",
                 "}\n"
-        );
+        ).replaceAll(",(?=\n})", "");
     }
 }
