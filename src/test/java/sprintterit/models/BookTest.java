@@ -32,4 +32,26 @@ public class BookTest {
         assertEquals("note", book.getNote());
         assertEquals("key", book.getKey());
     }
+
+    @Test
+    public void toStringWorksCorrectly() {
+        String expected = String.join(
+                "\n",
+                "@book{123,",
+                "  author = {Collins, Allan and Brown, John Seely and Holum, Ann},",
+                "  title = {C programming},",
+                "  publisher = {Publisher},",
+                "  year = \"1984\",",
+                "  volume = \"6\",",
+                "  series = \"Programming\",",
+                "  address = \"Scienceroad\",",
+                "  edition = \"edition\",",
+                "  month = Feb,",
+                "  note = {note},",
+                "  key = {key}",
+                "}\n"
+        );
+
+        assertEquals(expected, book.toString());
+    }
 }

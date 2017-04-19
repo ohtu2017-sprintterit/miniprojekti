@@ -140,7 +140,7 @@ public class Inproceeding extends Reference {
                 "  year = \"" + getYear() + "\",\n",
                 (getEditor() == null || getEditor().length() == 0) ? "" : "  editor = {" + getEditor() + "},\n",
                 (getSeries() == null || getSeries().length() == 0) ? "" : "  series = {" + getSeries() + "},\n",
-                getPages().getEnd() == 0 ? "" : "  pages = {" + getPages().toString() + "},\n",
+                getPages() == null ? "" : "  pages = {" + getPages().toString() + "},\n",
                 (getAddress() == null || getAddress().length() == 0) ? "" : "  address = {" + getAddress() + "},\n",
                 (getOrganization() == null || getOrganization().length() == 0) ? "" : "  organization = {" + getOrganization() + "},\n",
                 (getPublisher() == null || getPublisher().length() == 0) ? "" : "  publisher = {" + getPublisher() + "},\n",

@@ -37,4 +37,27 @@ public class InproceedingTest {
         assertEquals("key", inproceeding.getKey());
     }
 
+    @Test
+    public void toStringWorksCorrectly() {
+        String expected = String.join(
+                "\n",
+                "@inproceedings{1234,",
+                "  author = {Collins, Allan and Brown, John Seely and Holum, Ann},",
+                "  title = {title},",
+                "  booktitle = {booktitle},",
+                "  year = \"1999\",",
+                "  editor = {editor},",
+                "  series = {series},",
+                "  pages = {38--46},",
+                "  address = {address},",
+                "  organization = {org},",
+                "  publisher = {publisher},",
+                "  month = month,",
+                "  note = {note},",
+                "  key = {key}",
+                "}\n"
+        );
+
+        assertEquals(expected, inproceeding.toString());
+    }
 }

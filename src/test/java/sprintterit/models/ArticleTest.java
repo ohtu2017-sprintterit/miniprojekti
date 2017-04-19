@@ -101,4 +101,37 @@ public class ArticleTest {
         assertEquals("USA", article.getAddress());
     }
 
+    @Test
+    public void toStringWorksCorrectly() {
+        Article a = new Article(
+                "a",
+                new Authors("Author, Adam\nWriter, William"),
+                "A whole lot of nothing",
+                "Trash",
+                3,
+                5,
+                null,
+                null,
+                null,
+                2007,
+                null,
+                null,
+                null,
+                null
+        );
+
+        String expected = String.join(
+                "\n",
+                "@article{a,",
+                "  author = {Author, Adam and Writer, William},",
+                "  title = {A whole lot of nothing},",
+                "  journal = {Trash},",
+                "  year = \"2007\",",
+                "  volume = \"3\",",
+                "  number = \"5\"",
+                "}\n"
+        );
+
+        assertEquals(expected, a.toString());
+    }
 }
