@@ -5,3 +5,4 @@ build/
 tietokantatiedosto.db
 testitietokanta.db
 .idea
+/driver/chromedriver
