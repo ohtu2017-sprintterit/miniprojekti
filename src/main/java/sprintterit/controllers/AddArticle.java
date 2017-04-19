@@ -23,12 +23,11 @@ public class AddArticle implements Route {
         String id = input.getString("id", "BibTeX key", true);
         String authors = input.getString("authors", "Authors", true);
         String title = input.getString("title", "Title", true);
-        Integer year = input.getInteger("year", "Year", true);
         String journal = input.getString("journal", "Journal", true);
-
         Integer volume = input.getInteger("volume", "Volume", false);
         Integer number = input.getInteger("number", "Number", false);
-        String month = input.getString("month", "Month", false);
+        String month = input.getString("month", "Month", false); // not on the form
+        Integer year = input.getInteger("year", "Year", true);
         Integer startpage = input.getInteger("startpage", "Startpage", false);
         Integer endpage = input.getInteger("endpage", "Endpage", false);
         String publisher = input.getString("publisher", "Publisher", false);

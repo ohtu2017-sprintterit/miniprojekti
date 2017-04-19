@@ -6,6 +6,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import static org.junit.Assert.*;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.By;
 
@@ -13,7 +14,10 @@ public class Stepdefs {
 
     public static final boolean SLOWDOWN_TESTS_BY_SLEEPING = false;
 
-    WebDriver driver = new ChromeDriver();
+    // HtmlUnitDriver is for Tracis-CI (which doesn't support ChromeDriver)
+    // ChromeDriver is for local debugging (when you want to see what's going on)
+    WebDriver driver = new HtmlUnitDriver();
+    //WebDriver driver = new ChromeDriver();
     String baseUrl = "http://localhost:4567";
 
     @Given("^Add article is selected$")
