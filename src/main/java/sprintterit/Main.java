@@ -8,6 +8,7 @@ import spark.template.thymeleaf.ThymeleafTemplateEngine;
 import sprintterit.bibtexgen.BibtexGenerator;
 import sprintterit.controllers.AddArticle;
 import sprintterit.controllers.AddBook;
+import sprintterit.controllers.AddInproceeding;
 import sprintterit.database.ArticleDao;
 import sprintterit.database.BookDao;
 import sprintterit.database.Database;
@@ -78,31 +79,7 @@ public class Main {
 
         post("/article", new AddArticle(articleDao));
         post("/book", new AddBook(bookDao));
-
-        post("/inproceeding", (req, res) -> {
-            String id = req.queryParams("id");
-            String authors = req.queryParams("authors");
-            String title = req.queryParams("title");
-            String booktitle = req.queryParams("booktitle");
-            String editor = req.queryParams("editor");
-            int volume = Integer.parseInt("0" + req.queryParams("volume"));
-            String series = req.queryParams("series");
-            String month = req.queryParams("month");
-            int year = Integer.parseInt("0" + req.queryParams("year"));
-            int startpage = Integer.parseInt("0" + req.queryParams("startpage"));
-            int endpage = Integer.parseInt("0" + req.queryParams("endpage"));
-            String organization = req.queryParams("organization");
-            String publisher = req.queryParams("publisher");
-            String address = req.queryParams("address");
-            String note = req.queryParams("note");
-            String key = req.queryParams("key");
-
-            inproceedingDao.addInproceeding(id, authors, title, year, booktitle,
-                    editor, volume, series, month, startpage, endpage,
-                    organization, publisher, address, note, key);
-            res.redirect("/");
-            return "";
-        });
+        post("/inproceeding", new AddInproceeding(inproceedingDao));
 
         post("/generatebibtex", (req, res) -> {
             String filename = "" + req.queryParams("filename");

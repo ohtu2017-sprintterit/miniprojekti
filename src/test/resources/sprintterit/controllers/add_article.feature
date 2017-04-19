@@ -9,7 +9,7 @@ Feature: As a user I am able to add a proper article reference
       Given A new article with id "duplicate", author "Matti", title "My article", journal "Journal" and year "1992" is created
         And Add article is selected
        When Id "duplicate", author "Matti", title "My article", journal "Journal" and year "1992" are given
-       Then Article is not added and error "BibTeX key is not unique (already taken by another article)" is reported
+       Then Article is not added and error "BibTeX key is not unique (already taken by another reference)" is reported
 
   Scenario: I cannot add article if any of the required fields is missing
       Given Add article is selected
