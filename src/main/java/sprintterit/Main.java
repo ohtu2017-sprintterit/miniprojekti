@@ -20,13 +20,21 @@ public class Main {
         // Paikallinen versio: http://localhost:4567/
 
         // Asetetaan portti, jos heroku antaa PORT-ympäristömuuttujan
+        // Vastaavasti Cucumber-testit käyttävät komentoriviparametria
+        if (args != null && args.length >= 1) {
+            port(Integer.valueOf(args[0]));
+        }
         if (System.getenv("PORT") != null) {
             port(Integer.valueOf(System.getenv("PORT")));
         }
 
         // Käytetään oletuksena paikallista sqlite-tietokantaa
         // Jos heroku antaa käyttöömme tietokantaosoitteen, otetaan se käyttöön
+        // Vastaavasti Cucumber-testit käyttävät komentoriviparametria
         String jdbcOsoite = "jdbc:sqlite:tietokantatiedosto.db";
+        if (args != null && args.length >= 2) {
+            jdbcOsoite = args[1];
+        }
         if (System.getenv("JDBC_DATABASE_URL") != null) {
             jdbcOsoite = System.getenv("JDBC_DATABASE_URL");
         }
@@ -63,29 +71,7 @@ public class Main {
             return new ModelAndView(map, "inproceeding");
         }, new ThymeleafTemplateEngine());
 
-//        post("/article", (req, res) -> {
-//            String id = req.queryParams("id");
-//            String authors = req.queryParams("authors");
-//            String title = req.queryParams("title");
-//            int year = Integer.parseInt("0" + req.queryParams("year"));
-//            String journal = req.queryParams("journal");
-//            int volume = Integer.parseInt("0" + req.queryParams("volume"));
-//            int number = Integer.parseInt("0" + req.queryParams("number"));
-//            String month = req.queryParams("month");
-//            int startpage = Integer.parseInt("0" + req.queryParams("startpage"));
-//            int endpage = Integer.parseInt("0" + req.queryParams("endpage"));
-//            String publisher = req.queryParams("publisher");
-//            String address = req.queryParams("address");
-//            String note = req.queryParams("note");
-//            String key = req.queryParams("key");
-//
-//            articleDao.addArticle(id, authors, title, year, journal,
-//                    volume, month, number, startpage, endpage, publisher, address, note, key);
-//            res.redirect("/");
-//            return "";
-//        });
-
-        post("/article", new AddArticle(articleDao), new ThymeleafTemplateEngine());
+        post("/article", new AddArticle(articleDao));
 
         post("/book", (req, res) -> {
             String id = req.queryParams("id");
