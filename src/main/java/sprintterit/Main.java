@@ -19,6 +19,10 @@ public class Main {
         // Osoite: http://osoitetuleetahan.herokuapp.com/
         // Paikallinen versio: http://localhost:4567/
 
+        // Bootstrapin tyylitiedoston sijainti
+        // Kansion web sisältö näkyy verkkoon sellaisenaan
+        staticFileLocation("/web");
+
         // Asetetaan portti, jos heroku antaa PORT-ympäristömuuttujan
         // Vastaavasti Cucumber-testit käyttävät komentoriviparametria
         if (args != null && args.length >= 1) {
