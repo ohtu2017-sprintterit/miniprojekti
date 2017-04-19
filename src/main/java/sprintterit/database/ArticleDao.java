@@ -1,116 +1,44 @@
 package sprintterit.database;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
-
 import sprintterit.models.Article;
-import sprintterit.models.Authors;
-import sprintterit.models.Pages;
 
 public class ArticleDao {
 
-    private Database database;
+    private final Database database;
+    private final QueryRunner<Article> query;
 
     public ArticleDao(Database database) {
         this.database = database;
+        this.query = new QueryRunner<>(database, new ArticleCollector());
     }
 
     public void addArticle(String id, String authors, String title,
-            int year, String journal, int volume,
-            String month, int number, int startpage, int endpage,
+            Integer year, String journal, Integer volume,
+            String month, Integer number, Integer startpage, Integer endpage,
             String publisher, String address, String note, String key) throws SQLException {
-        Connection connection = database.getConnection();
-
-        PreparedStatement statement = connection.prepareStatement(
+        query.insert(
                 "INSERT INTO Reference (id, authors, title, year)"
-                + "VALUES (?, ?, ?, ?)");
-
-        statement.setString(1, id);
-        statement.setString(2, authors);
-        statement.setString(3, title);
-        statement.setInt(4, year);
-        statement.execute();
-
-        statement = connection.prepareStatement(
+                + "VALUES (?, ?, ?, ?)",
+                id, authors, title, year);
+        query.insert(
                 "INSERT INTO Article (journal, volume, number, month, startpage, "
                 + "endpage, publisher, address, note, key, id)"
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-
-        statement.setString(1, journal);
-        statement.setInt(2, volume);
-        statement.setInt(3, number);
-        statement.setString(4, month);
-        statement.setInt(5, startpage);
-        statement.setInt(6, endpage);
-        statement.setString(7, publisher);
-        statement.setString(8, address);
-        statement.setString(9, note);
-        statement.setString(10, key);
-        statement.setString(11, id);
-        statement.execute();
-
-        statement.close();
-        connection.close();
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                journal, volume, number, month, startpage,
+                endpage, publisher, address, note, key, id);
     }
 
     public Article findOne(String id) throws SQLException {
-        Connection connection = database.getConnection();
-        PreparedStatement statement = connection.prepareStatement(
+        return query.queryObject(
                 "SELECT * FROM Reference r INNER JOIN Article a "
-                + "ON r.id = a.id WHERE r.id = ?");
-        statement.setString(1, id);
-        ResultSet rs = statement.executeQuery();
-        
-        if (!rs.isBeforeFirst()) {
-            return null;
-        }
-
-        Article article = buildArticle(rs);
-        
-        statement.close();
-        connection.close();
-        return article;
+                + "ON r.id = a.id WHERE r.id = ?", id);
     }
 
     public List<Article> findAll() throws SQLException {
-        List<Article> articles = new ArrayList<>();
-        Connection connection = database.getConnection();
-        PreparedStatement statement = connection.prepareStatement(
-                "SELECT * FROM Reference r INNER JOIN Article a ON r.id = a.id"
-        );
-        ResultSet rs = statement.executeQuery();
-
-        while (rs.next()) {
-            articles.add(buildArticle(rs));
-        }
-
-        statement.close();
-        connection.close();
-
-        return articles;
+        return query.queryList(
+                "SELECT * FROM Reference r INNER JOIN Article a ON r.id = a.id");
     }
 
-    private Article buildArticle(ResultSet rs) throws SQLException {
-        String id = rs.getString("id");
-        Authors authors = new Authors(rs.getString("authors"));
-        String title = rs.getString("title");
-        int year = rs.getInt("year");
-        String journal = rs.getString("journal");
-        int volume = rs.getInt("volume");
-        int number = rs.getInt("number");
-        String month = rs.getString("month");
-        Pages pages = new Pages(rs.getInt("startpage"), rs.getInt("endpage"));
-        String publisher = rs.getString("publisher");
-        String address = rs.getString("address");
-        String note = rs.getString("note");
-        String key = rs.getString("key");
-        Article article = new Article(id, authors, title, journal,
-                volume, number, month, pages, year, publisher, address, note, key);
-
-        return article;
-    }
 }

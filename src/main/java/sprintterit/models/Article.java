@@ -11,34 +11,26 @@ package sprintterit.models;
 public class Article extends Reference {
 
     private String journal;
-    private int volume;
-    private int number;
+    private Integer volume;
+    private Integer number;
     private String month;
-    private Pages pages;
+    private Integer startpage;
+    private Integer endpage;
     private String publisher;
     private String address;
     private String note;
     private String key;
 
- //    public Article(String id,
-//            Authors authors,
-//            String title,
-//            String journal,
-//            int volume,
-//            int number,
-//            Pages pages,
-//            int year) {
-//        this(id, authors, title, journal, volume, number, pages, year, null, null);
-//    }
     public Article (String id,
             Authors authors,
             String title,
             String journal,
-            int volume,
-            int number,
+            Integer volume,
+            Integer number,
             String month,
-            Pages pages,
-            int year,
+            Integer startpage,
+            Integer endpage,
+            Integer year,
             String publisher,
             String address,
             String note,
@@ -48,7 +40,8 @@ public class Article extends Reference {
         this.volume = volume;
         this.number = number;
         this.month = month;
-        this.pages = pages;
+        this.startpage = startpage;
+        this.endpage = endpage;
         this.publisher = publisher;
         this.address = address;
         this.note = note;
@@ -63,19 +56,19 @@ public class Article extends Reference {
         this.journal = journal;
     }
 
-    public int getVolume() {
+    public Integer getVolume() {
         return volume;
     }
 
-    public void setVolume(int volume) {
+    public void setVolume(Integer volume) {
         this.volume = volume;
     }
 
-    public int getNumber() {
+    public Integer getNumber() {
         return number;
     }
 
-    public void setNumber(int number) {
+    public void setNumber(Integer number) {
         this.number = number;
     }
 
@@ -87,12 +80,33 @@ public class Article extends Reference {
         this.month = month;
     }
 
-    public Pages getPages() {
-        return pages;
+    public Integer getStartpage() {
+        return startpage;
     }
 
-    public void setPages(Pages pages) {
-        this.pages = pages;
+    public void setStartpage(Integer startpage) {
+        this.startpage = startpage;
+    }
+
+    public Integer getEndpage() {
+        return endpage;
+    }
+
+    public void setEndpage(Integer endpage) {
+        this.endpage = endpage;
+    }
+
+    public String getPages() {
+        if (startpage == null || endpage == null) {
+            return null;
+        }
+
+        return startpage + "--" + endpage;
+    }
+
+    public void setPages(Integer startpage, Integer endpage) {
+        this.startpage = startpage;
+        this.endpage = endpage;
     }
 
     public String getPublisher() {
@@ -136,9 +150,9 @@ public class Article extends Reference {
                 "  title = {" + getTitle() + "},\n",
                 "  journal = {" + getJournal() + "},\n",
                 "  year = \"" + getYear() + "\",\n",
-                "  volume = \"" + getVolume() + "\",\n",
-                getNumber() == 0 ? "" : "  number = \"" + getNumber() + "\",\n",
-                getPages().getEnd() == 0 ? "" : "  pages = \"" + pages.toString() + "\",\n",
+                getVolume() == null ? "" : "  volume = \"" + getVolume() + "\",\n",
+                getNumber() == null ? "" : "  number = \"" + getNumber() + "\",\n",
+                getPages() == null ? "" : "  pages = \"" + getPages() + "\",\n",
                 (getMonth() == null || getMonth().length() == 0) ? "" : "  month = " + getMonth() + ",\n",
                 (getNote() == null || getNote().length() == 0) ? "": "  note = \"" + getNote() + "\",\n",
                 (getKey() == null || getKey().length() == 0) ? "" : "  key = {" + getKey() + "}\n",

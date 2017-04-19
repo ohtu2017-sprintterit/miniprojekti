@@ -7,15 +7,13 @@ import static org.junit.Assert.*;
 public class ArticleTest {
 
     Authors authors;
-    Pages pages;
     Article article;
 
     @Before
     public void setUp() {
         authors = new Authors("Collins, Allan\nBrown, John Seely\nHolum, Ann");
-        pages = new Pages(38, 46);
         article = new Article("1", authors, "Cognitive apprenticeship: making thinking visible",
-                "American Educator", 6, 0, "Feb", pages, 1991, "publisher", "address", "note", "key");
+                "American Educator", 6, 0, "Feb", 38, 46, 1991, "publisher", "address", "note", "key");
     }
 
     @Test
@@ -24,9 +22,10 @@ public class ArticleTest {
         assertEquals("1", article.getId());
         assertEquals("Cognitive apprenticeship: making thinking visible", article.getTitle());
         assertEquals("American Educator", article.getJournal());
-        assertEquals(6, article.getVolume());
+        assertEquals(Integer.valueOf(6), article.getVolume());
         assertEquals("Feb", article.getMonth());
-        assertEquals(pages, article.getPages());
+        assertEquals(Integer.valueOf(38), article.getStartpage());
+        assertEquals(Integer.valueOf(46), article.getEndpage());
         assertEquals(1991, article.getYear());
         assertEquals("publisher", article.getPublisher());
         assertEquals("address", article.getAddress());
@@ -58,20 +57,30 @@ public class ArticleTest {
     @Test
     public void setVolumeWorksCorrectly() {
         article.setVolume(35);
-        assertEquals(35, article.getVolume());
+        assertEquals(Integer.valueOf(35), article.getVolume());
     }
 
     @Test
     public void setNumberWorksCorrectly() {
         article.setNumber(4);
-        assertEquals(4, article.getNumber());
+        assertEquals(Integer.valueOf(4), article.getNumber());
     }
 
     @Test
     public void setPagesWorksCorrectly() {
-        Pages p = new Pages(94, 99);
-        article.setPages(p);
-        assertEquals(p, article.getPages());
+        article.setStartpage(94);
+        article.setEndpage(99);
+        assertEquals(Integer.valueOf(94), article.getStartpage());
+        assertEquals(Integer.valueOf(99), article.getEndpage());
+        assertEquals("94--99", article.getPages());
+    }
+
+    @Test
+    public void setPagesWorksCorrectly2() {
+        article.setPages(94, 99);
+        assertEquals(Integer.valueOf(94), article.getStartpage());
+        assertEquals(Integer.valueOf(99), article.getEndpage());
+        assertEquals("94--99", article.getPages());
     }
 
     @Test
