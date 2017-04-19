@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
     <head>
         <title>New book</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -7,20 +7,24 @@
     </head>
     <body class="container">
         <h1>New book</h1>
+        <div th:if="${errors} != null and ${!errors.empty}" id="error" style="color:red">
+            <p th:each="e : ${errors}" th:text="${e.value}">Error message</p>
+        </div>
         <form method="POST" action="/book">
             <table>
-                <tr><td>BibTeX key:*</td><td><input type="text" name="id" id="id"/></td></tr>
-                <tr><td>Authors:*</td><td><textarea name="authors" id="authors" rows="5" cols="30"></textarea></td></tr>
-                <tr><td>Title:*</td><td><input type="text" name="title" id="title"/></td></tr>
-                <tr><td>Year:*</td><td><input type="text" name="year" id="year"/></td></tr>
-                <tr><td>Month:</td><td><input type="text" name="month" id="month"/></td></tr>
-                <tr><td>Volume:</td><td><input type="text" name="volume" id="volume"/></td></tr>
-                <tr><td>Series</td><td><input type="text" name="series" id="series"/></td></tr>
-                <tr><td>Edition:</td><td><input type="text" name="edition" id="edition"/></td></tr>
-                <tr><td>Publisher:*</td><td><input type="text" name="publisher" id="publisher"/></td></tr>
-                <tr><td>Address:</td><td><input type="text" name="address" id="address"/></td></tr>
-                <tr><td>Note:</td><td><textarea name="note" id="note" rows="3" cols="30"></textarea></td></tr>
-                <tr><td>Key:</td><td><input type="text" name="key" id="key"/></td></tr>
+                <tr><td>BibTeX key:*</td><td><input type="text" name="id" id="id" th:value="${id}"/></td></tr>
+                <tr><td>Authors:*</td>
+                    <td><textarea name="authors" id="authors" rows="5" cols="30" th:text="${authors}"></textarea></td></tr>
+                <tr><td>Title:*</td><td><input type="text" name="title" id="title" th:value="${title}"/></td></tr>
+                <tr><td>Year:*</td><td><input type="text" name="year" id="year" th:value="${year}"/></td></tr>
+                <tr><td>Month:</td><td><input type="text" name="month" id="month" th:value="${month}"/></td></tr>
+                <tr><td>Volume:</td><td><input type="text" name="volume" id="volume" th:value="${volume}"/></td></tr>
+                <tr><td>Series</td><td><input type="text" name="series" id="series" th:value="${series}"/></td></tr>
+                <tr><td>Edition:</td><td><input type="text" name="edition" id="edition" th:value="${edition}"/></td></tr>
+                <tr><td>Publisher:*</td><td><input type="text" name="publisher" id="publisher" th:value="${publisher}"/></td></tr>
+                <tr><td>Address:</td><td><input type="text" name="address" id="address" th:value="${address}"/></td></tr>
+                <tr><td>Note:</td><td><textarea name="note" id="note" rows="3" cols="30" th:text="${note}"></textarea></td></tr>
+                <tr><td>Key:</td><td><input type="text" name="key" id="key" th:value="${key}"/></td></tr>
             </table>
             <br><div><a href="/" class="btn btn-default">Back</a> <input type="submit" value="Add" class="btn btn-primary"/></div>
         </form>

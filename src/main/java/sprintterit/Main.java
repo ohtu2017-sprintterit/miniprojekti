@@ -7,6 +7,7 @@ import static spark.Spark.*;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 import sprintterit.bibtexgen.BibtexGenerator;
 import sprintterit.controllers.AddArticle;
+import sprintterit.controllers.AddBook;
 import sprintterit.database.ArticleDao;
 import sprintterit.database.BookDao;
 import sprintterit.database.Database;
@@ -76,26 +77,7 @@ public class Main {
         }, new ThymeleafTemplateEngine());
 
         post("/article", new AddArticle(articleDao));
-
-        post("/book", (req, res) -> {
-            String id = req.queryParams("id");
-            String authors = req.queryParams("authors");
-            String title = req.queryParams("title");
-            int year = Integer.parseInt("0" + req.queryParams("year"));
-            String month = req.queryParams("month");
-            int volume = Integer.parseInt("0" + req.queryParams("volume"));
-            String series = req.queryParams("series");
-            String edition = req.queryParams("edition");
-            String publisher = req.queryParams("publisher");
-            String address = req.queryParams("address");
-            String note = req.queryParams("note");
-            String key = req.queryParams("key");
-
-            bookDao.addBook(id, authors, title, year, publisher, address,
-                    volume, series, edition, month, note, key);
-            res.redirect("/");
-            return "";
-        });
+        post("/book", new AddBook(bookDao));
 
         post("/inproceeding", (req, res) -> {
             String id = req.queryParams("id");

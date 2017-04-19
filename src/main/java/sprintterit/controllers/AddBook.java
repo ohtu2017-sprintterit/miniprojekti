@@ -6,13 +6,13 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
-import sprintterit.database.ArticleDao;
+import sprintterit.database.BookDao;
 
-public class AddArticle implements Route {
+public class AddBook implements Route {
 
-    private final ArticleDao dao;
+    private final BookDao dao;
 
-    public AddArticle(ArticleDao dao) {
+    public AddBook(BookDao dao) {
         this.dao = dao;
     }
 
@@ -23,14 +23,12 @@ public class AddArticle implements Route {
         String id = input.getString("id", "BibTeX key", true);
         String authors = input.getString("authors", "Authors", true);
         String title = input.getString("title", "Title", true);
-        String journal = input.getString("journal", "Journal", true);
-        Integer volume = input.getInteger("volume", "Volume", false);
-        Integer number = input.getInteger("number", "Number", false);
-        String month = input.getString("month", "Month", false); // not on the form
         Integer year = input.getInteger("year", "Year", true);
-        Integer startpage = input.getInteger("startpage", "Startpage", false);
-        Integer endpage = input.getInteger("endpage", "Endpage", false);
-        String publisher = input.getString("publisher", "Publisher", false);
+        String month = input.getString("month", "Month", false); // not on the form
+        Integer volume = input.getInteger("volume", "Volume", false);
+        String series = input.getString("series", "Series", false);
+        String edition = input.getString("edition", "Edition", false);
+        String publisher = input.getString("publisher", "Publisher", true);
         String address = input.getString("address", "Address", false);
         String note = input.getString("note", "Note", false);
         String key = input.getString("key", "Key", false);
@@ -44,11 +42,14 @@ public class AddArticle implements Route {
             map.putAll(input.getParameters());
             map.put("errors", input.getErrors());
             return new ThymeleafTemplateEngine().render(
-                    new ModelAndView(map, "article"));
+                    new ModelAndView(map, "book"));
         }
 
-        dao.addArticle(id, authors, title, year, journal, volume, month, number,
-                startpage, endpage, publisher, address, note, key);
+        // this is a quick workaround, BookDao uses ints (instead of Integers which can be null)
+        if (volume == null) volume = 0;
+
+        dao.addBook(id, authors, title, year, publisher, address,
+                volume, series, edition, month, note, key);
         res.redirect("/");
         return "";
     }
