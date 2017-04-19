@@ -16,6 +16,7 @@
                 <tr>
                     <th>BibTeX key</th>
                     <th>Authors</th>
+                    <th>Title</th>
                     <th>Journal</th>
                     <th>Volume</th>
                     <th>Number</th>
@@ -29,6 +30,7 @@
                 <tr th:each="article : ${articles}">
                     <td th:text="${article.id}"></td>
                     <td th:text="${article.authors}"></td>
+                    <td th:text="${article.title}"></td>
                     <td th:text="${article.journal}"></td>
                     <td th:text="${article.volume}"></td>
                     <td th:text="${article.number}"></td>

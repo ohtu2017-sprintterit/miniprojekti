@@ -1,104 +1,57 @@
 package sprintterit.controllers;
 
 import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
-import spark.TemplateViewRoute;
+import spark.Route;
+import spark.template.thymeleaf.ThymeleafTemplateEngine;
 import sprintterit.database.ArticleDao;
 
-public class AddArticle implements TemplateViewRoute {
+public class AddArticle implements Route {
 
     private final ArticleDao dao;
-    private Request req;
-    private Map<String, String> queryParams;
-    private Map<String, String> errors;
 
     public AddArticle(ArticleDao dao) {
         this.dao = dao;
     }
 
     @Override
-    public ModelAndView handle(Request req, Response res) throws Exception {
-        this.req = req;
-        this.queryParams = new HashMap<>();
-        this.errors = new LinkedHashMap<>();
+    public Object handle(Request req, Response res) throws Exception {
+        InputValidator input = new InputValidator(req);
 
-        String id = getString("id", true);
-        String authors = getString("authors", true);
-        String title = getString("title", true);
-        Integer year = getInteger("year", true);
-        String journal = getString("journal", true);
+        String id = input.getString("id", "BibTeX key", true);
+        String authors = input.getString("authors", "Authors", true);
+        String title = input.getString("title", "Title", true);
+        Integer year = input.getInteger("year", "Year", true);
+        String journal = input.getString("journal", "Journal", true);
 
-        Integer volume = getInteger("volume", false);
-        Integer number = getInteger("number", false);
-        String month = getString("month", false);
-        Integer startpage = getInteger("startpage", false);
-        Integer endpage = getInteger("endpage", false);
-        String publisher = getString("publisher", false);
-        String address = getString("address", false);
-        String note = getString("note", false);
-        String key = getString("key", false);
+        Integer volume = input.getInteger("volume", "Volume", false);
+        Integer number = input.getInteger("number", "Number", false);
+        String month = input.getString("month", "Month", false);
+        Integer startpage = input.getInteger("startpage", "Startpage", false);
+        Integer endpage = input.getInteger("endpage", "Endpage", false);
+        String publisher = input.getString("publisher", "Publisher", false);
+        String address = input.getString("address", "Address", false);
+        String note = input.getString("note", "Note", false);
+        String key = input.getString("key", "Key", false);
 
-        if (!errors.isEmpty()) {
+        if (dao.findOne(id) != null) {
+            input.addError("id", "BibTeX key is not unique (already taken by another article)");
+        }
+
+        if (!input.isOk()) {
             HashMap map = new HashMap();
-            map.putAll(queryParams);
-            map.put("errors", errors);
-            return new ModelAndView(map, "article");
+            map.putAll(input.getParameters());
+            map.put("errors", input.getErrors());
+            return new ThymeleafTemplateEngine().render(
+                    new ModelAndView(map, "article"));
         }
 
-        // this is a quick workaround, the handling of nulls needs some work
-        if (volume == null) volume = 0;
-        if (number == null) number = 0;
-        if (startpage == null) startpage = 0;
-        if (endpage == null) endpage = 0;
-
-        dao.addArticle(id, authors, title, year, journal,
-                volume, month, number, startpage, endpage, publisher, address, note, key);
+        dao.addArticle(id, authors, title, year, journal, volume, month, number,
+                startpage, endpage, publisher, address, note, key);
         res.redirect("/");
-        return null;
-    }
-
-    private boolean isEmpty(String value) {
-        return value == null || value.length() == 0;
-    }
-
-    private String getString(String name, boolean isRequired) {
-        String value = req.queryParams(name);
-        if (value != null) {
-            value = value.trim();
-            queryParams.put(name, value);
-        }
-
-        if (isRequired && isEmpty(value)) {
-            errors.put(name, "This value is required");
-        }
-
-        return value;
-    }
-
-    private Integer getInteger(String name, boolean isRequired) {
-        String str = getString(name, isRequired);
-        if (isEmpty(str)) {
-            return null;
-        }
-
-        Integer value = parseInt(str);
-        if (value == null) {
-            errors.put(name, "Not an integer");
-        }
-
-        return value;
-    }
-
-    private Integer parseInt(String str) {
-        try {
-            return Integer.parseInt(str);
-        } catch (NumberFormatException e) {
-            return null;
-        }
+        return "";
     }
 
 }
