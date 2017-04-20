@@ -7,6 +7,7 @@ import spark.Response;
 import spark.Route;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 import sprintterit.database.InproceedingDao;
+import sprintterit.models.Pages;
 
 public class AddInproceeding implements Route {
 
@@ -18,7 +19,8 @@ public class AddInproceeding implements Route {
 
     @Override
     public Object handle(Request req, Response res) throws Exception {
-        InputValidator input = new InputValidator(req);
+        SparkRequest request = new SparkRequest(req);
+        InputValidator input = new InputValidator(request);
 
         String id = input.getString("id", "BibTeX key", true);
         String authors = input.getString("authors", "Authors", true);
@@ -29,8 +31,7 @@ public class AddInproceeding implements Route {
         String series = input.getString("series", "Series", false);
         String month = input.getString("month", "Month", false);
         Integer year = input.getInteger("year", "Year", true);
-        Integer startpage = input.getInteger("startpage", "Startpage", false);
-        Integer endpage = input.getInteger("endpage", "Endpage", false);
+        Pages pages = input.getPages("startpage", "Startpage", "endpage", "Endpage");
         String organization = input.getString("organization", "Organization", false);
         String publisher = input.getString("publisher", "Publisher", false);
         String address = input.getString("address", "Address", false);
@@ -49,13 +50,8 @@ public class AddInproceeding implements Route {
                     new ModelAndView(map, "inproceeding"));
         }
 
-        // this is a quick workaround, InproceedingDao uses ints (instead of Integers which can be null)
-        if (volume == null) volume = 0;
-        if (startpage == null) startpage = 0;
-        if (endpage == null) endpage = 0;
-
         dao.addInproceeding(id, authors, title, year, booktitle,
-                editor, volume, series, month, startpage, endpage,
+                editor, volume, series, month, pages,
                 organization, publisher, address, note, key);
         res.redirect("/");
         return "";

@@ -22,10 +22,10 @@ public class BookTest {
         assertEquals("123", book.getId());
         assertEquals(authors.toString(), book.getAuthors().toString());
         assertEquals("C programming", book.getTitle());
-        assertEquals(1984, book.getYear());
+        assertEquals(Integer.valueOf(1984), book.getYear());
         assertEquals("Publisher", book.getPublisher());
         assertEquals("Scienceroad", book.getAddress());
-        assertEquals(6, book.getVolume());
+        assertEquals(Integer.valueOf(6), book.getVolume());
         assertEquals("Programming", book.getSeries());
         assertEquals("edition", book.getEdition());
         assertEquals("Feb", book.getMonth());

@@ -1,6 +1,7 @@
 package sprintterit.database;
 
 import java.sql.Connection;
+import java.sql.ParameterMetaData;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -40,14 +41,14 @@ public class QueryRunner<T> {
         return rows.get(0);
     }
 
-    public int insert(String query, Object... params) throws SQLException {
-        int generatedKey = -1;
+    public String insert(String query, Object... params) throws SQLException {
+        String generatedKey = null;
         try (Connection connection = db.getConnection();
              PreparedStatement stmt = prepareInsert(connection, query, params)) {
             stmt.executeUpdate();
             try (ResultSet rs = stmt.getGeneratedKeys()) {
                 if (rs.next()) {
-                    generatedKey = rs.getInt(1);
+                    generatedKey = rs.getString(1);
                 }
             }
         }
@@ -69,8 +70,22 @@ public class QueryRunner<T> {
 
     private void setParameters(PreparedStatement stmt, Object[] params) throws SQLException {
         for (int i = 0; i < params.length; i++) {
-            stmt.setObject(i + 1, params[i]);
+            setParameter(stmt, i + 1, params[i]);
         }
+    }
+
+    private void setParameter(PreparedStatement stmt, int index, Object param) throws SQLException {
+        if (param == null) {
+            // This should work also on PostgreSQL
+            // Oracle might still have a problem with this form
+            ParameterMetaData pmd = stmt.getParameterMetaData();
+            stmt.setNull(index, pmd.getParameterType(index));
+            return;
+        }
+
+        // This might not work if param == null (setObject with untyped null)
+        // On most databases this is ok, but PostgreSQL seems to prohibit this form
+        stmt.setObject(index, param);
     }
 
 }

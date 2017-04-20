@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import sprintterit.models.Article;
 import sprintterit.models.Authors;
+import sprintterit.models.Pages;
 
 public class ArticleCollector implements Collector<Article> {
 
@@ -12,20 +13,19 @@ public class ArticleCollector implements Collector<Article> {
         String id = rs.getString("id");
         Authors authors = new Authors(rs.getString("authors"));
         String title = rs.getString("title");
-        Integer year = Util.getInteger(rs, "year");
+        Integer year = SQLInteger.get(rs, "year");
         String journal = rs.getString("journal");
-        Integer volume = Util.getInteger(rs, "volume");
-        Integer number = Util.getInteger(rs, "number");
+        Integer volume = SQLInteger.get(rs, "volume");
+        Integer number = SQLInteger.get(rs, "number");
         String month = rs.getString("month");
-        Integer startpage = Util.getInteger(rs, "startpage");
-        Integer endpage = Util.getInteger(rs, "endpage");
+        Pages pages = Pages.construct(SQLInteger.get(rs, "startpage"), SQLInteger.get(rs, "endpage"));
         String publisher = rs.getString("publisher");
         String address = rs.getString("address");
         String note = rs.getString("note");
         String key = rs.getString("key");
 
         return new Article(id, authors, title, journal, volume, number, month,
-                startpage, endpage, year, publisher, address, note, key);
+                pages, year, publisher, address, note, key);
     }
 
 }

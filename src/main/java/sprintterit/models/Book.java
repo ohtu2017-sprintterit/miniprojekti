@@ -4,7 +4,7 @@ public class Book extends Reference {
 
     private String publisher;
     private String address;
-    private int volume;
+    private Integer volume;
     private String series;
     private String edition;
     private String month;
@@ -14,10 +14,10 @@ public class Book extends Reference {
     public Book(String id,
             Authors authors,
             String title,
-            int year,
+            Integer year,
             String publisher,
             String address,
-            int volume,
+            Integer volume,
             String series,
             String edition,
             String month,
@@ -50,11 +50,11 @@ public class Book extends Reference {
         this.address = address;
     }
 
-    public int getVolume() {
+    public Integer getVolume() {
         return volume;
     }
 
-    public void setVolume(int volume) {
+    public void setVolume(Integer volume) {
         this.volume = volume;
     }
 

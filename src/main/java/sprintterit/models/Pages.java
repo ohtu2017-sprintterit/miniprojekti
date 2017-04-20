@@ -5,17 +5,17 @@ public class Pages {
     private final int begin;
     private final int end;
 
+    public static Pages construct(Integer begin, Integer end) {
+        if (begin == null || end == null) {
+            return null;
+        }
+
+        return new Pages(begin, end);
+    }
+
     public Pages(int begin, int end) {
-        if (begin > end) {
-            throw new IllegalArgumentException("Illegal page interval " + begin + "--" + end);
-        }
-        if (begin < 1) {
-            this.begin = 0;
-            this.end = 0;
-        } else {
-            this.begin = begin;
-            this.end = end;
-        }
+        this.begin = begin;
+        this.end = end;
     }
 
     public int getBegin() {

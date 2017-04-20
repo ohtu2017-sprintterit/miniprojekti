@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.sql.Connection;
 import static org.junit.Assert.*;
 import sprintterit.models.Article;
+import sprintterit.models.Pages;
 
 public class Stepdefs {
 
@@ -28,12 +29,12 @@ public class Stepdefs {
     }
 
     @When("^Article is added with id \"([^\"]*)\", author \"([^\"]*)\", title \"([^\"]*)\", journal \"([^\"]*)\", startpage (\\d+), endpage (\\d+), year (\\d+)$")
-    public void journal_is_set_to(String id, String authors, String title, String journal, int startpage, int endpage, int year) throws Throwable {
-        articleDao.addArticle(id, authors, title, year, journal, 0, "", 0, startpage, endpage, "", "", "", "");
+    public void journal_is_set_to(String id, String authors, String title, String journal, Integer startpage, Integer endpage, Integer year) throws Throwable {
+        articleDao.addArticle(id, authors, title, year, journal, 0, "", 0, new Pages(startpage, endpage), "", "", "", "");
     }
 
     @Then("^From database field \"([^\"]*)\", author is set to \"([^\"]*)\", title to \"([^\"]*)\", journal to \"([^\"]*)\", startpage (\\d+), endpage (\\d+), year (\\d+)$")
-    public void journal_value(String id, String authors, String title, String journal, int startpage, int endpage, int year) throws Throwable {
+    public void journal_value(String id, String authors, String title, String journal, Integer startpage, Integer endpage, Integer year) throws Throwable {
         Article article = articleDao.findOne(id);
         assertEquals(article.getAuthors().toString(), authors);
         assertEquals(article.getYear(), year);

@@ -3,6 +3,7 @@ package sprintterit.database;
 import java.sql.SQLException;
 import java.util.List;
 import sprintterit.models.Article;
+import sprintterit.models.Pages;
 
 public class ArticleDao {
 
@@ -16,7 +17,7 @@ public class ArticleDao {
 
     public void addArticle(String id, String authors, String title,
             Integer year, String journal, Integer volume,
-            String month, Integer number, Integer startpage, Integer endpage,
+            String month, Integer number, Pages pages,
             String publisher, String address, String note, String key) throws SQLException {
         query.insert(
                 "INSERT INTO Reference (id, authors, title, year)"
@@ -26,8 +27,10 @@ public class ArticleDao {
                 "INSERT INTO Article (journal, volume, number, month, startpage, "
                 + "endpage, publisher, address, note, key, id)"
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                journal, volume, number, month, startpage,
-                endpage, publisher, address, note, key, id);
+                journal, volume, number, month,
+                pages == null ? null : pages.getBegin(),
+                pages == null ? null : pages.getEnd(),
+                publisher, address, note, key, id);
     }
 
     public Article findOne(String id) throws SQLException {

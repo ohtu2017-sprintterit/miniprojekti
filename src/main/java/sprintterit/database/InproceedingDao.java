@@ -20,8 +20,8 @@ public class InproceedingDao {
     }
 
     public void addInproceeding(String id, String authors, String title,
-            int year, String booktitle, String editor, int volume, String series,
-            String month, int startpage, int endpage, String organization,
+            Integer year, String booktitle, String editor, Integer volume, String series,
+            String month, Pages pages, String organization,
             String publisher, String address, String note, String key) throws SQLException {
         Connection connection = database.getConnection();
 
@@ -32,7 +32,7 @@ public class InproceedingDao {
         statement.setString(1, id);
         statement.setString(2, authors);
         statement.setString(3, title);
-        statement.setInt(4, year);
+        SQLInteger.set(statement, 4, year);
         statement.execute();
 
         statement = connection.prepareStatement(
@@ -42,12 +42,12 @@ public class InproceedingDao {
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
         statement.setString(1, booktitle);
-        statement.setInt(2, startpage);
-        statement.setInt(3, endpage);
+        SQLInteger.set(statement, 2, pages == null ? null : pages.getBegin());
+        SQLInteger.set(statement, 3, pages == null ? null : pages.getEnd());
         statement.setString(4, publisher);
         statement.setString(5, address);
         statement.setString(6, editor);
-        statement.setInt(7, volume);
+        SQLInteger.set(statement, 7, volume);
         statement.setString(8, series);
         statement.setString(9, month);
         statement.setString(10, organization);
@@ -69,7 +69,7 @@ public class InproceedingDao {
         statement.setString(1, id);
         ResultSet rs = statement.executeQuery();
 
-        if (!rs.isBeforeFirst()) {
+        if (!rs.next()) {
             return null;
         }
 
@@ -100,9 +100,10 @@ public class InproceedingDao {
                 new Authors(rs.getString("authors")),
                 rs.getString("title"),
                 rs.getString("booktitle"),
-                new Pages(rs.getInt("startpage"), rs.getInt("endpage")),
-                rs.getInt("year"),
+                Pages.construct(SQLInteger.get(rs, "startpage"), SQLInteger.get(rs, "endpage")),
+                SQLInteger.get(rs, "year"),
                 rs.getString("editor"),
+                SQLInteger.get(rs, "volume"),
                 rs.getString("series"),
                 rs.getString("month"),
                 rs.getString("organization"),

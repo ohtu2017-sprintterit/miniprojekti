@@ -11,9 +11,9 @@ public abstract class Reference {
     private final String id;
     private Authors authors;
     private String title;
-    private int year;
+    private Integer year;
 
-    protected Reference(String id, Authors authors, String title, int year) {
+    protected Reference(String id, Authors authors, String title, Integer year) {
         this.id = id;
         this.authors = Objects.requireNonNull(authors);
         this.title = title;
@@ -40,11 +40,11 @@ public abstract class Reference {
         this.title = title;
     }
 
-    public int getYear() {
+    public Integer getYear() {
         return year;
     }
 
-    public void setYear(int year) {
+    public void setYear(Integer year) {
         this.year = year;
     }
 

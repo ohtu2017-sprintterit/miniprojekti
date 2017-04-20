@@ -18,7 +18,8 @@ public class AddBook implements Route {
 
     @Override
     public Object handle(Request req, Response res) throws Exception {
-        InputValidator input = new InputValidator(req);
+        SparkRequest request = new SparkRequest(req);
+        InputValidator input = new InputValidator(request);
 
         String id = input.getString("id", "BibTeX key", true);
         String authors = input.getString("authors", "Authors", true);
@@ -44,9 +45,6 @@ public class AddBook implements Route {
             return new ThymeleafTemplateEngine().render(
                     new ModelAndView(map, "book"));
         }
-
-        // this is a quick workaround, BookDao uses ints (instead of Integers which can be null)
-        if (volume == null) volume = 0;
 
         dao.addBook(id, authors, title, year, publisher, address,
                 volume, series, edition, month, note, key);

@@ -18,8 +18,8 @@ public class BookDao {
         this.database = database;
     }
 
-    public void addBook(String id, String authors, String title, int year,
-            String publisher, String address, int volume, String series, 
+    public void addBook(String id, String authors, String title, Integer year,
+            String publisher, String address, Integer volume, String series, 
             String edition, String month, String note, String key) throws SQLException {
         Connection connection = database.getConnection();
 
@@ -28,7 +28,7 @@ public class BookDao {
         statement.setString(1, id);
         statement.setString(2, authors);
         statement.setString(3, title);
-        statement.setInt(4, year);
+        SQLInteger.set(statement, 4, year);
         statement.execute();
 
         statement = connection.prepareStatement("INSERT INTO "
@@ -36,7 +36,7 @@ public class BookDao {
                 + "edition, month, note, key, id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
         statement.setString(1, publisher);
         statement.setString(2, address);
-        statement.setInt(3, volume);
+        SQLInteger.set(statement, 3, volume);
         statement.setString(4, series);
         statement.setString(5, edition);
         statement.setString(6, month);
@@ -57,7 +57,7 @@ public class BookDao {
         statement.setString(1, id);
         ResultSet rs = statement.executeQuery();
 
-        if (!rs.isBeforeFirst()) {
+        if (!rs.next()) {
             return null;
         }
 
@@ -87,10 +87,10 @@ public class BookDao {
                 rs.getString("id"),
                 new Authors(rs.getString("authors")),
                 rs.getString("title"),
-                rs.getInt("year"),
+                SQLInteger.get(rs, "year"),
                 rs.getString("publisher"),
                 rs.getString("address"),
-                rs.getInt("volume"),
+                SQLInteger.get(rs, "volume"),
                 rs.getString("series"),
                 rs.getString("edition"),
                 rs.getString("month"),

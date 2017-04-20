@@ -3,16 +3,16 @@ package sprintterit.controllers;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import spark.Request;
+import sprintterit.models.Pages;
 
 public class InputValidator {
 
-    private final Request req;
+    private final Input input;
     private final Map<String, String> errors;
     private final Map<String, String> parameters;
 
-    public InputValidator(Request req) {
-        this.req = req;
+    public InputValidator(Input input) {
+        this.input = input;
         this.errors = new LinkedHashMap<>();
         this.parameters = new HashMap<>();
     }
@@ -34,7 +34,7 @@ public class InputValidator {
     }
 
     public String getString(String name, String fullname, boolean isRequired) {
-        String value = req.queryParams(name);
+        String value = input.getParameter(name);
         if (value != null) {
             value = value.trim();
             parameters.put(name, value);
@@ -59,6 +59,11 @@ public class InputValidator {
         }
 
         return value;
+    }
+
+    public Pages getPages(String beginName, String beginFullname, String endName, String endFullname) {
+        PagesValidator p = new PagesValidator(beginName, beginFullname, endName, endFullname);
+        return p.getPages(this);
     }
 
     private boolean isEmpty(String value) {

@@ -7,6 +7,7 @@ import spark.Response;
 import spark.Route;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 import sprintterit.database.ArticleDao;
+import sprintterit.models.Pages;
 
 public class AddArticle implements Route {
 
@@ -18,7 +19,8 @@ public class AddArticle implements Route {
 
     @Override
     public Object handle(Request req, Response res) throws Exception {
-        InputValidator input = new InputValidator(req);
+        SparkRequest request = new SparkRequest(req);
+        InputValidator input = new InputValidator(request);
 
         String id = input.getString("id", "BibTeX key", true);
         String authors = input.getString("authors", "Authors", true);
@@ -28,8 +30,7 @@ public class AddArticle implements Route {
         Integer number = input.getInteger("number", "Number", false);
         String month = input.getString("month", "Month", false); // not on the form
         Integer year = input.getInteger("year", "Year", true);
-        Integer startpage = input.getInteger("startpage", "Startpage", false);
-        Integer endpage = input.getInteger("endpage", "Endpage", false);
+        Pages pages = input.getPages("startpage", "Startpage", "endpage", "Endpage");
         String publisher = input.getString("publisher", "Publisher", false);
         String address = input.getString("address", "Address", false);
         String note = input.getString("note", "Note", false);
@@ -48,7 +49,7 @@ public class AddArticle implements Route {
         }
 
         dao.addArticle(id, authors, title, year, journal, volume, month, number,
-                startpage, endpage, publisher, address, note, key);
+                pages, publisher, address, note, key);
         res.redirect("/");
         return "";
     }

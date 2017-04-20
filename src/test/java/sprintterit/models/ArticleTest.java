@@ -13,7 +13,8 @@ public class ArticleTest {
     public void setUp() {
         authors = new Authors("Collins, Allan\nBrown, John Seely\nHolum, Ann");
         article = new Article("1", authors, "Cognitive apprenticeship: making thinking visible",
-                "American Educator", 6, 0, "Feb", 38, 46, 1991, "publisher", "address", "note", "key");
+                "American Educator", 6, 0, "Feb", new Pages(38, 46), 1991,
+                "publisher", "address", "note", "key");
     }
 
     @Test
@@ -24,9 +25,9 @@ public class ArticleTest {
         assertEquals("American Educator", article.getJournal());
         assertEquals(Integer.valueOf(6), article.getVolume());
         assertEquals("Feb", article.getMonth());
-        assertEquals(Integer.valueOf(38), article.getStartpage());
-        assertEquals(Integer.valueOf(46), article.getEndpage());
-        assertEquals(1991, article.getYear());
+        assertEquals(38, article.getPages().getBegin());
+        assertEquals(46, article.getPages().getEnd());
+        assertEquals(Integer.valueOf(1991), article.getYear());
         assertEquals("publisher", article.getPublisher());
         assertEquals("address", article.getAddress());
         assertEquals("note", article.getNote());
@@ -68,25 +69,17 @@ public class ArticleTest {
 
     @Test
     public void setPagesWorksCorrectly() {
-        article.setStartpage(94);
-        article.setEndpage(99);
-        assertEquals(Integer.valueOf(94), article.getStartpage());
-        assertEquals(Integer.valueOf(99), article.getEndpage());
-        assertEquals("94--99", article.getPages());
-    }
-
-    @Test
-    public void setPagesWorksCorrectly2() {
-        article.setPages(94, 99);
-        assertEquals(Integer.valueOf(94), article.getStartpage());
-        assertEquals(Integer.valueOf(99), article.getEndpage());
-        assertEquals("94--99", article.getPages());
+        Pages p = new Pages(94, 99);
+        article.setPages(p);
+        assertEquals(p, article.getPages());
+        assertEquals(94, article.getPages().getBegin());
+        assertEquals(99, article.getPages().getEnd());
     }
 
     @Test
     public void setYearWorksCorrectly() {
         article.setYear(2003);
-        assertEquals(2003, article.getYear());
+        assertEquals(Integer.valueOf(2003), article.getYear());
     }
 
     @Test
@@ -110,7 +103,6 @@ public class ArticleTest {
                 "Trash",
                 3,
                 5,
-                null,
                 null,
                 null,
                 2007,

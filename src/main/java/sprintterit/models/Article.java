@@ -14,8 +14,7 @@ public class Article extends Reference {
     private Integer volume;
     private Integer number;
     private String month;
-    private Integer startpage;
-    private Integer endpage;
+    private Pages pages;
     private String publisher;
     private String address;
     private String note;
@@ -28,8 +27,7 @@ public class Article extends Reference {
             Integer volume,
             Integer number,
             String month,
-            Integer startpage,
-            Integer endpage,
+            Pages pages,
             Integer year,
             String publisher,
             String address,
@@ -40,8 +38,7 @@ public class Article extends Reference {
         this.volume = volume;
         this.number = number;
         this.month = month;
-        this.startpage = startpage;
-        this.endpage = endpage;
+        this.pages = pages;
         this.publisher = publisher;
         this.address = address;
         this.note = note;
@@ -80,33 +77,12 @@ public class Article extends Reference {
         this.month = month;
     }
 
-    public Integer getStartpage() {
-        return startpage;
+    public Pages getPages() {
+        return pages;
     }
 
-    public void setStartpage(Integer startpage) {
-        this.startpage = startpage;
-    }
-
-    public Integer getEndpage() {
-        return endpage;
-    }
-
-    public void setEndpage(Integer endpage) {
-        this.endpage = endpage;
-    }
-
-    public String getPages() {
-        if (startpage == null || endpage == null) {
-            return null;
-        }
-
-        return startpage + "--" + endpage;
-    }
-
-    public void setPages(Integer startpage, Integer endpage) {
-        this.startpage = startpage;
-        this.endpage = endpage;
+    public void setPages(Pages pages) {
+        this.pages = pages;
     }
 
     public String getPublisher() {

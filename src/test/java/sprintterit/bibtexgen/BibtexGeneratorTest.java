@@ -29,7 +29,6 @@ public class BibtexGeneratorTest {
                 5,
                 null,
                 null,
-                null,
                 2007,
                 null,
                 null,
@@ -40,7 +39,7 @@ public class BibtexGeneratorTest {
                 "C programming", 1984, "Publisher", "Scienceroad",
                 6, "Programming", "edition", "Feb", "note", "key"));
         references.add(new Inproceeding("1234", new Authors("Collins, Allan\nBrown, John Seely\nHolum, Ann"),
-                "title", "booktitle", new Pages(38, 46), 1999, "editor",
+                "title", "booktitle", new Pages(38, 46), 1999, "editor", 9,
                 "series", "month", "org", "publisher", "address", "note", "key"));
 
         String expected = String.join(
@@ -72,6 +71,7 @@ public class BibtexGeneratorTest {
                 "  booktitle = {booktitle},",
                 "  year = \"1999\",",
                 "  editor = {editor},",
+                "  volume = \"9\",",
                 "  series = {series},",
                 "  pages = {38--46},",
                 "  address = {address},",

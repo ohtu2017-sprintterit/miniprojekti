@@ -7,7 +7,7 @@ public class Inproceeding extends Reference {
     private String publisher;
     private String address;
     private String editor;
-    private int volume;
+    private Integer volume;
     private String series;
     private String month;
     private String organization;
@@ -19,8 +19,9 @@ public class Inproceeding extends Reference {
             String title,
             String booktitle,
             Pages pages,
-            int year,
+            Integer year,
             String editor,
+            Integer volume,
             String series,
             String month,
             String organization,
@@ -32,6 +33,7 @@ public class Inproceeding extends Reference {
         this.booktitle = booktitle;
         this.pages = pages;
         this.editor = editor;
+        this.volume = volume;
         this.series = series;
         this.month = month;
         this.organization = organization;
@@ -65,11 +67,11 @@ public class Inproceeding extends Reference {
         this.editor = editor;
     }
 
-    public int getVolume() {
+    public Integer getVolume() {
         return volume;
     }
 
-    public void setVolume(int volume) {
+    public void setVolume(Integer volume) {
         this.volume = volume;
     }
 
@@ -139,6 +141,7 @@ public class Inproceeding extends Reference {
                 "  booktitle = {" + getBooktitle() + "},\n",
                 "  year = \"" + getYear() + "\",\n",
                 (getEditor() == null || getEditor().length() == 0) ? "" : "  editor = {" + getEditor() + "},\n",
+                getVolume() == null ? "" : "  volume = \"" + getVolume() + "\",\n",
                 (getSeries() == null || getSeries().length() == 0) ? "" : "  series = {" + getSeries() + "},\n",
                 getPages() == null ? "" : "  pages = {" + getPages().toString() + "},\n",
                 (getAddress() == null || getAddress().length() == 0) ? "" : "  address = {" + getAddress() + "},\n",

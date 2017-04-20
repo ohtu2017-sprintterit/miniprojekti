@@ -15,8 +15,7 @@ public class InproceedingTest {
         authors = new Authors("Collins, Allan\nBrown, John Seely\nHolum, Ann");
         pages = new Pages(38, 46);
         inproceeding = new Inproceeding("1234", authors, "title", "booktitle", pages, 1999, "editor",
-                "series", "month", "org", "publisher", "address", "note", "key");
-
+                9, "series", "month", "org", "publisher", "address", "note", "key");
     }
 
     @Test
@@ -26,8 +25,9 @@ public class InproceedingTest {
         assertEquals("title", inproceeding.getTitle());
         assertEquals("booktitle", inproceeding.getBooktitle());
         assertEquals(pages.toString(), inproceeding.getPages().toString());
-        assertEquals(1999, inproceeding.getYear());
+        assertEquals(Integer.valueOf(1999), inproceeding.getYear());
         assertEquals("editor", inproceeding.getEditor());
+        assertEquals(Integer.valueOf(9), inproceeding.getVolume());
         assertEquals("series", inproceeding.getSeries());
         assertEquals("month", inproceeding.getMonth());
         assertEquals("org", inproceeding.getOrganization());
@@ -47,6 +47,7 @@ public class InproceedingTest {
                 "  booktitle = {booktitle},",
                 "  year = \"1999\",",
                 "  editor = {editor},",
+                "  volume = \"9\",",
                 "  series = {series},",
                 "  pages = {38--46},",
                 "  address = {address},",
