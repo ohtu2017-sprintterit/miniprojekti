@@ -65,6 +65,13 @@ run {
     standardInput = System.in
 }
 
+jacocoTestReport {
+    reports {
+        xml.enabled = true // coveralls plugin depends on xml format report
+        html.enabled = true
+    }
+}
+
 task stage {
     dependsOn installDist
 }
