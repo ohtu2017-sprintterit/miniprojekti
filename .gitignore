@@ -2,7 +2,7 @@ build/
 .gradle
 .DS_Store
 /.nb-gradle/
-tietokantatiedosto.db
+tietokantatiedosto*
 testitietokanta.db
 .idea
-/driver/chromedriver
+/driver/chromedriver*

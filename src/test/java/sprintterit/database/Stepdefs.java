@@ -18,24 +18,26 @@ public class Stepdefs {
     @Given("^Database is initialized$")
     public void article_init() throws Throwable {
         try {
-            Files.delete(Paths.get("./testitietokanta.db"));
+            Files.delete(Paths.get("./testitietokanta2.db"));
         } catch (Exception e) {
             
         }
-        database = new Database("jdbc:sqlite:testitietokanta.db");
+        database = new Database("jdbc:sqlite:testitietokanta2.db");
         database.init();
         articleDao = new ArticleDao(database);
     }
 
-    @When("^Article is added with id \"([^\"]*)\", author \"([^\"]*)\", startpage (\\d+), endpage (\\d+), year (\\d+)$")
-    public void journal_is_set_to(String id, String authors, int startpage, int endpage, int year) throws Throwable {
-        articleDao.addArticle(id, authors, "", year, "", 0, "", 0, startpage, endpage, "", "", "", "");
+    @When("^Article is added with id \"([^\"]*)\", author \"([^\"]*)\", title \"([^\"]*)\", journal \"([^\"]*)\", startpage (\\d+), endpage (\\d+), year (\\d+)$")
+    public void journal_is_set_to(String id, String authors, String title, String journal, int startpage, int endpage, int year) throws Throwable {
+        articleDao.addArticle(id, authors, title, year, journal, 0, "", 0, startpage, endpage, "", "", "", "");
     }
 
-    @Then("^From database field \"([^\"]*)\", author is set to \"([^\"]*)\", startpage (\\d+), endpage (\\d+), year (\\d+)$")
-    public void journal_value(String id, String authors, int startpage, int endpage, int year) throws Throwable {
+    @Then("^From database field \"([^\"]*)\", author is set to \"([^\"]*)\", title to \"([^\"]*)\", journal to \"([^\"]*)\", startpage (\\d+), endpage (\\d+), year (\\d+)$")
+    public void journal_value(String id, String authors, String title, String journal, int startpage, int endpage, int year) throws Throwable {
         Article article = articleDao.findOne(id);
         assertEquals(article.getAuthors().toString(), authors);
         assertEquals(article.getYear(), year);
+        assertEquals(article.getTitle(), title);
+        assertEquals(article.getJournal(), journal);
     }
 }

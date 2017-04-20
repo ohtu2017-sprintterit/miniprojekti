@@ -27,6 +27,13 @@ public class Stepdefs {
         driver.findElement(By.linkText("Add article")).click();
     }
 
+    @Given("^Add book is selected$")
+    public void add_book_selected() throws Throwable {
+        driver.get(baseUrl);
+        sleep();
+        driver.findElement(By.linkText("Add book")).click();
+    }
+
     @Given("^A new article with id \"([^\"]*)\", author \"([^\"]*)\", title \"([^\"]*)\", journal \"([^\"]*)\" and year \"([^\"]*)\" is created$")
     public void a_new_article_with_id_author_title_journal_and_year_is_created(String id, String author, String title, String journal, String year) throws Throwable {
         add_article_selected();
@@ -34,12 +41,24 @@ public class Stepdefs {
         article_is_added();
     }
 
-    @When("^Id \"([^\"]*)\", author \"([^\"]*)\", title \"([^\"]*)\", journal \"([^\"]*)\" and year \"([^\"]*)\" are given$")
+    @Given("^A new book with id \"([^\"]*)\", author \"([^\"]*)\", title \"([^\"]*)\", publisher \"([^\"]*)\" and year \"([^\"]*)\" is created$")
+    public void a_new_book_with_id_author_title_publisher_and_year_is_created(String id, String author, String title, String publisher, String year) throws Throwable {
+        add_book_selected();
+        addBook(id, author, title, publisher, year);
+        book_is_added();
+    }
+
+    @When("^Article with id \"([^\"]*)\", author \"([^\"]*)\", title \"([^\"]*)\", journal \"([^\"]*)\" and year \"([^\"]*)\" are given$")
     public void id_author_title_journal_and_year_are_given(String id, String author, String title, String journal, String year) throws Throwable {
         addArticle(id, author, title, journal, year);
     }
 
-    @When("^Id \"([^\"]*)\", author \"([^\"]*)\", title \"([^\"]*)\", journal \"([^\"]*)\", volume \"([^\"]*)\", number \"([^\"]*)\", year \"([^\"]*)\" and pages \"([^\"]*)\" to \"([^\"]*)\" are given$")
+    @When("^Book with id \"([^\"]*)\", author \"([^\"]*)\", title \"([^\"]*)\", publisher \"([^\"]*)\" and year \"([^\"]*)\" are given$")
+    public void book_id_author_title_publisher_and_year_are_given(String id, String author, String title, String publisher, String year) throws Throwable {
+        addBook(id, author, title, publisher, year);
+    }
+
+    @When("^Article with id \"([^\"]*)\", author \"([^\"]*)\", title \"([^\"]*)\", journal \"([^\"]*)\", volume \"([^\"]*)\", number \"([^\"]*)\", year \"([^\"]*)\" and pages \"([^\"]*)\" to \"([^\"]*)\" are given$")
     public void id_author_title_journal_volume_number_year_and_pages_to_are_given(String id, String author, String title, String journal, String volume, String number, String year, String startpage, String endpage) throws Throwable {
         addArticle(id, author, title, journal, volume, number, year, startpage, endpage);
     }
@@ -49,10 +68,21 @@ public class Stepdefs {
         pageHasContent("Reference Management");
     }
 
+    @Then("^Book is added$")
+    public void book_is_added() throws Throwable {
+        pageHasContent("Reference Management");
+    }
+
     @Then("^Article is not added and error \"([^\"]*)\" is reported$")
     public void article_is_not_added_and_error_is_reported(String errorMessage) throws Throwable {
         pageHasContent(errorMessage);
         pageHasContent("New article");
+    }
+
+    @Then("^Book is not added and error \"([^\"]*)\" is reported$")
+    public void book_is_not_added_and_error_is_reported(String errorMessage) throws Throwable {
+        pageHasContent(errorMessage);
+        pageHasContent("New book");
     }
 
     @Then("^Article is not added$")
@@ -61,10 +91,15 @@ public class Stepdefs {
         pageHasContent("New article");
     }
 
+    @Then("^Book is not added$")
+    public void book_is_not_added() throws Throwable {
+        pageHasContent("<div id=\"error\"");
+        pageHasContent("New book");
+    }
+
     @Then("^Error \"([^\"]*)\" is reported$")
     public void error_is_reported(String errorMessage) throws Throwable {
         pageHasContent(errorMessage);
-        pageHasContent("New article");
     }
 
     @After
@@ -99,6 +134,18 @@ public class Stepdefs {
         driver.findElement(By.name("number")).sendKeys(number);
         driver.findElement(By.name("startpage")).sendKeys(startpage);
         driver.findElement(By.name("endpage")).sendKeys(endpage);
+        driver.findElement(By.name("year")).sendKeys(year);
+        sleep();
+        driver.findElement(By.name("add")).submit();
+        sleep();
+    }
+
+    private void addBook(String id, String authors, String title, String publisher, String year) {
+        pageHasContent("New book");
+        driver.findElement(By.name("id")).sendKeys(id);
+        driver.findElement(By.name("authors")).sendKeys(authors);
+        driver.findElement(By.name("title")).sendKeys(title);
+        driver.findElement(By.name("publisher")).sendKeys(publisher);
         driver.findElement(By.name("year")).sendKeys(year);
         sleep();
         driver.findElement(By.name("add")).submit();
