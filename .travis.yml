@@ -3,6 +3,9 @@ dist: trusty
 jdk:
 - oraclejdk8
 
+after_success:
+- ./gradlew jacocoTestReport coveralls
+
 deploy:
   provider: heroku
   api_key:
