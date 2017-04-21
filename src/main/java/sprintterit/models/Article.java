@@ -3,10 +3,10 @@ package sprintterit.models;
 /**
  * We'll probably want to allow (some) null values in attributes (to signify
  * fields which have no value)
- * 
- * >>> At this point empty values are empty strings, is there a need for
- * null values?
- * 
+ *
+ * >>> At this point empty values are empty strings, is there a need for null
+ * values?
+ *
  */
 public class Article extends Reference {
 
@@ -20,7 +20,7 @@ public class Article extends Reference {
     private String note;
     private String key;
 
-    public Article (String id,
+    public Article(String id,
             Authors authors,
             String title,
             String journal,
@@ -117,6 +117,14 @@ public class Article extends Reference {
         this.key = key;
     }
 
+    public Integer getStartpage() {
+        return pages.getBegin();
+    }
+
+    public Integer getEndpage() {
+        return pages.getEnd();
+    }
+
     @Override
     public String toString() {
         return String.join(
@@ -130,7 +138,7 @@ public class Article extends Reference {
                 getNumber() == null ? "" : "  number = \"" + getNumber() + "\",\n",
                 getPages() == null ? "" : "  pages = \"" + getPages() + "\",\n",
                 (getMonth() == null || getMonth().length() == 0) ? "" : "  month = " + getMonth() + ",\n",
-                (getNote() == null || getNote().length() == 0) ? "": "  note = \"" + getNote() + "\",\n",
+                (getNote() == null || getNote().length() == 0) ? "" : "  note = \"" + getNote() + "\",\n",
                 (getKey() == null || getKey().length() == 0) ? "" : "  key = {" + getKey() + "}\n",
                 "}\n"
         ).replaceAll(",(?=\n})", "");

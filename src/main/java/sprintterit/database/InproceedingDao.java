@@ -1,116 +1,60 @@
 package sprintterit.database;
 
-import sprintterit.models.Authors;
 import sprintterit.models.Inproceeding;
 import sprintterit.models.Pages;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class InproceedingDao {
 
     private Database database;
+    private final QueryRunner<Inproceeding> query;
 
     public InproceedingDao(Database database) {
         this.database = database;
+        this.query = new QueryRunner<>(database, new InproceedingCollector());
     }
 
     public void addInproceeding(String id, String authors, String title,
             Integer year, String booktitle, String editor, Integer volume, String series,
             String month, Pages pages, String organization,
             String publisher, String address, String note, String key) throws SQLException {
-        Connection connection = database.getConnection();
-
-        PreparedStatement statement = connection.prepareStatement(
+        query.insert(
                 "INSERT INTO Reference (id, authors, title, year)"
-                + "VALUES (?, ?, ?, ?)");
-
-        statement.setString(1, id);
-        statement.setString(2, authors);
-        statement.setString(3, title);
-        SQLInteger.set(statement, 4, year);
-        statement.execute();
-
-        statement = connection.prepareStatement(
+                + "VALUES (?, ?, ?, ?)",
+                id, authors, title, year);
+        query.insert(
                 "INSERT INTO Inproceedings (booktitle, startpage, endpage, publisher, "
                 + "address, editor, volume, series, month, organization, "
                 + "note, key, id)"
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-
-        statement.setString(1, booktitle);
-        SQLInteger.set(statement, 2, pages == null ? null : pages.getBegin());
-        SQLInteger.set(statement, 3, pages == null ? null : pages.getEnd());
-        statement.setString(4, publisher);
-        statement.setString(5, address);
-        statement.setString(6, editor);
-        SQLInteger.set(statement, 7, volume);
-        statement.setString(8, series);
-        statement.setString(9, month);
-        statement.setString(10, organization);
-        statement.setString(11, note);
-        statement.setString(12, key);
-        statement.setString(13, id);
-        
-        statement.execute();
-
-        statement.close();
-        connection.close();
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                booktitle,
+                pages == null ? null : pages.getBegin(),
+                pages == null ? null : pages.getEnd(),
+                publisher, address, editor, volume, series, month,
+                organization, note, key, id);
     }
 
     public Inproceeding findOne(String id) throws SQLException {
-        Connection connection = database.getConnection();
-        PreparedStatement statement = connection.prepareStatement(
-                "SELECT * FROM Reference r INNER JOIN Inproceedings i "
-                        + "ON r.id = i.id WHERE r.id = ?");
-        statement.setString(1, id);
-        ResultSet rs = statement.executeQuery();
-
-        if (!rs.next()) {
-            return null;
-        }
-
-        return buildInproceeding(rs);
+        return query.queryObject(
+                "SELECT * FROM Reference r INNER JOIN Inproceedings a "
+                + "ON r.id = a.id WHERE r.id = ?", id);
     }
 
     public List<Inproceeding> findAll() throws SQLException {
-        Connection connection = database.getConnection();
-        PreparedStatement statement = connection.prepareStatement(
-                "SELECT * FROM Reference r INNER JOIN Inproceedings i "
-                        + "ON r.id = i.id");
-        ResultSet rs = statement.executeQuery();
-        List<Inproceeding> inproceedings = new ArrayList<>();
-
-        while (rs.next()) {
-            inproceedings.add(buildInproceeding(rs));
-        }
-
-        statement.close();
-        connection.close();
-
-        return inproceedings;
+        return query.queryList(
+                "SELECT * FROM Reference r INNER JOIN Inproceedings a ON r.id = a.id");
     }
 
-    private Inproceeding buildInproceeding(ResultSet rs) throws SQLException {
-        return new Inproceeding(
-                rs.getString("id"),
-                new Authors(rs.getString("authors")),
-                rs.getString("title"),
-                rs.getString("booktitle"),
-                Pages.construct(SQLInteger.get(rs, "startpage"), SQLInteger.get(rs, "endpage")),
-                SQLInteger.get(rs, "year"),
-                rs.getString("editor"),
-                SQLInteger.get(rs, "volume"),
-                rs.getString("series"),
-                rs.getString("month"),
-                rs.getString("organization"),
-                rs.getString("publisher"),
-                rs.getString("address"),
-                rs.getString("note"),
-                rs.getString("key")
-        );
+    public void editInproceeding(String id, String authors, String title, Integer year, String booktitle, String editor, Integer volume, String series, String month, Pages pages, String organization, String publisher, String address, String note, String key) throws SQLException {
+        query.insert(
+                "UPDATE Reference SET authors = ?, title = ?, year = ? WHERE id = ?", authors, title, year, id);
+        query.insert(
+                "UPDATE Inproceedings SET booktitle = ?, startpage = ?, endpage = ?, publisher = ?, address = ?, editor = ?, volume = ?, series = ?, month = ?, organization = ?, note = ?, key = ? WHERE id = ?",
+                booktitle,
+                pages == null ? null : pages.getBegin(),
+                pages == null ? null : pages.getEnd(),
+                publisher, address, editor, volume, series, month, organization, note, key, id);
     }
 }

@@ -131,6 +131,14 @@ public class Inproceeding extends Reference {
         this.key = key;
     }
 
+    public Integer getStartpage() {
+        return pages.getBegin();
+    }
+
+    public Integer getEndpage() {
+        return pages.getEnd();
+    }
+
     @Override
     public String toString() {
         return String.join(

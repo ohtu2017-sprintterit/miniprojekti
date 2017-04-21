@@ -44,4 +44,16 @@ public class ArticleDao {
                 "SELECT * FROM Reference r INNER JOIN Article a ON r.id = a.id");
     }
 
+    public void editArticle(String id, String authors, String title, Integer year, String journal, Integer volume, String month, Integer number, Pages pages, String publisher, String address, String note, String key) throws SQLException {
+        query.insert(
+                "UPDATE Reference SET authors = ?, title = ?, year = ? WHERE id = ?",
+                authors, title, year, id);
+        query.insert(
+                "UPDATE Article SET journal = ?, volume = ?, number = ?, month = ?, startpage = ?, endpage = ?, publisher = ?, address = ?, note = ?, key = ? WHERE id = ?",
+                journal, volume, number, month,
+                pages == null ? null : pages.getBegin(),
+                pages == null ? null : pages.getEnd(),
+                publisher, address, note, key, id);
+    }
+
 }

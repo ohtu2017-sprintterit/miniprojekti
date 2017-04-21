@@ -25,6 +25,7 @@
                     <th>Address</th>
                     <th>Note</th>
                     <th>Key</th>
+                    <th></th>
                 </tr>
                 <tr th:each="article : ${articles}">
                     <td th:text="${article.id}"></td>
@@ -39,6 +40,7 @@
                     <td th:text="${article.address}"></td>
                     <td th:text="${article.note}"></td>
                     <td th:text="${article.key}"></td>
+                    <td><a th:href="${'/article/' + article.id}" class="btn btn-default">Edit</a></td>
                 </tr>
             </table>
         </div>
@@ -62,6 +64,7 @@
                     <th>Address</th>
                     <th>Note</th>
                     <th>Key</th>
+                    <th></th>
                 </tr>
                 <tr th:each="book : ${books}">
                     <td th:text="${book.id}"></td>
@@ -76,6 +79,7 @@
                     <td th:text="${book.address}"></td>
                     <td th:text="${book.note}"></td>
                     <td th:text="${book.key}"></td>
+                    <td><a th:href="${'/book/' + book.id}" class="btn btn-default">Edit</a></td>
                 </tr>
             </table>
         </div>
@@ -102,6 +106,7 @@
                     <th>Address</th>
                     <th>Note</th>
                     <th>Key</th>
+                    <th></th>
                 </tr>
                 <tr th:each="inproceeding : ${inproceedings}">
                     <td th:text="${inproceeding.id}"></td>
@@ -119,6 +124,7 @@
                     <td th:text="${inproceeding.address}"></td>
                     <td th:text="${inproceeding.note}"></td>
                     <td th:text="${inproceeding.key}"></td>
+                    <td><a th:href="${'/inproceeding/' + inproceeding.id}" class="btn btn-default">Edit</a></td>
                 </tr>
             </table>
         </div>

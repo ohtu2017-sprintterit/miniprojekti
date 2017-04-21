@@ -9,6 +9,9 @@ import sprintterit.bibtexgen.BibtexGenerator;
 import sprintterit.controllers.AddArticle;
 import sprintterit.controllers.AddBook;
 import sprintterit.controllers.AddInproceeding;
+import sprintterit.controllers.EditArticle;
+import sprintterit.controllers.EditBook;
+import sprintterit.controllers.EditInproceeding;
 import sprintterit.database.ArticleDao;
 import sprintterit.database.BookDao;
 import sprintterit.database.Database;
@@ -54,11 +57,9 @@ public class Main {
 
         get("/", (req, res) -> {
             HashMap map = new HashMap<>();
-            map.put("title", "Viitteidenhallinta");
             map.put("articles", articleDao.findAll());
             map.put("books", bookDao.findAll());
             map.put("inproceedings", inproceedingDao.findAll());
-
             return new ModelAndView(map, "index");
         }, new ThymeleafTemplateEngine());
 
@@ -77,9 +78,31 @@ public class Main {
             return new ModelAndView(map, "inproceeding");
         }, new ThymeleafTemplateEngine());
 
+        get("/article/:id", (req, res) -> {
+            HashMap map = new HashMap<>();
+            map.put("article", articleDao.findOne(req.params("id")));
+            return new ModelAndView(map, "edit_article");
+        }, new ThymeleafTemplateEngine());
+
+        get("/book/:id", (req, res) -> {
+            HashMap map = new HashMap<>();
+            map.put("book", bookDao.findOne(req.params("id")));
+            return new ModelAndView(map, "edit_book");
+        }, new ThymeleafTemplateEngine());
+
+        get("/inproceeding/:id", (req, res) -> {
+            HashMap map = new HashMap<>();
+            map.put("inproceeding", inproceedingDao.findOne(req.params("id")));
+            return new ModelAndView(map, "edit_inproceeding");
+        }, new ThymeleafTemplateEngine());
+
         post("/article", new AddArticle(articleDao));
         post("/book", new AddBook(bookDao));
         post("/inproceeding", new AddInproceeding(inproceedingDao));
+
+        post("/edit_article", new EditArticle(articleDao));
+        post("/edit_book", new EditBook(bookDao));
+        post("/edit_inproceeding", new EditInproceeding(inproceedingDao));
 
         post("/generatebibtex", (req, res) -> {
             String filename = "" + req.queryParams("filename");
