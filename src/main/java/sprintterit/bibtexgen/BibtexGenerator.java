@@ -11,17 +11,19 @@ public class BibtexGenerator {
 
     public BibtexGenerator() {
         specialCharacters = new HashMap<>();
-        specialCharacters.put("ä", "{\\\"a}");
-        specialCharacters.put("ö", "{\\\"o}");
-        specialCharacters.put("å", "{\\aa}");
-        specialCharacters.put("Ä", "{\\\"A}");
-        specialCharacters.put("Ö", "{\\\"O}");
-        specialCharacters.put("Å", "{\\AA}");
+        specialCharacters.put("\u00E4", "{\\\"a}");
+        specialCharacters.put("\u00F6", "{\\\"o}");
+        specialCharacters.put("\u00E5", "{\\aa}");
+        specialCharacters.put("\u00C4", "{\\\"A}");
+        specialCharacters.put("\u00D6", "{\\\"O}");
+        specialCharacters.put("\u00C5", "{\\AA}");
     }
 
     public String generateBibtexFile(List<Reference> references) {
         String file = references.stream().map(ref -> ref.toString()).collect(Collectors.joining("\n"));
-        file = specialCharacters.keySet().stream().reduce(file, (f, k) -> f.replace(k, specialCharacters.get(k)));
+        file = specialCharacters.keySet()
+                .stream()
+                .reduce(file, (output, character) -> output.replace(character, specialCharacters.get(character)));
 
         return file;
     }
