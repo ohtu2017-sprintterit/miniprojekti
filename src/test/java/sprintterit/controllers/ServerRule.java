@@ -41,7 +41,8 @@ public class ServerRule extends ExternalResource {
     }
 
     private void disableHtmlUnitDriverWarnings() throws SecurityException {
-        Logger.getLogger("com.gargoylesoftware.htmlunit").setLevel(Level.OFF);
+        Logger.getLogger("com.gargoylesoftware.htmlunit").setLevel(Level.SEVERE);
+        System.setProperty("org.apache.commons.logging.Log", "org.apache.commons.logging.impl.NoOpLog");
     }
 
     private void setChromeDriverPath() {

@@ -36,11 +36,11 @@ dependencies {
     testCompile 'junit:junit:4.12'
     testCompile 'info.cukes:cucumber-java:' + cucumberVersion
     testCompile 'info.cukes:cucumber-junit:' + cucumberVersion
-    compile 'org.seleniumhq.selenium:selenium-htmlunit-driver:' + seleniumVersion
-    compile 'org.seleniumhq.selenium:selenium-firefox-driver:' + seleniumVersion
-    compile 'org.seleniumhq.selenium:selenium-chrome-driver:' + seleniumVersion
-    compile 'org.seleniumhq.selenium:selenium-api:' + seleniumVersion
-    compile 'org.seleniumhq.selenium:selenium-java:' + seleniumVersion
+    testCompile 'org.seleniumhq.selenium:selenium-htmlunit-driver:' + seleniumVersion
+    testCompile 'org.seleniumhq.selenium:selenium-firefox-driver:' + seleniumVersion
+    testCompile 'org.seleniumhq.selenium:selenium-chrome-driver:' + seleniumVersion
+    testCompile 'org.seleniumhq.selenium:selenium-api:' + seleniumVersion
+    testCompile 'org.seleniumhq.selenium:selenium-java:' + seleniumVersion
 }
 
 mainClassName = 'sprintterit.Main'
