@@ -107,7 +107,7 @@ public class Book extends Reference {
                 "  title = {" + getTitle() + "},\n",
                 "  publisher = {" + getPublisher() + "},\n",
                 "  year = \"" + getYear() + "\",\n",
-                getVolume() == 0 ? "" : "  volume = \"" + getVolume() + "\",\n",
+                getVolume() == null || getVolume() == 0 ? "" : "  volume = \"" + getVolume() + "\",\n",
                 (getSeries() == null || getSeries().length() == 0) ? "" : "  series = \"" + getSeries() + "\",\n",
                 (getAddress() == null || getAddress().length() == 0) ? "" : "  address = \"" + getAddress() + "\",\n",
                 (getEdition() == null || getEdition().length() == 0) ? "" : "  edition = \"" + getEdition() + "\",\n",
