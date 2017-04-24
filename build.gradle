@@ -59,6 +59,10 @@ jar {
 test {
     testLogging.showStandardStreams = true
     systemProperties System.getProperties()
+
+    jacoco {
+        excludes = ["com.steadystate.**"]
+    }
 }
 
 run {
