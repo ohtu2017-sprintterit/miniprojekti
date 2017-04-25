@@ -14,7 +14,7 @@
             <table>
                 <tr><td>BibTeX key:*</td><td><span th:text="${article.id}"/></span><input type="hidden" name="id" id="id" th:value="${article.id}"/></td></tr>
                 <tr><td>Authors:*</td>
-                    <td><textarea name="authors" id="authors" rows="5" cols="30" th:text="${article.authors}"></textarea></td></tr>
+                    <td><textarea name="authors" id="authors" rows="5" cols="30" th:text="${article.authorsSeparated}"></textarea></td></tr>
                 <tr><td>Title:*</td><td><input type="text" name="title" id="title" th:value="${article.title}"/></td></tr>
                 <tr><td>Journal:*</td><td><input type="text" name="journal" id="journal" th:value="${article.journal}"/></td></tr>
                 <tr><td>Volume:</td><td><input type="text" name="volume" id="volume" th:value="${article.volume}?: ''"/></td></tr>

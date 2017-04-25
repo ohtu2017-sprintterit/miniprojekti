@@ -48,4 +48,8 @@ public abstract class Reference {
         this.year = year;
     }
 
+    public String getAuthorsSeparated() {
+        return authors.toString().replace(" and ", "\n");
+    }
+
 }
