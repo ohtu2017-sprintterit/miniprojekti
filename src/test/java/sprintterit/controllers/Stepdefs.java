@@ -48,6 +48,13 @@ public class Stepdefs {
         book_is_added();
     }
 
+    @Given("^Edit is selected$")
+    public void edit_is_selected() throws Throwable {
+        driver.get(baseUrl);
+        sleep();
+        driver.findElement(By.linkText("Edit")).click();
+    }
+
     @When("^Article with id \"([^\"]*)\", author \"([^\"]*)\", title \"([^\"]*)\", journal \"([^\"]*)\" and year \"([^\"]*)\" are given$")
     public void id_author_title_journal_and_year_are_given(String id, String author, String title, String journal, String year) throws Throwable {
         addArticle(id, author, title, journal, year);
@@ -63,14 +70,34 @@ public class Stepdefs {
         addArticle(id, author, title, journal, volume, number, year, startpage, endpage);
     }
 
+    @When("^Article is changed with id \"([^\"]*)\", author \"([^\"]*)\", title \"([^\"]*)\", journal \"([^\"]*)\" and year \"([^\"]*)\"$")
+    public void article_is_changed_with_id_author_title_journal_and_year(String id, String author, String title, String journal, String year) throws Throwable {
+        editArticle(author, title, journal, year);
+    }
+
+    @When("^Book is changed with id \"([^\"]*)\", author \"([^\"]*)\", title \"([^\"]*)\", publisher \"([^\"]*)\" and year \"([^\"]*)\"$")
+    public void book_is_changed_with_id_author_title_publisher_and_year(String id, String author, String title, String publisher, String year) throws Throwable {
+        //editBook(author, title, publisher, year);
+    }
+
     @Then("^Article is added$")
     public void article_is_added() throws Throwable {
+        pageHasContent("Reference Management");
+    }
+
+    @Then("^Article is edited$")
+    public void article_is_edited() throws Throwable {
         pageHasContent("Reference Management");
     }
 
     @Then("^Book is added$")
     public void book_is_added() throws Throwable {
         pageHasContent("Reference Management");
+    }
+
+    @Then("^Book is edited$")
+    public void book_is_edited() throws Throwable {
+        //pageHasContent("Reference Management");
     }
 
     @Then("^Article is not added and error \"([^\"]*)\" is reported$")
@@ -140,6 +167,17 @@ public class Stepdefs {
         sleep();
     }
 
+    private void editArticle(String authors, String title, String journal, String year) {
+        pageHasContent("Edit article");
+        driver.findElement(By.name("authors")).sendKeys(authors);
+        driver.findElement(By.name("title")).sendKeys(title);
+        driver.findElement(By.name("journal")).sendKeys(journal);
+        driver.findElement(By.name("year")).sendKeys(year);
+        sleep();
+        driver.findElement(By.name("save")).submit();
+        sleep();
+    }
+
     private void addBook(String id, String authors, String title, String publisher, String year) {
         pageHasContent("New book");
         driver.findElement(By.name("id")).sendKeys(id);
@@ -149,6 +187,17 @@ public class Stepdefs {
         driver.findElement(By.name("year")).sendKeys(year);
         sleep();
         driver.findElement(By.name("add")).submit();
+        sleep();
+    }
+
+    private void editBook(String authors, String title, String publisher, String year) {
+        pageHasContent("Edit book");
+        driver.findElement(By.name("authors")).sendKeys(authors);
+        driver.findElement(By.name("title")).sendKeys(title);
+        driver.findElement(By.name("publisher")).sendKeys(publisher);
+        driver.findElement(By.name("year")).sendKeys(year);
+        sleep();
+        driver.findElement(By.name("save")).submit();
         sleep();
     }
 
