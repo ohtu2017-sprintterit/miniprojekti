@@ -21,7 +21,7 @@ public class BibtexKeyGen {
             key += a[i].substring(0, k);
         }
         if (key.isEmpty()) {
-            key += a[0];
+            key += a[0].replaceAll("\\s+", "");
         }
         String y = Integer.toString(year);
         y = y.substring(y.length() - 2, y.length());
