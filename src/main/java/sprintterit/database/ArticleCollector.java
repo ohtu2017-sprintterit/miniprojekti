@@ -11,6 +11,7 @@ public class ArticleCollector implements Collector<Article> {
     @Override
     public Article collect(ResultSet rs) throws SQLException {
         String id = rs.getString("id");
+        String tags = rs.getString("tags");
         Authors authors = new Authors(rs.getString("authors"));
         String title = rs.getString("title");
         Integer year = SQLInteger.get(rs, "year");
@@ -24,7 +25,7 @@ public class ArticleCollector implements Collector<Article> {
         String note = rs.getString("note");
         String key = rs.getString("key");
 
-        return new Article(id, authors, title, journal, volume, number, month,
+        return new Article(id, tags, authors, title, journal, volume, number, month,
                 pages, year, publisher, address, note, key);
     }
 

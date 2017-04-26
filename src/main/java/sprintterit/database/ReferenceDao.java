@@ -9,6 +9,7 @@ import java.util.Comparator;
 import java.util.List;
 
 public class ReferenceDao {
+
     private Database database;
 
     public ReferenceDao(Database db) {
@@ -29,4 +30,5 @@ public class ReferenceDao {
 
         return references;
     }
+
 }

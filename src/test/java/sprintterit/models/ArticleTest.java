@@ -12,7 +12,7 @@ public class ArticleTest {
     @Before
     public void setUp() {
         authors = new Authors("Collins, Allan\nBrown, John Seely\nHolum, Ann");
-        article = new Article("1", authors, "Cognitive apprenticeship: making thinking visible",
+        article = new Article("1", "tags", authors, "Cognitive apprenticeship: making thinking visible",
                 "American Educator", 6, 0, "Feb", new Pages(38, 46), 1991,
                 "publisher", "address", "note", "key");
     }
@@ -98,6 +98,7 @@ public class ArticleTest {
     public void toStringWorksCorrectly() {
         Article a = new Article(
                 "a",
+                "tags",
                 new Authors("Author, Adam\nWriter, William"),
                 "A whole lot of nothing",
                 "Trash",

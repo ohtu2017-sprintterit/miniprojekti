@@ -14,7 +14,7 @@ public class InproceedingTest {
     public void setUp() {
         authors = new Authors("Collins, Allan\nBrown, John Seely\nHolum, Ann");
         pages = new Pages(38, 46);
-        inproceeding = new Inproceeding("1234", authors, "title", "booktitle", pages, 1999, "editor",
+        inproceeding = new Inproceeding("1234", "tags", authors, "title", "booktitle", pages, 1999, "editor",
                 9, "series", "month", "org", "publisher", "address", "note", "key");
     }
 

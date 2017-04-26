@@ -12,6 +12,7 @@ public class Book extends Reference {
     private String key;
 
     public Book(String id,
+            String tags,
             Authors authors,
             String title,
             Integer year,
@@ -23,7 +24,7 @@ public class Book extends Reference {
             String month,
             String note,
             String key) {
-        super(id, authors, title, year);
+        super(id, authors, title, year, tags);
         this.publisher = publisher;
         this.address = address;
         this.volume = volume;

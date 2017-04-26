@@ -22,7 +22,7 @@ public class AddInproceeding implements Route {
         SparkRequest request = new SparkRequest(req);
         InputValidator input = new InputValidator(request);
 
-        String id = input.getString("id", "BibTeX key", true);
+        String tags = input.getString("tags", "Tags", false);
         String authors = input.getString("authors", "Authors", true);
         String title = input.getString("title", "Title", true);
         String booktitle = input.getString("booktitle", "Booktitle", true);
@@ -38,9 +38,9 @@ public class AddInproceeding implements Route {
         String note = input.getString("note", "Note", false);
         String key = input.getString("key", "Key", false);
 
-        if (dao.findOne(id) != null) {
-            input.addError("id", "BibTeX key is not unique (already taken by another reference)");
-        }
+//        if (dao.findOne(id) != null) {
+//            input.addError("id", "BibTeX key is not unique (already taken by another reference)");
+//        }
 
         if (!input.isOk()) {
             HashMap map = new HashMap();
@@ -50,7 +50,7 @@ public class AddInproceeding implements Route {
                     new ModelAndView(map, "inproceeding"));
         }
 
-        dao.addInproceeding(id, authors, title, year, booktitle,
+        dao.addInproceeding(tags, authors, title, year, booktitle,
                 editor, volume, series, month, pages,
                 organization, publisher, address, note, key);
         res.redirect("/");

@@ -21,7 +21,8 @@ public class EditBook implements Route {
         SparkRequest request = new SparkRequest(req);
         InputValidator input = new InputValidator(request);
 
-        String id = input.getString("id", "BibTeX key", true);
+        String id = input.getString("id", "Id", false);
+        String tags = input.getString("tags", "Tags", true);
         String authors = input.getString("authors", "Authors", true);
         String title = input.getString("title", "Title", true);
         Integer year = input.getInteger("year", "Year", true);
@@ -42,7 +43,7 @@ public class EditBook implements Route {
                     new ModelAndView(map, "edit_book"));
         }
 
-        dao.editBook(id, authors, title, year, publisher, address,
+        dao.editBook(id, tags, authors, title, year, publisher, address,
                 volume, series, edition, month, note, key);
         res.redirect("/");
         return "";

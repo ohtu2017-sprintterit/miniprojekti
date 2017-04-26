@@ -22,7 +22,8 @@ public class EditArticle implements Route {
         SparkRequest request = new SparkRequest(req);
         InputValidator input = new InputValidator(request);
 
-        String id = input.getString("id", "BibTeX key", true);
+        String id = input.getString("id", "Id", false);
+        String tags = input.getString("tags", "Tags", false);
         String authors = input.getString("authors", "Authors", true);
         String title = input.getString("title", "Title", true);
         String journal = input.getString("journal", "Journal", true);
@@ -44,7 +45,7 @@ public class EditArticle implements Route {
                     new ModelAndView(map, "edit_article"));
         }
 
-        dao.editArticle(id, authors, title, year, journal, volume, month, number,
+        dao.editArticle(id, tags, authors, title, year, journal, volume, month, number,
                 pages, publisher, address, note, key);
         res.redirect("/");
         return "";

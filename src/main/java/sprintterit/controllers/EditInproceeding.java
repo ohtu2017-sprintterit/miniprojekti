@@ -22,7 +22,8 @@ public class EditInproceeding implements Route {
         SparkRequest request = new SparkRequest(req);
         InputValidator input = new InputValidator(request);
 
-        String id = input.getString("id", "BibTeX key", true);
+        String id = input.getString("id", "Id", false);
+        String tags = input.getString("tags", "Tags", false);
         String authors = input.getString("authors", "Authors", true);
         String title = input.getString("title", "Title", true);
         String booktitle = input.getString("booktitle", "Booktitle", true);
@@ -46,7 +47,7 @@ public class EditInproceeding implements Route {
                     new ModelAndView(map, "edit_inproceeding"));
         }
 
-        dao.editInproceeding(id, authors, title, year, booktitle,
+        dao.editInproceeding(id, tags, authors, title, year, booktitle,
                 editor, volume, series, month, pages,
                 organization, publisher, address, note, key);
         res.redirect("/");

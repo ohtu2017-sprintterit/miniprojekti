@@ -32,34 +32,34 @@ public class Stepdefs {
         inproceedingDao = new InproceedingDao(database);
     }
 
-    @When("^Article is added with id \"([^\"]*)\", author \"([^\"]*)\", title \"([^\"]*)\", journal \"([^\"]*)\", startpage (\\d+), endpage (\\d+), year (\\d+)$")
-    public void journal_is_set_to(String id, String authors, String title, String journal, Integer startpage, Integer endpage, Integer year) throws Throwable {
-        articleDao.addArticle(id, authors, title, year, journal, 0, "", 0, new Pages(startpage, endpage), "", "", "", "");
+    @When("^Article is added with author \"([^\"]*)\", title \"([^\"]*)\", journal \"([^\"]*)\", startpage (\\d+), endpage (\\d+), year (\\d+)$")
+    public void journal_is_set_to(String authors, String title, String journal, Integer startpage, Integer endpage, Integer year) throws Throwable {
+        articleDao.addArticle("", authors, title, year, journal, 0, "", 0, new Pages(startpage, endpage), "", "", "", "");
     }
 
     @When("^Article is edited with id \"([^\"]*)\", author \"([^\"]*)\", title \"([^\"]*)\", journal \"([^\"]*)\", startpage (\\d+), endpage (\\d+), year (\\d+)$")
     public void article_is_edited(String id, String authors, String title, String journal, Integer startpage, Integer endpage, Integer year) throws Throwable {
-        articleDao.editArticle(id, authors, title, year, journal, 0, "", 0, new Pages(startpage, endpage), "", "", "", "");
+        articleDao.editArticle(id, authors, "", title, year, journal, 0, "", 0, new Pages(startpage, endpage), "", "", "", "");
     }
 
-    @When("^Book is added with id \"([^\"]*)\", author \"([^\"]*)\", title \"([^\"]*)\", year (\\d+), publisher \"([^\"]*)\"$")
-    public void book_is_added(String id, String authors, String title, Integer year, String publisher) throws Throwable {
-        bookDao.addBook(id, authors, title, year, publisher, "", 0, "", "", "", "", "");
+    @When("^Book is added with author \"([^\"]*)\", title \"([^\"]*)\", year (\\d+), publisher \"([^\"]*)\"$")
+    public void book_is_added(String authors, String title, Integer year, String publisher) throws Throwable {
+        bookDao.addBook("", authors, title, year, publisher, "", 0, "", "", "", "", "");
     }
 
     @When("^Book is edited with id \"([^\"]*)\", author \"([^\"]*)\", title \"([^\"]*)\", year (\\d+), publisher \"([^\"]*)\"$")
     public void book_is_edited(String id, String authors, String title, Integer year, String publisher) throws Throwable {
-        bookDao.editBook(id, authors, title, year, publisher, "", 0, "", "", "", "", "");
+        bookDao.editBook(id, authors, "", title, year, publisher, "", 0, "", "", "", "", "");
     }
 
-    @When("^Inproceeding is added with id \"([^\"]*)\", author \"([^\"]*)\", title \"([^\"]*)\", booktitle \"([^\"]*)\", year (\\d+)$")
-    public void inproceeding_is_added(String id, String authors, String title, String booktitle, Integer year) throws Throwable {
-        inproceedingDao.addInproceeding(id, authors, title, year, booktitle, "", 0, "", "", null, "", "", "", "", "");
+    @When("^Inproceeding is added with author \"([^\"]*)\", title \"([^\"]*)\", booktitle \"([^\"]*)\", year (\\d+)$")
+    public void inproceeding_is_added(String authors, String title, String booktitle, Integer year) throws Throwable {
+        inproceedingDao.addInproceeding("", authors, title, year, booktitle, "", 0, "", "", null, "", "", "", "", "");
     }
 
     @When("^Inproceeding is edited with id \"([^\"]*)\", author \"([^\"]*)\", title \"([^\"]*)\", booktitle \"([^\"]*)\", year (\\d+)$")
     public void inproceeding_is_edited(String id, String authors, String title, String booktitle, Integer year) throws Throwable {
-        inproceedingDao.editInproceeding(id, authors, title, year, booktitle, "", 0, "", "", null, "", "", "", "", "");
+        inproceedingDao.editInproceeding(id, authors, "", title, year, booktitle, "", 0, "", "", null, "", "", "", "", "");
     }
 
     @Then("^From database field \"([^\"]*)\", author is set to \"([^\"]*)\", title to \"([^\"]*)\", journal to \"([^\"]*)\", startpage (\\d+), endpage (\\d+), year (\\d+)$")

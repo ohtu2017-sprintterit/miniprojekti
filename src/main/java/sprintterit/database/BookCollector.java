@@ -10,6 +10,7 @@ public class BookCollector implements Collector<Book> {
     @Override
     public Book collect(ResultSet rs) throws SQLException {
         String id = rs.getString("id");
+        String tags = rs.getString("tags");
         Authors authors = new Authors(rs.getString("authors"));
         String title = rs.getString("title");
         Integer year = SQLInteger.get(rs, "year");
@@ -22,7 +23,7 @@ public class BookCollector implements Collector<Book> {
         String note = rs.getString("note");
         String key = rs.getString("key");
 
-        return new Book(id, authors, title, year, publisher, address, volume, series, edition, month, note, key);
+        return new Book(id, tags, authors, title, year, publisher, address, volume, series, edition, month, note, key);
     }
 
 }

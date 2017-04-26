@@ -11,6 +11,7 @@ public class InproceedingCollector implements Collector<Inproceeding> {
     @Override
     public Inproceeding collect(ResultSet rs) throws SQLException {
         String id = rs.getString("id");
+        String tags = rs.getString("tags");
         Authors authors = new Authors(rs.getString("authors"));
         String title = rs.getString("title");
         String booktitle = rs.getString("booktitle");
@@ -26,7 +27,7 @@ public class InproceedingCollector implements Collector<Inproceeding> {
         String note = rs.getString("note");
         String key = rs.getString("key");
 
-        return new Inproceeding(id, authors, title, booktitle, pages, year, editor, volume, series, month, organization, publisher, address, note, key);
+        return new Inproceeding(id, tags, authors, title, booktitle, pages, year, editor, volume, series, month, organization, publisher, address, note, key);
     }
 
 }

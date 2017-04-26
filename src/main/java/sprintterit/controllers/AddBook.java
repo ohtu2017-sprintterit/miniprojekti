@@ -21,7 +21,7 @@ public class AddBook implements Route {
         SparkRequest request = new SparkRequest(req);
         InputValidator input = new InputValidator(request);
 
-        String id = input.getString("id", "BibTeX key", true);
+        String tags = input.getString("tags", "Tags", false);
         String authors = input.getString("authors", "Authors", true);
         String title = input.getString("title", "Title", true);
         Integer year = input.getInteger("year", "Year", true);
@@ -34,9 +34,9 @@ public class AddBook implements Route {
         String note = input.getString("note", "Note", false);
         String key = input.getString("key", "Key", false);
 
-        if (dao.findOne(id) != null) {
-            input.addError("id", "BibTeX key is not unique (already taken by another reference)");
-        }
+//        if (dao.findOne(id) != null) {
+//            input.addError("id", "BibTeX key is not unique (already taken by another reference)");
+//        }
 
         if (!input.isOk()) {
             HashMap map = new HashMap();
@@ -46,7 +46,7 @@ public class AddBook implements Route {
                     new ModelAndView(map, "book"));
         }
 
-        dao.addBook(id, authors, title, year, publisher, address,
+        dao.addBook(tags, authors, title, year, publisher, address,
                 volume, series, edition, month, note, key);
         res.redirect("/");
         return "";

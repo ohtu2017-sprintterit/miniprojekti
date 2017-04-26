@@ -34,17 +34,17 @@ public class Stepdefs {
         driver.findElement(By.linkText("Add book")).click();
     }
 
-    @Given("^A new article with id \"([^\"]*)\", author \"([^\"]*)\", title \"([^\"]*)\", journal \"([^\"]*)\" and year \"([^\"]*)\" is created$")
-    public void a_new_article_with_id_author_title_journal_and_year_is_created(String id, String author, String title, String journal, String year) throws Throwable {
+    @Given("^A new article with author \"([^\"]*)\", title \"([^\"]*)\", journal \"([^\"]*)\" and year \"([^\"]*)\" is created$")
+    public void a_new_article_with_id_author_title_journal_and_year_is_created(String author, String title, String journal, String year) throws Throwable {
         add_article_selected();
-        addArticle(id, author, title, journal, year);
+        addArticle(author, title, journal, year);
         article_is_added();
     }
 
-    @Given("^A new book with id \"([^\"]*)\", author \"([^\"]*)\", title \"([^\"]*)\", publisher \"([^\"]*)\" and year \"([^\"]*)\" is created$")
-    public void a_new_book_with_id_author_title_publisher_and_year_is_created(String id, String author, String title, String publisher, String year) throws Throwable {
+    @Given("^A new book with author \"([^\"]*)\", title \"([^\"]*)\", publisher \"([^\"]*)\" and year \"([^\"]*)\" is created$")
+    public void a_new_book_with_id_author_title_publisher_and_year_is_created(String author, String title, String publisher, String year) throws Throwable {
         add_book_selected();
-        addBook(id, author, title, publisher, year);
+        addBook(author, title, publisher, year);
         book_is_added();
     }
 
@@ -55,28 +55,28 @@ public class Stepdefs {
         driver.findElement(By.linkText("Edit")).click();
     }
 
-    @When("^Article with id \"([^\"]*)\", author \"([^\"]*)\", title \"([^\"]*)\", journal \"([^\"]*)\" and year \"([^\"]*)\" are given$")
-    public void id_author_title_journal_and_year_are_given(String id, String author, String title, String journal, String year) throws Throwable {
-        addArticle(id, author, title, journal, year);
+    @When("^Article with author \"([^\"]*)\", title \"([^\"]*)\", journal \"([^\"]*)\" and year \"([^\"]*)\" are given$")
+    public void id_author_title_journal_and_year_are_given(String author, String title, String journal, String year) throws Throwable {
+        addArticle(author, title, journal, year);
     }
 
-    @When("^Book with id \"([^\"]*)\", author \"([^\"]*)\", title \"([^\"]*)\", publisher \"([^\"]*)\" and year \"([^\"]*)\" are given$")
-    public void book_id_author_title_publisher_and_year_are_given(String id, String author, String title, String publisher, String year) throws Throwable {
-        addBook(id, author, title, publisher, year);
+    @When("^Book with author \"([^\"]*)\", title \"([^\"]*)\", publisher \"([^\"]*)\" and year \"([^\"]*)\" are given$")
+    public void book_id_author_title_publisher_and_year_are_given(String author, String title, String publisher, String year) throws Throwable {
+        addBook(author, title, publisher, year);
     }
 
-    @When("^Article with id \"([^\"]*)\", author \"([^\"]*)\", title \"([^\"]*)\", journal \"([^\"]*)\", volume \"([^\"]*)\", number \"([^\"]*)\", year \"([^\"]*)\" and pages \"([^\"]*)\" to \"([^\"]*)\" are given$")
-    public void id_author_title_journal_volume_number_year_and_pages_to_are_given(String id, String author, String title, String journal, String volume, String number, String year, String startpage, String endpage) throws Throwable {
-        addArticle(id, author, title, journal, volume, number, year, startpage, endpage);
+    @When("^Article with author \"([^\"]*)\", title \"([^\"]*)\", journal \"([^\"]*)\", volume \"([^\"]*)\", number \"([^\"]*)\", year \"([^\"]*)\" and pages \"([^\"]*)\" to \"([^\"]*)\" are given$")
+    public void id_author_title_journal_volume_number_year_and_pages_to_are_given(String author, String title, String journal, String volume, String number, String year, String startpage, String endpage) throws Throwable {
+        addArticle(author, title, journal, volume, number, year, startpage, endpage);
     }
 
-    @When("^Article is changed with id \"([^\"]*)\", author \"([^\"]*)\", title \"([^\"]*)\", journal \"([^\"]*)\" and year \"([^\"]*)\"$")
-    public void article_is_changed_with_id_author_title_journal_and_year(String id, String author, String title, String journal, String year) throws Throwable {
+    @When("^Article is changed with author \"([^\"]*)\", title \"([^\"]*)\", journal \"([^\"]*)\" and year \"([^\"]*)\"$")
+    public void article_is_changed_with_id_author_title_journal_and_year(String author, String title, String journal, String year) throws Throwable {
         editArticle(author, title, journal, year);
     }
 
-    @When("^Book is changed with id \"([^\"]*)\", author \"([^\"]*)\", title \"([^\"]*)\", publisher \"([^\"]*)\" and year \"([^\"]*)\"$")
-    public void book_is_changed_with_id_author_title_publisher_and_year(String id, String author, String title, String publisher, String year) throws Throwable {
+    @When("^Book is changed with author \"([^\"]*)\", title \"([^\"]*)\", publisher \"([^\"]*)\" and year \"([^\"]*)\"$")
+    public void book_is_changed_with_id_author_title_publisher_and_year(String author, String title, String publisher, String year) throws Throwable {
         //editBook(author, title, publisher, year);
     }
 
@@ -139,9 +139,8 @@ public class Stepdefs {
         assertTrue(driver.getPageSource().contains(content));
     }
 
-    private void addArticle(String id, String authors, String title, String journal, String year) {
+    private void addArticle(String authors, String title, String journal, String year) {
         pageHasContent("New article");
-        driver.findElement(By.name("id")).sendKeys(id);
         driver.findElement(By.name("authors")).sendKeys(authors);
         driver.findElement(By.name("title")).sendKeys(title);
         driver.findElement(By.name("journal")).sendKeys(journal);
@@ -151,9 +150,8 @@ public class Stepdefs {
         sleep();
     }
 
-    private void addArticle(String id, String authors, String title, String journal, String volume, String number, String year, String startpage, String endpage) {
+    private void addArticle(String authors, String title, String journal, String volume, String number, String year, String startpage, String endpage) {
         pageHasContent("New article");
-        driver.findElement(By.name("id")).sendKeys(id);
         driver.findElement(By.name("authors")).sendKeys(authors);
         driver.findElement(By.name("title")).sendKeys(title);
         driver.findElement(By.name("journal")).sendKeys(journal);
@@ -178,9 +176,8 @@ public class Stepdefs {
         sleep();
     }
 
-    private void addBook(String id, String authors, String title, String publisher, String year) {
+    private void addBook(String authors, String title, String publisher, String year) {
         pageHasContent("New book");
-        driver.findElement(By.name("id")).sendKeys(id);
         driver.findElement(By.name("authors")).sendKeys(authors);
         driver.findElement(By.name("title")).sendKeys(title);
         driver.findElement(By.name("publisher")).sendKeys(publisher);

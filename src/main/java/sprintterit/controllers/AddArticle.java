@@ -22,7 +22,7 @@ public class AddArticle implements Route {
         SparkRequest request = new SparkRequest(req);
         InputValidator input = new InputValidator(request);
 
-        String id = input.getString("id", "BibTeX key", true);
+        String tags = input.getString("tags", "Tags", false);
         String authors = input.getString("authors", "Authors", true);
         String title = input.getString("title", "Title", true);
         String journal = input.getString("journal", "Journal", true);
@@ -36,9 +36,9 @@ public class AddArticle implements Route {
         String note = input.getString("note", "Note", false);
         String key = input.getString("key", "Key", false);
 
-        if (dao.findOne(id) != null) {
-            input.addError("id", "BibTeX key is not unique (already taken by another reference)");
-        }
+//        if (dao.findOne(id) != null) {
+//            input.addError("id", "BibTeX key is not unique (already taken by another reference)");
+//        }
 
         if (!input.isOk()) {
             HashMap map = new HashMap();
@@ -48,7 +48,7 @@ public class AddArticle implements Route {
                     new ModelAndView(map, "article"));
         }
 
-        dao.addArticle(id, authors, title, year, journal, volume, month, number,
+        dao.addArticle(tags, authors, title, year, journal, volume, month, number,
                 pages, publisher, address, note, key);
         res.redirect("/");
         return "";

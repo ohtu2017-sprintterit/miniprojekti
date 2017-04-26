@@ -22,6 +22,7 @@ public class BibtexGeneratorTest {
         List<Reference> references = new ArrayList<>();
         references.add(new Article(
                 "a",
+                "tag",
                 new Authors("Author, Adam\nWriter, William"),
                 "A whole lot of nothing",
                 "Trash",
@@ -35,10 +36,10 @@ public class BibtexGeneratorTest {
                 null,
                 null
         ));
-        references.add(new Book("123", new Authors("Collins, Allan\nBrown, John Seely\nHolum, Ann"),
+        references.add(new Book("123", "tag", new Authors("Collins, Allan\nBrown, John Seely\nHolum, Ann"),
                 "C programming", 1984, "Publisher", "Scienceroad",
                 6, "Programming", "edition", "Feb", "note", "key"));
-        references.add(new Inproceeding("1234", new Authors("Collins, Allan\nBrown, John Seely\nHolum, Ann"),
+        references.add(new Inproceeding("1234", "tag", new Authors("Collins, Allan\nBrown, John Seely\nHolum, Ann"),
                 "title", "booktitle", new Pages(38, 46), 1999, "editor", 9,
                 "series", "month", "org", "publisher", "address", "note", "key"));
 

@@ -12,7 +12,7 @@ public class BookTest {
     @Before
     public void setUp() {
         authors = new Authors("Collins, Allan\nBrown, John Seely\nHolum, Ann");
-        book = new Book("123", authors, "C programming", 1984, "Publisher", "Scienceroad",
+        book = new Book("123", "tags", authors, "C programming", 1984, "Publisher", "Scienceroad",
                 6, "Programming", "edition", "Feb", "note", "key");
 
     }

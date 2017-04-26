@@ -15,6 +15,7 @@ public class Inproceeding extends Reference {
     private String key;
 
     public Inproceeding(String id,
+            String tags,
             Authors authors,
             String title,
             String booktitle,
@@ -29,7 +30,7 @@ public class Inproceeding extends Reference {
             String address,
             String note,
             String key) {
-        super(id, authors, title, year);
+        super(id, authors, title, year, tags);
         this.booktitle = booktitle;
         this.pages = pages;
         this.editor = editor;

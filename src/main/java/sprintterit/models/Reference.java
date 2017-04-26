@@ -12,16 +12,26 @@ public abstract class Reference {
     private Authors authors;
     private String title;
     private Integer year;
+    private String tags;
 
-    protected Reference(String id, Authors authors, String title, Integer year) {
+    protected Reference(String id, Authors authors, String title, Integer year, String tags) {
         this.id = id;
         this.authors = Objects.requireNonNull(authors);
         this.title = title;
         this.year = year;
+        this.tags = tags;
     }
 
     public String getId() {
         return id;
+    }
+    
+    public String getTags() {
+        return tags;
+    }
+    
+    public void setTags(String tags) {
+        this.tags = tags;
     }
 
     public Authors getAuthors() {

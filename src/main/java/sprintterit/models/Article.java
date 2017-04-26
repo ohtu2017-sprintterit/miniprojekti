@@ -21,6 +21,7 @@ public class Article extends Reference {
     private String key;
 
     public Article(String id,
+            String tags,
             Authors authors,
             String title,
             String journal,
@@ -33,7 +34,7 @@ public class Article extends Reference {
             String address,
             String note,
             String key) {
-        super(id, authors, title, year);
+        super(id, authors, title, year, tags);
         this.journal = journal;
         this.volume = volume;
         this.number = number;
