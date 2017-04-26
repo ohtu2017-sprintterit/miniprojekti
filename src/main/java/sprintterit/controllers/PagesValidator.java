@@ -36,11 +36,11 @@ public class PagesValidator {
 
     private void check(Integer begin, Integer end, InputValidator input) {
         if (begin == null) {
-            input.addError(beginName, beginFullname + " missing, but " + endFullname + " given");
+            input.addError(beginName, endFullname + " given but " + beginFullname + " is missing");
         }
 
         if (end == null) {
-            input.addError(endName, endFullname + " missing, but " + beginFullname + " given");
+            input.addError(endName, beginFullname + " given but " + endFullname + " is missing");
         }
 
         if (notNull(begin, end) && end < begin) {

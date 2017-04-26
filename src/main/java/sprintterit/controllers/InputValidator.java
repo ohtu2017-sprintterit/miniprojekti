@@ -3,6 +3,7 @@ package sprintterit.controllers;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Objects;
 import sprintterit.models.Pages;
 
 public class InputValidator {
@@ -12,7 +13,7 @@ public class InputValidator {
     private final Map<String, String> parameters;
 
     public InputValidator(Input input) {
-        this.input = input;
+        this.input = Objects.requireNonNull(input);
         this.errors = new LinkedHashMap<>();
         this.parameters = new HashMap<>();
     }
@@ -37,7 +38,7 @@ public class InputValidator {
         String value = input.getParameter(name);
         if (value != null) {
             value = value.trim();
-            parameters.put(name, value);
+            save(name, value);
         }
 
         if (isRequired && isEmpty(value)) {
@@ -76,6 +77,10 @@ public class InputValidator {
         } catch (NumberFormatException e) {
             return null;
         }
+    }
+
+    private void save(String name, String value) {
+        parameters.put(name, value);
     }
 
 }
