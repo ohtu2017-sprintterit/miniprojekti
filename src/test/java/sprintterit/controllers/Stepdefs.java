@@ -34,6 +34,13 @@ public class Stepdefs {
         driver.findElement(By.linkText("Book")).click();
     }
 
+    @Given("^Add inproceeding is selected$")
+    public void add_inproceeding_is_selected() throws Throwable {
+        driver.get(baseUrl);
+        sleep();
+        driver.findElement(By.linkText("Inproceeding")).click();
+    }
+
     @Given("^A new article with author \"([^\"]*)\", title \"([^\"]*)\", journal \"([^\"]*)\" and year \"([^\"]*)\" is created$")
     public void a_new_article_with_id_author_title_journal_and_year_is_created(String author, String title, String journal, String year) throws Throwable {
         add_article_selected();
@@ -63,6 +70,11 @@ public class Stepdefs {
     @When("^Book with author \"([^\"]*)\", title \"([^\"]*)\", publisher \"([^\"]*)\" and year \"([^\"]*)\" are given$")
     public void book_id_author_title_publisher_and_year_are_given(String author, String title, String publisher, String year) throws Throwable {
         addBook(author, title, publisher, year);
+    }
+
+    @When("^Inproceeding with author \"([^\"]*)\", title \"([^\"]*)\", booktitle \"([^\"]*)\" and year \"([^\"]*)\" are given$")
+    public void inproceeding_with_author_title_booktitle_and_year_are_given(String author, String title, String booktitle, String year) throws Throwable {
+        addInproceeding(author, title, booktitle, year);
     }
 
     @When("^Article with author \"([^\"]*)\", title \"([^\"]*)\", journal \"([^\"]*)\", volume \"([^\"]*)\", number \"([^\"]*)\", year \"([^\"]*)\" and pages \"([^\"]*)\" to \"([^\"]*)\" are given$")
@@ -98,6 +110,11 @@ public class Stepdefs {
     @Then("^Book is edited$")
     public void book_is_edited() throws Throwable {
         //pageHasContent("Reference Management");
+    }
+
+    @Then("^Inproceeding is added$")
+    public void inproceeding_is_added() throws Throwable {
+        pageHasContent("Reference Management");
     }
 
     @Then("^Article is not added and error \"([^\"]*)\" is reported$")
@@ -195,6 +212,17 @@ public class Stepdefs {
         driver.findElement(By.name("year")).sendKeys(year);
         sleep();
         driver.findElement(By.name("save")).submit();
+        sleep();
+    }
+
+    private void addInproceeding(String authors, String title, String booktitle, String year) {
+        pageHasContent("New inproceeding");
+        driver.findElement(By.name("authors")).sendKeys(authors);
+        driver.findElement(By.name("title")).sendKeys(title);
+        driver.findElement(By.name("booktitle")).sendKeys(booktitle);
+        driver.findElement(By.name("year")).sendKeys(year);
+        sleep();
+        driver.findElement(By.name("add")).submit();
         sleep();
     }
 
