@@ -104,6 +104,27 @@ public class Main {
         post("/edit_book", new EditBook(bookDao));
         post("/edit_inproceeding", new EditInproceeding(inproceedingDao));
 
+        post("/delete_article", (req, res) -> {
+            String id = req.queryParams("id");
+            articleDao.delete(id);
+            res.redirect("/");
+            return "";
+        });
+
+        post("/delete_book", (req, res) -> {
+            String id = req.queryParams("id");
+            bookDao.delete(id);
+            res.redirect("/");
+            return "";
+        });
+
+        post("/delete_inproceeding", (req, res) -> {
+            String id = req.queryParams("id");
+            inproceedingDao.delete(id);
+            res.redirect("/");
+            return "";
+        });
+
         post("/generatebibtex", (req, res) -> {
             String filename = "" + req.queryParams("filename");
             if (filename.length() == 0) {

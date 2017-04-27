@@ -59,4 +59,9 @@ public class ArticleDao {
                 publisher, address, note, key, id);
     }
 
+    public void delete(String id) throws SQLException {
+        query.insert("DELETE FROM Article WHERE id = ?", id);
+        query.insert("DELETE FROM Reference WHERE id = ?", id);
+    }
+
 }

@@ -60,4 +60,10 @@ public class InproceedingDao {
                 pages == null ? null : pages.getEnd(),
                 publisher, address, editor, volume, series, month, organization, note, key, id);
     }
+
+    public void delete(String id) throws SQLException {
+        query.insert("DELETE FROM Inproceeding WHERE id = ?", id);
+        query.insert("DELETE FROM Reference WHERE id = ?", id);
+    }
+    
 }

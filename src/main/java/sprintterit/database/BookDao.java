@@ -47,4 +47,10 @@ public class BookDao {
                 "UPDATE Book SET publisher = ?, address = ?, volume = ?, series = ?, edition = ?, month = ?, note = ?, key = ? WHERE id = ?",
                 publisher, address, volume, series, edition, month, note, key, id);
     }
+
+    public void delete(String id) throws SQLException {
+        query.insert("DELETE FROM Book WHERE id = ?", id);
+        query.insert("DELETE FROM Reference WHERE id = ?", id);
+    }
+    
 }

@@ -27,6 +27,7 @@
                     <th>Key</th>
                     <th>Tags</th>
                     <th></th>
+                    <th></th>
                 </tr>
                 <tr th:each="article : ${articles}">
                     <td th:text="${article.id}"></td>
@@ -43,6 +44,11 @@
                     <td th:text="${article.key}"></td>
                     <td th:text="${article.tags}"></td>
                     <td><a th:href="${'/article/' + article.id}" class="btn btn-default">Edit</a></td>
+                    <td><form method="POST" action="/delete_article">
+                            <input type="hidden" name="id" id="id" th:value="${article.id}"/>
+                            <input type="submit" name="delete" value="Delete" class="btn btn-danger"/>
+                        </form>
+                    </td>
                 </tr>
             </table>
         </div>
@@ -68,6 +74,7 @@
                     <th>Key</th>
                     <th>Tags</th>
                     <th></th>
+                    <th></th>
                 </tr>
                 <tr th:each="book : ${books}">
                     <td th:text="${book.id}"></td>
@@ -84,6 +91,11 @@
                     <td th:text="${book.key}"></td>
                     <td th:text="${book.tags}"></td>
                     <td><a th:href="${'/book/' + book.id}" class="btn btn-default">Edit</a></td>
+                    <td><form method="POST" action="/delete_book">
+                            <input type="hidden" name="id" id="id" th:value="${book.id}"/>
+                            <input type="submit" name="delete" value="Delete" class="btn btn-danger"/>
+                        </form>
+                    </td>
                 </tr>
             </table>
         </div>
@@ -112,6 +124,7 @@
                     <th>Key</th>
                     <th>Tags</th>
                     <th></th>
+                    <th></th>
                 </tr>
                 <tr th:each="inproceeding : ${inproceedings}">
                     <td th:text="${inproceeding.id}"></td>
@@ -131,6 +144,11 @@
                     <td th:text="${inproceeding.key}"></td>
                     <td th:text="${inproceeding.tags}"></td>
                     <td><a th:href="${'/inproceeding/' + inproceeding.id}" class="btn btn-default">Edit</a></td>
+                    <td><form method="POST" action="/delete_inproceeding">
+                            <input type="hidden" name="id" id="id" th:value="${inproceeding.id}"/>
+                            <input type="submit" name="delete" value="Delete" class="btn btn-danger"/>
+                        </form>
+                    </td>
                 </tr>
             </table>
         </div>
