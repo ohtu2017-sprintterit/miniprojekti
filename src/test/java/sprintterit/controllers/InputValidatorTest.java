@@ -225,35 +225,33 @@ public class InputValidatorTest {
         assertEquals("Endpage is less than Startpage", input.getErrors().get("endpage"));
     }
 
-//    To be continued...
-//    
-//    @Test
-//    public void shouldReportTrickyPageNumberCombination() {
-//        // This combination produced a server error in exploratory testing
-//        map.put("startpage", "non-integer");
-//        map.put("endpage", "10");
-//
-//        InputStub stub = new InputStub(map);
-//        InputValidator input = new InputValidator(stub);
-//
-//        input.getPages("startpage", "Startpage", "endpage", "Endpage");
-//
-//        assertEquals("Startpage should be an integer", input.getErrors().get("startpage"));
-//    }
-//
-//    @Test
-//    public void shouldReportTrickyPageNumberCombination2() {
-//        // This combination produced a server error in exploratory testing
-//        map.put("startpage", "10");
-//        map.put("endpage", "non-integer");
-//
-//        InputStub stub = new InputStub(map);
-//        InputValidator input = new InputValidator(stub);
-//
-//        input.getPages("startpage", "Startpage", "endpage", "Endpage");
-//
-//        assertEquals("Startpage should be an integer", input.getErrors().get("startpage"));
-//    }
+    @Test
+    public void shouldReportTrickyPageNumberCombination() {
+        // This combination produced a server error in exploratory testing (fixed)
+        map.put("startpage", "non-integer");
+        map.put("endpage", "10");
+
+        InputStub stub = new InputStub(map);
+        InputValidator input = new InputValidator(stub);
+
+        input.getPages("startpage", "Startpage", "endpage", "Endpage");
+
+        assertEquals("Startpage should be an integer", input.getErrors().get("startpage"));
+    }
+
+    @Test
+    public void shouldReportTrickyPageNumberCombination2() {
+        // This combination produced a server error in exploratory testing (fixed)
+        map.put("startpage", "10");
+        map.put("endpage", "non-integer");
+
+        InputStub stub = new InputStub(map);
+        InputValidator input = new InputValidator(stub);
+
+        input.getPages("startpage", "Startpage", "endpage", "Endpage");
+
+        assertEquals("Endpage should be an integer", input.getErrors().get("endpage"));
+    }
 
     @Test
     public void shouldSaveResultsOfAllQueries() {

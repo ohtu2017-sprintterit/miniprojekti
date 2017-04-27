@@ -30,6 +30,10 @@ public class InputValidator {
         errors.put(name, errorMessage);
     }
 
+    boolean hasError(String name) {
+        return errors.containsKey(name);
+    }
+
     public Map<String, String> getParameters() {
         return parameters;
     }

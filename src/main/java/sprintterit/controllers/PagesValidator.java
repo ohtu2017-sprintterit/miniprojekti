@@ -17,14 +17,13 @@ public class PagesValidator {
     }
 
     public Pages getPages(InputValidator input) {
+        int initialSize = input.getErrors().size();
+
+        // "input" checks if these values are really integers
         Integer begin = input.getInteger(beginName, beginFullname, false);
         Integer end = input.getInteger(endName, endFullname, false);
-        int initialSize = input.getErrors().size();
-        if (begin == null && end == null) {
-            // No page numbers provided, this is ok
-            return null;
-        }
 
+        // We check a few others things as well
         check(begin, end, input);
 
         if (input.getErrors().size() > initialSize) {
@@ -35,21 +34,33 @@ public class PagesValidator {
     }
 
     private void check(Integer begin, Integer end, InputValidator input) {
+        if (begin == null && end == null) {
+            return;
+        }
+
         if (begin == null) {
-            input.addError(beginName, endFullname + " given but " + beginFullname + " is missing");
+            addError(input, beginName, endFullname + " given but " + beginFullname + " is missing");
         }
 
         if (end == null) {
-            input.addError(endName, beginFullname + " given but " + endFullname + " is missing");
+            addError(input, endName, beginFullname + " given but " + endFullname + " is missing");
         }
 
         if (notNull(begin, end) && end < begin) {
-            input.addError(endName, endFullname + " is less than " + beginFullname);
+            addError(input, endName, endFullname + " is less than " + beginFullname);
         }
 
         if (notNull(begin) && begin < 1) {
-            input.addError(beginName, beginFullname + " is less than 1");
+            addError(input, beginName, beginFullname + " is less than 1");
         }
+    }
+
+    private void addError(InputValidator input, String name, String msg) {
+        if (input.hasError(name)) {
+            return;
+        }
+
+        input.addError(name, msg);
     }
 
     private boolean notNull(Integer page) {
