@@ -62,7 +62,7 @@ public class InproceedingDao {
     }
 
     public void delete(String id) throws SQLException {
-        query.insert("DELETE FROM Inproceeding WHERE id = ?", id);
+        query.insert("DELETE FROM Inproceedings WHERE id = ?", id);
         query.insert("DELETE FROM Reference WHERE id = ?", id);
     }
     
