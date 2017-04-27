@@ -65,5 +65,25 @@ public class InproceedingDao {
         query.insert("DELETE FROM Inproceedings WHERE id = ?", id);
         query.insert("DELETE FROM Reference WHERE id = ?", id);
     }
-    
+
+    public List<Inproceeding> findTag(String word) throws SQLException {
+        return query.queryList(
+                "SELECT * FROM Reference r INNER JOIN Inproceedings a ON r.id = a.id WHERE r.tags LIKE '%" + word + "%'");
+    }
+
+    public List<Inproceeding> findAuthor(String word) throws SQLException {
+        return query.queryList(
+                "SELECT * FROM Reference r INNER JOIN Inproceedings a ON r.id = a.id WHERE r.authors LIKE '%" + word + "%'");
+    }
+
+    public List<Inproceeding> findTitle(String word) throws SQLException {
+        return query.queryList(
+                "SELECT * FROM Reference r INNER JOIN Inproceedings a ON r.id = a.id WHERE r.title LIKE '%" + word + "%'");
+    }
+
+    public List<Inproceeding> findYear(String word) throws SQLException {
+        return query.queryList(
+                "SELECT * FROM Reference r INNER JOIN Inproceedings a ON r.id = a.id WHERE r.year LIKE '%" + word + "%'");
+    }
+
 }

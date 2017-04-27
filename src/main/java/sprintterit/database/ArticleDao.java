@@ -64,4 +64,24 @@ public class ArticleDao {
         query.insert("DELETE FROM Reference WHERE id = ?", id);
     }
 
+    public List<Article> findTag(String word) throws SQLException {
+        return query.queryList(
+                "SELECT * FROM Reference r INNER JOIN Article a ON r.id = a.id WHERE r.tags LIKE '%" + word + "%'");
+    }
+
+    public List<Article> findAuthor(String word) throws SQLException {
+        return query.queryList(
+                "SELECT * FROM Reference r INNER JOIN Article a ON r.id = a.id WHERE r.authors LIKE '%" + word + "%'");
+    }
+
+    public List<Article> findTitle(String word) throws SQLException {
+        return query.queryList(
+                "SELECT * FROM Reference r INNER JOIN Article a ON r.id = a.id WHERE r.title LIKE '%" + word + "%'");
+    }
+
+    public List<Article> findYear(String word) throws SQLException {
+        return query.queryList(
+                "SELECT * FROM Reference r INNER JOIN Article a ON r.id = a.id WHERE r.year LIKE '%" + word + "%'");
+    }
+
 }

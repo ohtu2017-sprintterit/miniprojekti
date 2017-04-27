@@ -57,9 +57,27 @@ public class Main {
 
         get("/", (req, res) -> {
             HashMap map = new HashMap<>();
-            map.put("articles", articleDao.findAll());
-            map.put("books", bookDao.findAll());
-            map.put("inproceedings", inproceedingDao.findAll());
+            if (req.queryParams("search_tag") != null) {
+                map.put("articles", articleDao.findTag(req.queryParams("search_tag")));
+                map.put("books", bookDao.findTag(req.queryParams("search_tag")));
+                map.put("inproceedings", inproceedingDao.findTag(req.queryParams("search_tag")));
+            } else if (req.queryParams("search_author") != null) {
+                map.put("articles", articleDao.findAuthor(req.queryParams("search_author")));
+                map.put("books", bookDao.findAuthor(req.queryParams("search_author")));
+                map.put("inproceedings", inproceedingDao.findAuthor(req.queryParams("search_author")));
+            } else if (req.queryParams("search_title") != null) {
+                map.put("articles", articleDao.findTitle(req.queryParams("search_title")));
+                map.put("books", bookDao.findTitle(req.queryParams("search_title")));
+                map.put("inproceedings", inproceedingDao.findTitle(req.queryParams("search_title")));
+            } else if (req.queryParams("search_year") != null) {
+                map.put("articles", articleDao.findYear(req.queryParams("search_year")));
+                map.put("books", bookDao.findYear(req.queryParams("search_year")));
+                map.put("inproceedings", inproceedingDao.findYear(req.queryParams("search_year")));
+            } else {
+                map.put("articles", articleDao.findAll());
+                map.put("books", bookDao.findAll());
+                map.put("inproceedings", inproceedingDao.findAll());
+            }
             return new ModelAndView(map, "index");
         }, new ThymeleafTemplateEngine());
 

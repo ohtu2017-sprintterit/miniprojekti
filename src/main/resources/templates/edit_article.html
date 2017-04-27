@@ -13,7 +13,7 @@
         <form method="POST" action="/edit_article">
             <table>
                 <tr><td>BibTex-Key:</td><td><span th:text="${article.id}"/></span><input type="hidden" name="id" id="id" th:value="${article.id}"/></td></tr>
-                <tr><td>Tag(s):</td><td><span th:text="${article.tags}"/></span><input type="text" name="tags" id="tags" th:value="${article.tags}"/></td></tr>
+                <tr><td>Tag(s):</td><td><input type="text" name="tags" id="tags" th:value="${article.tags}"/></td></tr>
                 <tr><td>Authors:*</td>
                     <td><textarea name="authors" id="authors" rows="5" cols="30" th:text="${article.authorsSeparated}"></textarea></td></tr>
                 <tr><td>Title:*</td><td><input type="text" name="title" id="title" th:value="${article.title}"/></td></tr>

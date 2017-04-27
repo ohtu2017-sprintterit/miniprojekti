@@ -24,14 +24,14 @@ public class Stepdefs {
     public void add_article_selected() throws Throwable {
         driver.get(baseUrl);
         sleep();
-        driver.findElement(By.linkText("Add article")).click();
+        driver.findElement(By.linkText("Article")).click();
     }
 
     @Given("^Add book is selected$")
     public void add_book_selected() throws Throwable {
         driver.get(baseUrl);
         sleep();
-        driver.findElement(By.linkText("Add book")).click();
+        driver.findElement(By.linkText("Book")).click();
     }
 
     @Given("^A new article with author \"([^\"]*)\", title \"([^\"]*)\", journal \"([^\"]*)\" and year \"([^\"]*)\" is created$")

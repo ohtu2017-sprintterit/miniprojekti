@@ -13,7 +13,7 @@
         <form method="POST" action="/edit_inproceeding">
             <table>
                 <tr><td>BibTex-Key:</td><td><span th:text="${inproceeding.id}"/></span><input type="hidden" name="id" id="id" th:value="${inproceeding.id}"/></td></tr>
-                <tr><td>Tag(s):</td><td><span th:text="${inproceeding.tags}"/></span><input type="text" name="tags" id="tags" th:value="${inproceeding.tags}"/></td></tr>
+                <tr><td>Tag(s):</td><td><input type="text" name="tags" id="tags" th:value="${inproceeding.tags}"/></td></tr>
                 <tr><td>Authors:*</td>
                     <td><textarea name="authors" id="authors" rows="5" cols="30" th:text="${inproceeding.authorsSeparated}"></textarea></td></tr>
                 <tr><td>Title:*</td><td><input type="text" name="title" id="title" th:value="${inproceeding.title}"/></td></tr>

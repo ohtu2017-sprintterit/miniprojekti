@@ -27,7 +27,7 @@ public class BookDao {
                 "INSERT INTO Book (publisher, address, volume, series, edition, month, note, key, id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
                 publisher, address, volume, series, edition, month, note, key, bibKey);
     }
-    
+
     public Book findOne(String id) throws SQLException {
         return query.queryObject(
                 "SELECT * FROM Reference r INNER JOIN Book a "
@@ -52,5 +52,25 @@ public class BookDao {
         query.insert("DELETE FROM Book WHERE id = ?", id);
         query.insert("DELETE FROM Reference WHERE id = ?", id);
     }
-    
+
+    public List<Book> findTag(String word) throws SQLException {
+        return query.queryList(
+                "SELECT * FROM Reference r INNER JOIN Book a ON r.id = a.id WHERE r.tags LIKE '%" + word + "%'");
+    }
+
+    public List<Book> findAuthor(String word) throws SQLException {
+        return query.queryList(
+                "SELECT * FROM Reference r INNER JOIN Book a ON r.id = a.id WHERE r.authors LIKE '%" + word + "%'");
+    }
+
+    public List<Book> findTitle(String word) throws SQLException {
+        return query.queryList(
+                "SELECT * FROM Reference r INNER JOIN Book a ON r.id = a.id WHERE r.title LIKE '%" + word + "%'");
+    }
+
+    public List<Book> findYear(String word) throws SQLException {
+        return query.queryList(
+                "SELECT * FROM Reference r INNER JOIN Book a ON r.id = a.id WHERE r.year LIKE '%" + word + "%'");
+    }
+
 }
