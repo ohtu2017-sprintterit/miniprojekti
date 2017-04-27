@@ -22,6 +22,9 @@ public class PagesValidator {
         // "input" checks if these values are really integers
         Integer begin = input.getInteger(beginName, beginFullname, false);
         Integer end = input.getInteger(endName, endFullname, false);
+        if (begin == null && end == null) {
+            return null;
+        }
 
         // We check a few others things as well
         check(begin, end, input);
@@ -34,10 +37,6 @@ public class PagesValidator {
     }
 
     private void check(Integer begin, Integer end, InputValidator input) {
-        if (begin == null && end == null) {
-            return;
-        }
-
         if (begin == null) {
             addError(input, beginName, endFullname + " given but " + beginFullname + " is missing");
         }
