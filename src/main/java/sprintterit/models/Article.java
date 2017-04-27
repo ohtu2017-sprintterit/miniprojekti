@@ -86,6 +86,22 @@ public class Article extends Reference {
         this.pages = pages;
     }
 
+    public Integer getStartpage() {
+        if (pages == null) {
+            return null;
+        }
+
+        return pages.getBegin();
+    }
+
+    public Integer getEndpage() {
+        if (pages == null) {
+            return null;
+        }
+
+        return pages.getEnd();
+    }
+
     public String getPublisher() {
         return publisher;
     }
@@ -116,14 +132,6 @@ public class Article extends Reference {
 
     public void setKey(String key) {
         this.key = key;
-    }
-
-    public Integer getStartpage() {
-        return pages.getBegin();
-    }
-
-    public Integer getEndpage() {
-        return pages.getEnd();
     }
 
     @Override
