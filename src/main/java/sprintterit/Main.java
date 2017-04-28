@@ -69,10 +69,10 @@ public class Main {
                 map.put("articles", articleDao.findTitle(req.queryParams("search_title")));
                 map.put("books", bookDao.findTitle(req.queryParams("search_title")));
                 map.put("inproceedings", inproceedingDao.findTitle(req.queryParams("search_title")));
-            } else if (req.queryParams("search_year") != null) {
-                map.put("articles", articleDao.findYear(req.queryParams("search_year")));
-                map.put("books", bookDao.findYear(req.queryParams("search_year")));
-                map.put("inproceedings", inproceedingDao.findYear(req.queryParams("search_year")));
+            } else if (req.queryParams("search_year") != null && req.queryParams("search_year").matches("[0-9]+")) {
+                map.put("articles", articleDao.findYear(Integer.parseInt(req.queryParams("search_year"))));
+                map.put("books", bookDao.findYear(Integer.parseInt(req.queryParams("search_year"))));
+                map.put("inproceedings", inproceedingDao.findYear(Integer.parseInt(req.queryParams("search_year"))));
             } else {
                 map.put("articles", articleDao.findAll());
                 map.put("books", bookDao.findAll());

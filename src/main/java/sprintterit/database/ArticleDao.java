@@ -79,9 +79,9 @@ public class ArticleDao {
                 "SELECT * FROM Reference r INNER JOIN Article a ON r.id = a.id WHERE r.title LIKE '%" + word + "%'");
     }
 
-    public List<Article> findYear(String word) throws SQLException {
+    public List<Article> findYear(int year) throws SQLException {
         return query.queryList(
-                "SELECT * FROM Reference r INNER JOIN Article a ON r.id = a.id WHERE r.year LIKE '%" + word + "%'");
+                "SELECT * FROM Reference r INNER JOIN Article a ON r.id = a.id WHERE r.year = ?", year);
     }
 
 }

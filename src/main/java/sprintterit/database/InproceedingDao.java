@@ -81,9 +81,9 @@ public class InproceedingDao {
                 "SELECT * FROM Reference r INNER JOIN Inproceedings a ON r.id = a.id WHERE r.title LIKE '%" + word + "%'");
     }
 
-    public List<Inproceeding> findYear(String word) throws SQLException {
+    public List<Inproceeding> findYear(int year) throws SQLException {
         return query.queryList(
-                "SELECT * FROM Reference r INNER JOIN Inproceedings a ON r.id = a.id WHERE r.year LIKE '%" + word + "%'");
+                "SELECT * FROM Reference r INNER JOIN Inproceedings a ON r.id = a.id WHERE r.year = ?", year);
     }
 
 }
