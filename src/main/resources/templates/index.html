@@ -8,8 +8,19 @@
     <body class="container">
         <h1>Reference Management</h1>
         
-        <h3>Add reference</h3>
-        <p><a href="/article" class="btn btn-primary btn-sm">Article</a> <a href="/book" class="btn btn-primary btn-sm">Book</a> <a href="/inproceeding" class="btn btn-primary btn-sm">Inproceeding</a></p>
+        <div style="display: inline-block">
+            <h3>Add reference</h3>
+            <p><a href="/article" class="btn btn-primary btn-sm">Article</a> <a href="/book" class="btn btn-primary btn-sm">Book</a> <a href="/inproceeding" class="btn btn-primary btn-sm">Inproceeding</a></p>
+        </div>
+        
+        <div style="display: inline-block; margin-left: 25px">
+            <h3>Generate BibTeX file</h3>
+            <form method="post" action="/generatebibtex">
+                <label for="filename">Filename:</label>
+                <input type="text" name="filename" id="filename">
+                <input type="submit" value="Generate" class="btn btn-primary btn-sm">
+            </form>
+        </div>
 
         <h3>Search</h3>
         <table class="table">
@@ -188,15 +199,6 @@
         <div th:if="${inproceedings.empty}">
             <p>No inproceedings</p>
         </div>
-
-        <div>
-            <h3>Generate BibTeX file</h3>
-            <form method="post" action="/generatebibtex">
-                <label for="filename">Filename:</label>
-                <input type="text" name="filename" id="filename">
-                <input type="submit" value="Generate" class="btn btn-primary btn-sm">
-            </form>
-        </div><br>
 
     </body>
 </html>
