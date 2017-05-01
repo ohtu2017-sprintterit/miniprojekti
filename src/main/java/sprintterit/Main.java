@@ -6,13 +6,7 @@ import spark.ModelAndView;
 import static spark.Spark.*;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 import sprintterit.bibtexgen.BibtexGenerator;
-import sprintterit.controllers.AddArticle;
-import sprintterit.controllers.AddBook;
-import sprintterit.controllers.AddInproceeding;
-import sprintterit.controllers.EditArticle;
-import sprintterit.controllers.EditBook;
-import sprintterit.controllers.EditInproceeding;
-import sprintterit.controllers.ViewArticle;
+import sprintterit.controllers.*;
 import sprintterit.database.ArticleDao;
 import sprintterit.database.BookDao;
 import sprintterit.database.Database;
@@ -151,5 +145,9 @@ public class Main {
                 return gen.generateBibtexFile(referenceDao.findAll());
             }
         });
+
+        ACMImportController acmController = new ACMImportController(articleDao, bookDao, inproceedingDao);
+        get("/acmimport", acmController);
+        post("/acmimport", acmController);
     }
 }
