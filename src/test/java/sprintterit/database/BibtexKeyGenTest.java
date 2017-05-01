@@ -9,7 +9,7 @@ import org.junit.Test;
 public class BibtexKeyGenTest {
 
     List<String> idList;
-    CheckId idCheck;
+    CheckIdAvailable idCheck;
 
     @Before
     public void setUsedIds() {

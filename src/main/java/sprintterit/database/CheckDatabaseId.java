@@ -2,7 +2,7 @@ package sprintterit.database;
 
 import java.sql.SQLException;
 
-public class CheckDatabaseId implements CheckId {
+public class CheckDatabaseId implements CheckIdAvailable {
 
     private final Database database;
 

@@ -5,9 +5,9 @@ import java.text.Normalizer;
 
 public class BibtexKeyGen {
 
-    private final CheckId idCheck;
+    private final CheckIdAvailable idCheck;
 
-    public BibtexKeyGen(CheckId idCheck) {
+    public BibtexKeyGen(CheckIdAvailable idCheck) {
         this.idCheck = idCheck;
     }
 

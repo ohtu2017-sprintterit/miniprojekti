@@ -22,7 +22,7 @@ public class EditBook implements Route {
         InputValidator input = new InputValidator(request);
 
         String id = input.getString("id", "Id", false);
-        String tags = input.getString("tags", "Tags", true);
+        String tags = input.getString("tags", "Tags", false);
         String authors = input.getString("authors", "Authors", true);
         String title = input.getString("title", "Title", true);
         Integer year = input.getInteger("year", "Year", true);

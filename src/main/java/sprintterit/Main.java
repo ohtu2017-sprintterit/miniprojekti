@@ -16,7 +16,7 @@ import sprintterit.database.ReferenceDao;
 public class Main {
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        // Osoite: http://osoitetuleetahan.herokuapp.com/
+        // Osoite: http://sprintterit-bibtex.herokuapp.com/
         // Paikallinen versio: http://localhost:4567/
 
         // Bootstrapin tyylitiedoston sijainti
