@@ -55,17 +55,17 @@ public class BookDao {
 
     public List<Book> findTag(String word) throws SQLException {
         return query.queryList(
-                "SELECT * FROM Reference r INNER JOIN Book a ON r.id = a.id WHERE r.tags LIKE '%" + word + "%'");
+                "SELECT * FROM Reference r INNER JOIN Book a ON r.id = a.id WHERE lower(r.tags) LIKE '%" + word.toLowerCase() + "%'");
     }
 
     public List<Book> findAuthor(String word) throws SQLException {
         return query.queryList(
-                "SELECT * FROM Reference r INNER JOIN Book a ON r.id = a.id WHERE r.authors LIKE '%" + word + "%'");
+                "SELECT * FROM Reference r INNER JOIN Book a ON r.id = a.id WHERE lower(r.authors) LIKE '%" + word.toLowerCase() + "%'");
     }
 
     public List<Book> findTitle(String word) throws SQLException {
         return query.queryList(
-                "SELECT * FROM Reference r INNER JOIN Book a ON r.id = a.id WHERE r.title LIKE '%" + word + "%'");
+                "SELECT * FROM Reference r INNER JOIN Book a ON r.id = a.id WHERE lower(r.title) LIKE '%" + word.toLowerCase() + "%'");
     }
 
     public List<Book> findYear(int year) throws SQLException {

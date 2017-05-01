@@ -68,17 +68,17 @@ public class InproceedingDao {
 
     public List<Inproceeding> findTag(String word) throws SQLException {
         return query.queryList(
-                "SELECT * FROM Reference r INNER JOIN Inproceedings a ON r.id = a.id WHERE r.tags LIKE '%" + word + "%'");
+                "SELECT * FROM Reference r INNER JOIN Inproceedings a ON r.id = a.id WHERE lower(r.tags) LIKE '%" + word.toLowerCase() + "%'");
     }
 
     public List<Inproceeding> findAuthor(String word) throws SQLException {
         return query.queryList(
-                "SELECT * FROM Reference r INNER JOIN Inproceedings a ON r.id = a.id WHERE r.authors LIKE '%" + word + "%'");
+                "SELECT * FROM Reference r INNER JOIN Inproceedings a ON r.id = a.id WHERE lower(r.authors) LIKE '%" + word.toLowerCase() + "%'");
     }
 
     public List<Inproceeding> findTitle(String word) throws SQLException {
         return query.queryList(
-                "SELECT * FROM Reference r INNER JOIN Inproceedings a ON r.id = a.id WHERE r.title LIKE '%" + word + "%'");
+                "SELECT * FROM Reference r INNER JOIN Inproceedings a ON r.id = a.id WHERE lower(r.title) LIKE '%" + word.toLowerCase() + "%'");
     }
 
     public List<Inproceeding> findYear(int year) throws SQLException {
