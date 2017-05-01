@@ -16,7 +16,7 @@
 
             <form method="POST" action="/edit_book">
                 <table>
-                    <tr><td>BibTeX-Key:</td><td><span th:text="${id}"/></span><input type="hidden" name="id" id="id" th:value="${id}"/></td></tr>
+                    <input type="hidden" name="id" id="id" th:value="${id}"/>
                     <tr><td>Tag(s):</td><td><input type="text" name="tags" id="tags" th:value="${tags}"/></td></tr>
                     <tr><td>Authors:*</td>
                         <td><textarea name="authors" id="authors" rows="5" cols="30" placeholder="Sukunimi, Etunimi&#10;Lastname, Firstname" th:text="${authors}"></textarea></td></tr>

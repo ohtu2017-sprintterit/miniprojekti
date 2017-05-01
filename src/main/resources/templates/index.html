@@ -23,7 +23,7 @@
                         </select>
                         <label for="search">Find:</label>
                         <input id="search" class="form-control" type="text" name="search" placeholder="Search terms">
-                        <input class="btn btn-primary btn-small" type="submit" value="Search">
+                        <input class="btn btn-primary" type="submit" value="Search">
                     </form>
                 </div>
                 <div class="col col-md-6">
@@ -31,14 +31,14 @@
                     <form class="form-inline" method="post" action="/generatebibtex">
                         <label for="filename">Filename:</label>
                         <input class="form-control" type="text" name="filename" id="filename">
-                        <input type="submit" value="Export" class="btn btn-primary btn-sm">
+                        <input type="submit" value="Export" class="btn btn-primary">
                     </form>
                 </div>
             </div>
 
             <h2>Articles</h2>
             <div th:if="${!articles.empty}">
-                <table class="table">
+                <table class="table table-condensed">
                     <tr>
                         <th>BibTeX key</th>
                         <th>Authors</th>
@@ -84,7 +84,7 @@
 
             <h2>Books</h2>
             <div th:if="${!books.empty}">
-                <table class="table">
+                <table class="table table-condensed">
                     <tr>
                         <th>BibTeX key</th>
                         <th>Authors</th>
@@ -130,7 +130,7 @@
 
             <h2>Inproceedings</h2>
             <div th:if="${!inproceedings.empty}">
-                <table class="table">
+                <table class="table table-condensed">
                     <tr>
                         <th>BibTeX key</th>
                         <th>Authors</th>
