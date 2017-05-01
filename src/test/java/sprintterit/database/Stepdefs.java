@@ -39,7 +39,7 @@ public class Stepdefs {
 
     @When("^Article is edited with id \"([^\"]*)\", author \"([^\"]*)\", title \"([^\"]*)\", journal \"([^\"]*)\", startpage (\\d+), endpage (\\d+), year (\\d+)$")
     public void article_is_edited(String id, String authors, String title, String journal, Integer startpage, Integer endpage, Integer year) throws Throwable {
-        articleDao.editArticle(id, authors, "", title, year, journal, 0, "", 0, new Pages(startpage, endpage), "", "", "", "");
+        articleDao.editArticle(id, "", authors, title, year, journal, 0, "", 0, new Pages(startpage, endpage), "", "", "", "");
     }
 
     @When("^Book is added with author \"([^\"]*)\", title \"([^\"]*)\", year (\\d+), publisher \"([^\"]*)\"$")

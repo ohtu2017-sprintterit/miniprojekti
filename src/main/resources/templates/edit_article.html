@@ -12,21 +12,21 @@
         </div>
         <form method="POST" action="/edit_article">
             <table>
-                <tr><td>BibTex-Key:</td><td><span th:text="${article.id}"/></span><input type="hidden" name="id" id="id" th:value="${article.id}"/></td></tr>
-                <tr><td>Tag(s):</td><td><input type="text" name="tags" id="tags" th:value="${article.tags}"/></td></tr>
+                <tr><td>BibTeX-Key:</td><td><span th:text="${id}"/></span><input type="hidden" name="id" id="id" th:value="${id}"/></td></tr>
+                <tr><td>Tag(s):</td><td><input type="text" name="tags" id="tags" th:value="${tags}"/></td></tr>
                 <tr><td>Authors:*</td>
-                    <td><textarea name="authors" id="authors" rows="5" cols="30" th:text="${article.authorsSeparated}"></textarea></td></tr>
-                <tr><td>Title:*</td><td><input type="text" name="title" id="title" th:value="${article.title}"/></td></tr>
-                <tr><td>Journal:*</td><td><input type="text" name="journal" id="journal" th:value="${article.journal}"/></td></tr>
-                <tr><td>Volume:</td><td><input type="text" name="volume" id="volume" th:value="${article.volume}?: ''"/></td></tr>
-                <tr><td>Number:</td><td><input type="text" name="number" id="number" th:value="${article.number}?: ''"/></td></tr>
-                <tr><td>Year:*</td><td><input type="text" name="year" id="year" th:value="${article.year}"/></td></tr>
-                <tr><td>Start Page:</td><td><input type="text" name="startpage" id="startpage" th:value="${article.pages != null} ? ${article.startpage}: ''"/></td></tr>
-                <tr><td>End Page:</td><td><input type="text" name="endpage" id="endpage" th:value="${article.pages != null} ? ${article.endpage}: ''"/></td></tr>
-                <tr><td>Publisher:</td><td><input type="text" name="publisher" id="publisher" th:value="${article.publisher}?: ''"/></td></tr>
-                <tr><td>Address:</td><td><input type="text" name="address" id="address" th:value="${article.address}?: ''"/></td></tr>
-                <tr><td>Note:</td><td><textarea name="note" id="note" rows="3" cols="30" th:text="${article.note}?: ''"></textarea></td></tr>
-                <tr><td>Key:</td><td><input type="text" name="key" id="key" th:value="${article.key}?: ''"/></td></tr>
+                    <td><textarea name="authors" id="authors" rows="5" cols="30" placeholder="Sukunimi, Etunimi&#10;Lastname, Firstname" th:text="${authors}"></textarea></td></tr>
+                <tr><td>Title:*</td><td><input type="text" name="title" id="title" th:value="${title}"/></td></tr>
+                <tr><td>Journal:*</td><td><input type="text" name="journal" id="journal" th:value="${journal}"/></td></tr>
+                <tr><td>Volume:</td><td><input type="text" name="volume" id="volume" th:value="${volume}"/></td></tr>
+                <tr><td>Number:</td><td><input type="text" name="number" id="number" th:value="${number}"/></td></tr>
+                <tr><td>Year:*</td><td><input type="text" name="year" id="year" th:value="${year}"/></td></tr>
+                <tr><td>Start Page:</td><td><input type="text" name="startpage" id="startpage" th:value="${startpage}"/></td></tr>
+                <tr><td>End Page:</td><td><input type="text" name="endpage" id="endpage" th:value="${endpage}"/></td></tr>
+                <tr><td>Publisher:</td><td><input type="text" name="publisher" id="publisher" th:value="${publisher}"/></td></tr>
+                <tr><td>Address:</td><td><input type="text" name="address" id="address" th:value="${address}"/></td></tr>
+                <tr><td>Note:</td><td><textarea name="note" id="note" rows="3" cols="30" th:text="${note}"></textarea></td></tr>
+                <tr><td>Key:</td><td><input type="text" name="key" id="key" th:value="${key}"/></td></tr>
             </table>
             <br>
             <div>

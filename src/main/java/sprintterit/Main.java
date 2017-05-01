@@ -12,6 +12,7 @@ import sprintterit.controllers.AddInproceeding;
 import sprintterit.controllers.EditArticle;
 import sprintterit.controllers.EditBook;
 import sprintterit.controllers.EditInproceeding;
+import sprintterit.controllers.ViewArticle;
 import sprintterit.database.ArticleDao;
 import sprintterit.database.BookDao;
 import sprintterit.database.Database;
@@ -96,12 +97,6 @@ public class Main {
             return new ModelAndView(map, "inproceeding");
         }, new ThymeleafTemplateEngine());
 
-        get("/article/:id", (req, res) -> {
-            HashMap map = new HashMap<>();
-            map.put("article", articleDao.findOne(req.params("id")));
-            return new ModelAndView(map, "edit_article");
-        }, new ThymeleafTemplateEngine());
-
         get("/book/:id", (req, res) -> {
             HashMap map = new HashMap<>();
             map.put("book", bookDao.findOne(req.params("id")));
@@ -117,6 +112,8 @@ public class Main {
         post("/article", new AddArticle(articleDao));
         post("/book", new AddBook(bookDao));
         post("/inproceeding", new AddInproceeding(inproceedingDao));
+
+        get("/article/:id", new ViewArticle(articleDao));
 
         post("/edit_article", new EditArticle(articleDao));
         post("/edit_book", new EditBook(bookDao));

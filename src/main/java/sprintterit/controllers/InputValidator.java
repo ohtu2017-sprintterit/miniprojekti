@@ -1,6 +1,5 @@
 package sprintterit.controllers;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -10,12 +9,12 @@ public class InputValidator {
 
     private final Input input;
     private final Map<String, String> errors;
-    private final Map<String, String> parameters;
+    private final Parameters parameters;
 
     public InputValidator(Input input) {
         this.input = Objects.requireNonNull(input);
         this.errors = new LinkedHashMap<>();
-        this.parameters = new HashMap<>();
+        this.parameters = new Parameters();
     }
 
     public Map<String, String> getErrors() {
@@ -35,7 +34,7 @@ public class InputValidator {
     }
 
     public Map<String, String> getParameters() {
-        return parameters;
+        return parameters.getMap();
     }
 
     public String getString(String name, String fullname, boolean isRequired) {

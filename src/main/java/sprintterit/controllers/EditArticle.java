@@ -40,7 +40,7 @@ public class EditArticle implements Route {
         if (!input.isOk()) {
             HashMap map = new HashMap();
             map.put("errors", input.getErrors());
-            map.put("article", input.getParameters());
+            map.putAll(input.getParameters());
             return new ThymeleafTemplateEngine().render(
                     new ModelAndView(map, "edit_article"));
         }
