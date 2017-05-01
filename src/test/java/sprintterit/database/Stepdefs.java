@@ -59,7 +59,7 @@ public class Stepdefs {
 
     @When("^Inproceeding is edited with id \"([^\"]*)\", author \"([^\"]*)\", title \"([^\"]*)\", booktitle \"([^\"]*)\", year (\\d+)$")
     public void inproceeding_is_edited(String id, String authors, String title, String booktitle, Integer year) throws Throwable {
-        inproceedingDao.editInproceeding(id, authors, "", title, year, booktitle, "", 0, "", "", null, "", "", "", "", "");
+        inproceedingDao.editInproceeding(id, "", authors, title, year, booktitle, "", 0, "", "", null, "", "", "", "", "");
     }
 
     @Then("^From database field \"([^\"]*)\", author is set to \"([^\"]*)\", title to \"([^\"]*)\", journal to \"([^\"]*)\", startpage (\\d+), endpage (\\d+), year (\\d+)$")
