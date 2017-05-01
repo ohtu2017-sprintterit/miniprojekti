@@ -1,6 +1,7 @@
 package sprintterit.database;
 
 import java.sql.SQLException;
+import java.text.Normalizer;
 
 public class BibtexKeyGen {
 
@@ -12,6 +13,7 @@ public class BibtexKeyGen {
 
     public String bibtexKey(String authors, int year) throws SQLException {
         String key = "";
+        authors = Normalizer.normalize(authors, Normalizer.Form.NFKD).replaceAll("\\p{M}", "");
         String[] a = authors.split("\\r?\\n");
         for (int i = 0; i < 3 && i < a.length; i++) {
             int k = a[i].indexOf(",");
