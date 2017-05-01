@@ -5,34 +5,38 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
     </head>
-    <body class="container">
-        <h1>Edit article</h1>
-        <div th:if="${errors} != null and ${!errors.empty}" id="error" style="color:red">
-            <p th:each="e : ${errors}" th:text="${e.value}">Error message</p>
-        </div>
-        <form method="POST" action="/edit_article">
-            <table>
-                <tr><td>BibTeX-Key:</td><td><span th:text="${id}"/></span><input type="hidden" name="id" id="id" th:value="${id}"/></td></tr>
-                <tr><td>Tag(s):</td><td><input type="text" name="tags" id="tags" th:value="${tags}"/></td></tr>
-                <tr><td>Authors:*</td>
-                    <td><textarea name="authors" id="authors" rows="5" cols="30" placeholder="Sukunimi, Etunimi&#10;Lastname, Firstname" th:text="${authors}"></textarea></td></tr>
-                <tr><td>Title:*</td><td><input type="text" name="title" id="title" th:value="${title}"/></td></tr>
-                <tr><td>Journal:*</td><td><input type="text" name="journal" id="journal" th:value="${journal}"/></td></tr>
-                <tr><td>Volume:</td><td><input type="text" name="volume" id="volume" th:value="${volume}"/></td></tr>
-                <tr><td>Number:</td><td><input type="text" name="number" id="number" th:value="${number}"/></td></tr>
-                <tr><td>Year:*</td><td><input type="text" name="year" id="year" th:value="${year}"/></td></tr>
-                <tr><td>Start Page:</td><td><input type="text" name="startpage" id="startpage" th:value="${startpage}"/></td></tr>
-                <tr><td>End Page:</td><td><input type="text" name="endpage" id="endpage" th:value="${endpage}"/></td></tr>
-                <tr><td>Publisher:</td><td><input type="text" name="publisher" id="publisher" th:value="${publisher}"/></td></tr>
-                <tr><td>Address:</td><td><input type="text" name="address" id="address" th:value="${address}"/></td></tr>
-                <tr><td>Note:</td><td><textarea name="note" id="note" rows="3" cols="30" th:text="${note}"></textarea></td></tr>
-                <tr><td>Key:</td><td><input type="text" name="key" id="key" th:value="${key}"/></td></tr>
-            </table>
-            <br>
-            <div>
-                <a href="/" name="back" class="btn btn-default">Back</a>
-                <input type="submit" name="save" value="Save" class="btn btn-primary"/>
+    <body>
+        <nav class="navbar navbar-inverse" th:replace="fragments/navbar :: navbar"></nav>
+
+        <div class="container">
+            <h1>Edit article</h1>
+            <div th:if="${errors} != null and ${!errors.empty}" id="error" style="color:red">
+                <p th:each="e : ${errors}" th:text="${e.value}">Error message</p>
             </div>
-        </form>
+            <form method="POST" action="/edit_article">
+                <table>
+                    <tr><td>BibTeX-Key:</td><td><span th:text="${id}"/></span><input type="hidden" name="id" id="id" th:value="${id}"/></td></tr>
+                    <tr><td>Tag(s):</td><td><input type="text" name="tags" id="tags" th:value="${tags}"/></td></tr>
+                    <tr><td>Authors:*</td>
+                        <td><textarea name="authors" id="authors" rows="5" cols="30" placeholder="Sukunimi, Etunimi&#10;Lastname, Firstname" th:text="${authors}"></textarea></td></tr>
+                    <tr><td>Title:*</td><td><input type="text" name="title" id="title" th:value="${title}"/></td></tr>
+                    <tr><td>Journal:*</td><td><input type="text" name="journal" id="journal" th:value="${journal}"/></td></tr>
+                    <tr><td>Volume:</td><td><input type="text" name="volume" id="volume" th:value="${volume}"/></td></tr>
+                    <tr><td>Number:</td><td><input type="text" name="number" id="number" th:value="${number}"/></td></tr>
+                    <tr><td>Year:*</td><td><input type="text" name="year" id="year" th:value="${year}"/></td></tr>
+                    <tr><td>Start Page:</td><td><input type="text" name="startpage" id="startpage" th:value="${startpage}"/></td></tr>
+                    <tr><td>End Page:</td><td><input type="text" name="endpage" id="endpage" th:value="${endpage}"/></td></tr>
+                    <tr><td>Publisher:</td><td><input type="text" name="publisher" id="publisher" th:value="${publisher}"/></td></tr>
+                    <tr><td>Address:</td><td><input type="text" name="address" id="address" th:value="${address}"/></td></tr>
+                    <tr><td>Note:</td><td><textarea name="note" id="note" rows="3" cols="30" th:text="${note}"></textarea></td></tr>
+                    <tr><td>Key:</td><td><input type="text" name="key" id="key" th:value="${key}"/></td></tr>
+                </table>
+                <br>
+                <div>
+                    <a href="/" name="back" class="btn btn-default">Back</a>
+                    <input type="submit" name="save" value="Save" class="btn btn-primary"/>
+                </div>
+            </form>
+        </div>
     </body>
 </html>

@@ -5,200 +5,188 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     </head>
-    <body class="container">
-        <h1>Reference Management</h1>
-        
-        <div style="display: inline-block">
-            <h3>Add reference</h3>
-            <p><a href="/article" class="btn btn-primary btn-sm">Article</a> <a href="/book" class="btn btn-primary btn-sm">Book</a> <a href="/inproceeding" class="btn btn-primary btn-sm">Inproceeding</a></p>
-        </div>
-        
-        <div style="display: inline-block; margin-left: 25px">
-            <h3>Generate BibTeX file</h3>
-            <form method="post" action="/generatebibtex">
-                <label for="filename">Filename:</label>
-                <input type="text" name="filename" id="filename">
-                <input type="submit" value="Generate" class="btn btn-primary btn-sm">
-            </form>
-        </div>
+    <body>
+        <nav class="navbar navbar-inverse" th:replace="fragments/navbar :: navbar"></nav>
 
-        <h3>Search</h3>
-        <table class="table">
-            <tr>
-                <td>
-                    <form method="get" action="">
-                        <label>Tag:</label>
-                        <input name="search_tag" type="text">
-                        <button type="submit" class="btn btn-primary btn-sm">Search</button>
-                    </form>
-                </td>
-                <td>
-                    <form method="get" action="">
-                        <label>Author:</label>
-                        <input name="search_author" type="text">
-                        <button type="submit" class="btn btn-primary btn-sm">Search</button>
-                    </form>
-                </td>
-                <td>
-                    <form method="get" action="">
-                        <label>Title:</label>
-                        <input name="search_title" type="text">
-                        <button type="submit" class="btn btn-primary btn-sm">Search</button>
-                    </form>
-                </td>
-                <td>
-                    <form method="get" action="">
-                        <label>Year:</label>
-                        <input name="search_year" type="text">
-                        <button type="submit" class="btn btn-primary btn-sm">Search</button>
-                    </form>
-                </td>
-            </tr>
-        </table>
-
-        <h2>Articles</h2>
-        <div th:if="${!articles.empty}">
+        <div class="container">
+            <h1>Reference management</h1>
+            <h3>Search</h3>
             <table class="table">
                 <tr>
-                    <th>BibTeX key</th>
-                    <th>Authors</th>
-                    <th>Title</th>
-                    <th>Journal</th>
-                    <th>Volume</th>
-                    <th>Number</th>
-                    <th>Year</th>
-                    <th>Pages</th>
-                    <th>Publisher</th>
-                    <th>Address</th>
-                    <th>Note</th>
-                    <th>Key</th>
-                    <th>Tags</th>
-                    <th></th>
-                    <th></th>
-                </tr>
-                <tr th:each="article : ${articles}">
-                    <td th:text="${article.id}"></td>
-                    <td th:text="${article.authors}"></td>
-                    <td th:text="${article.title}"></td>
-                    <td th:text="${article.journal}"></td>
-                    <td th:text="${article.volume}"></td>
-                    <td th:text="${article.number}"></td>
-                    <td th:text="${article.year}"></td>
-                    <td th:text="${article.pages}"></td>
-                    <td th:text="${article.publisher}"></td>
-                    <td th:text="${article.address}"></td>
-                    <td th:text="${article.note}"></td>
-                    <td th:text="${article.key}"></td>
-                    <td th:text="${article.tags}"></td>
-                    <td><a th:href="${'/article/' + article.id}" class="btn btn-default btn-sm">Edit</a></td>
-                    <td><form method="POST" th:action="${'/delete_article/' + article.id}">
-                            <input type="submit" name="delete" value="Delete" class="btn btn-danger btn-sm"/>
+                    <td>
+                        <form method="get" action="">
+                            <label>Tag:</label>
+                            <input name="search_tag" type="text">
+                            <button type="submit" class="btn btn-primary btn-sm">Search</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form method="get" action="">
+                            <label>Author:</label>
+                            <input name="search_author" type="text">
+                            <button type="submit" class="btn btn-primary btn-sm">Search</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form method="get" action="">
+                            <label>Title:</label>
+                            <input name="search_title" type="text">
+                            <button type="submit" class="btn btn-primary btn-sm">Search</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form method="get" action="">
+                            <label>Year:</label>
+                            <input name="search_year" type="text">
+                            <button type="submit" class="btn btn-primary btn-sm">Search</button>
                         </form>
                     </td>
                 </tr>
             </table>
-        </div>
-        <div th:if="${articles.empty}">
-            <p>No articles</p>
-        </div>
 
-        <h2>Books</h2>
-        <div th:if="${!books.empty}">
-            <table class="table">
-                <tr>
-                    <th>BibTeX key</th>
-                    <th>Authors</th>
-                    <th>Title</th>
-                    <th>Year</th>
-                    <th>Month</th>
-                    <th>Volume</th>
-                    <th>Series</th>
-                    <th>Edition</th>
-                    <th>Publisher</th>
-                    <th>Address</th>
-                    <th>Note</th>
-                    <th>Key</th>
-                    <th>Tags</th>
-                    <th></th>
-                    <th></th>
-                </tr>
-                <tr th:each="book : ${books}">
-                    <td th:text="${book.id}"></td>
-                    <td th:text="${book.authors}"></td>
-                    <td th:text="${book.title}"></td>
-                    <td th:text="${book.year}"></td>
-                    <td th:text="${book.month}"></td>
-                    <td th:text="${book.volume}"></td>
-                    <td th:text="${book.series}"></td>
-                    <td th:text="${book.edition}"></td>
-                    <td th:text="${book.publisher}"></td>
-                    <td th:text="${book.address}"></td>
-                    <td th:text="${book.note}"></td>
-                    <td th:text="${book.key}"></td>
-                    <td th:text="${book.tags}"></td>
-                    <td><a th:href="${'/book/' + book.id}" class="btn btn-default btn-sm">Edit</a></td>
-                    <td><form method="POST" th:action="${'/delete_book/' + book.id}">
-                            <input type="submit" name="delete" value="Delete" class="btn btn-danger btn-sm"/>
-                        </form>
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <div th:if="${books.empty}">
-            <p>No books</p>
-        </div>
+            <h2>Articles</h2>
+            <div th:if="${!articles.empty}">
+                <table class="table">
+                    <tr>
+                        <th>BibTeX key</th>
+                        <th>Authors</th>
+                        <th>Title</th>
+                        <th>Journal</th>
+                        <th>Volume</th>
+                        <th>Number</th>
+                        <th>Year</th>
+                        <th>Pages</th>
+                        <th>Publisher</th>
+                        <th>Address</th>
+                        <th>Note</th>
+                        <th>Key</th>
+                        <th>Tags</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    <tr th:each="article : ${articles}">
+                        <td th:text="${article.id}"></td>
+                        <td th:text="${article.authors}"></td>
+                        <td th:text="${article.title}"></td>
+                        <td th:text="${article.journal}"></td>
+                        <td th:text="${article.volume}"></td>
+                        <td th:text="${article.number}"></td>
+                        <td th:text="${article.year}"></td>
+                        <td th:text="${article.pages}"></td>
+                        <td th:text="${article.publisher}"></td>
+                        <td th:text="${article.address}"></td>
+                        <td th:text="${article.note}"></td>
+                        <td th:text="${article.key}"></td>
+                        <td th:text="${article.tags}"></td>
+                        <td><a th:href="${'/article/' + article.id}" class="btn btn-default btn-sm">Edit</a></td>
+                        <td><form method="POST" th:action="${'/delete_article/' + article.id}">
+                                <input type="submit" name="delete" value="Delete" class="btn btn-danger btn-sm"/>
+                            </form>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div th:if="${articles.empty}">
+                <p>No articles</p>
+            </div>
 
-        <h2>Inproceedings</h2>
-        <div th:if="${!inproceedings.empty}">
-            <table class="table">
-                <tr>
-                    <th>BibTeX key</th>
-                    <th>Authors</th>
-                    <th>Title</th>
-                    <th>Booktitle</th>
-                    <th>Editor</th>
-                    <th>Volume</th>
-                    <th>Series</th>
-                    <th>Month</th>
-                    <th>Year</th>
-                    <th>Pages</th>
-                    <th>Organization</th>
-                    <th>Publisher</th>
-                    <th>Address</th>
-                    <th>Note</th>
-                    <th>Key</th>
-                    <th>Tags</th>
-                    <th></th>
-                    <th></th>
-                </tr>
-                <tr th:each="inproceeding : ${inproceedings}">
-                    <td th:text="${inproceeding.id}"></td>
-                    <td th:text="${inproceeding.authors}"></td>
-                    <td th:text="${inproceeding.title}"></td>
-                    <td th:text="${inproceeding.booktitle}"></td>
-                    <td th:text="${inproceeding.editor}"></td>
-                    <td th:text="${inproceeding.volume}"></td>
-                    <td th:text="${inproceeding.series}"></td>
-                    <td th:text="${inproceeding.month}"></td>
-                    <td th:text="${inproceeding.year}"></td>
-                    <td th:text="${inproceeding.pages}"></td>
-                    <td th:text="${inproceeding.organization}"></td>
-                    <td th:text="${inproceeding.publisher}"></td>
-                    <td th:text="${inproceeding.address}"></td>
-                    <td th:text="${inproceeding.note}"></td>
-                    <td th:text="${inproceeding.key}"></td>
-                    <td th:text="${inproceeding.tags}"></td>
-                    <td><a th:href="${'/inproceeding/' + inproceeding.id}" class="btn btn-default btn-sm">Edit</a></td>
-                    <td><form method="POST" th:action="${'/delete_inproceeding/' + inproceeding.id}">
-                            <input type="submit" name="delete" value="Delete" class="btn btn-danger btn-sm"/>
-                        </form>
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <div th:if="${inproceedings.empty}">
-            <p>No inproceedings</p>
-        </div>
+            <h2>Books</h2>
+            <div th:if="${!books.empty}">
+                <table class="table">
+                    <tr>
+                        <th>BibTeX key</th>
+                        <th>Authors</th>
+                        <th>Title</th>
+                        <th>Year</th>
+                        <th>Month</th>
+                        <th>Volume</th>
+                        <th>Series</th>
+                        <th>Edition</th>
+                        <th>Publisher</th>
+                        <th>Address</th>
+                        <th>Note</th>
+                        <th>Key</th>
+                        <th>Tags</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    <tr th:each="book : ${books}">
+                        <td th:text="${book.id}"></td>
+                        <td th:text="${book.authors}"></td>
+                        <td th:text="${book.title}"></td>
+                        <td th:text="${book.year}"></td>
+                        <td th:text="${book.month}"></td>
+                        <td th:text="${book.volume}"></td>
+                        <td th:text="${book.series}"></td>
+                        <td th:text="${book.edition}"></td>
+                        <td th:text="${book.publisher}"></td>
+                        <td th:text="${book.address}"></td>
+                        <td th:text="${book.note}"></td>
+                        <td th:text="${book.key}"></td>
+                        <td th:text="${book.tags}"></td>
+                        <td><a th:href="${'/book/' + book.id}" class="btn btn-default btn-sm">Edit</a></td>
+                        <td><form method="POST" th:action="${'/delete_book/' + book.id}">
+                                <input type="submit" name="delete" value="Delete" class="btn btn-danger btn-sm"/>
+                            </form>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div th:if="${books.empty}">
+                <p>No books</p>
+            </div>
 
+            <h2>Inproceedings</h2>
+            <div th:if="${!inproceedings.empty}">
+                <table class="table">
+                    <tr>
+                        <th>BibTeX key</th>
+                        <th>Authors</th>
+                        <th>Title</th>
+                        <th>Booktitle</th>
+                        <th>Editor</th>
+                        <th>Volume</th>
+                        <th>Series</th>
+                        <th>Month</th>
+                        <th>Year</th>
+                        <th>Pages</th>
+                        <th>Organization</th>
+                        <th>Publisher</th>
+                        <th>Address</th>
+                        <th>Note</th>
+                        <th>Key</th>
+                        <th>Tags</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    <tr th:each="inproceeding : ${inproceedings}">
+                        <td th:text="${inproceeding.id}"></td>
+                        <td th:text="${inproceeding.authors}"></td>
+                        <td th:text="${inproceeding.title}"></td>
+                        <td th:text="${inproceeding.booktitle}"></td>
+                        <td th:text="${inproceeding.editor}"></td>
+                        <td th:text="${inproceeding.volume}"></td>
+                        <td th:text="${inproceeding.series}"></td>
+                        <td th:text="${inproceeding.month}"></td>
+                        <td th:text="${inproceeding.year}"></td>
+                        <td th:text="${inproceeding.pages}"></td>
+                        <td th:text="${inproceeding.organization}"></td>
+                        <td th:text="${inproceeding.publisher}"></td>
+                        <td th:text="${inproceeding.address}"></td>
+                        <td th:text="${inproceeding.note}"></td>
+                        <td th:text="${inproceeding.key}"></td>
+                        <td th:text="${inproceeding.tags}"></td>
+                        <td><a th:href="${'/inproceeding/' + inproceeding.id}" class="btn btn-default btn-sm">Edit</a></td>
+                        <td><form method="POST" th:action="${'/delete_inproceeding/' + inproceeding.id}">
+                                <input type="submit" name="delete" value="Delete" class="btn btn-danger btn-sm"/>
+                            </form>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div th:if="${inproceedings.empty}">
+                <p>No inproceedings</p>
+            </div>
+        </div>
     </body>
 </html>

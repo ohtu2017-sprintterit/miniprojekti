@@ -7,10 +7,10 @@
     <title>Import references from ACM Digital Library</title>
 </head>
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top" th:replace="fragments/navbar :: navbar">
-    </nav>
+    <nav class="navbar navbar-inverse" th:replace="fragments/navbar :: navbar"></nav>
+
     <div class="container">
-        <h1>Import reference from the ACM Digital Library</h1>
+        <h2>Import a reference from the ACM Digital Library</h2>
 
         <div class="errors">
             <div class="alert alert-danger" th:each="error : ${errors}" th:text="${error}">Error text</div>
