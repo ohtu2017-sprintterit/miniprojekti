@@ -7,7 +7,6 @@ import cucumber.api.java.en.When;
 import static org.junit.Assert.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.By;
 
 public class Stepdefs {
@@ -24,21 +23,21 @@ public class Stepdefs {
     public void add_article_selected() throws Throwable {
         driver.get(baseUrl);
         sleep();
-        driver.findElement(By.linkText("Article")).click();
+        driver.findElement(By.linkText("Add article")).click();
     }
 
     @Given("^Add book is selected$")
     public void add_book_selected() throws Throwable {
         driver.get(baseUrl);
         sleep();
-        driver.findElement(By.linkText("Book")).click();
+        driver.findElement(By.linkText("Add book")).click();
     }
 
     @Given("^Add inproceeding is selected$")
     public void add_inproceeding_is_selected() throws Throwable {
         driver.get(baseUrl);
         sleep();
-        driver.findElement(By.linkText("Inproceeding")).click();
+        driver.findElement(By.linkText("Add inproceeding")).click();
     }
 
     @Given("^A new article with author \"([^\"]*)\", title \"([^\"]*)\", journal \"([^\"]*)\" and year \"([^\"]*)\" is created$")
@@ -94,17 +93,17 @@ public class Stepdefs {
 
     @Then("^Article is added$")
     public void article_is_added() throws Throwable {
-        pageHasContent("Reference Management");
+        pageHasContent("Reference management");
     }
 
     @Then("^Article is edited$")
     public void article_is_edited() throws Throwable {
-        pageHasContent("Reference Management");
+        pageHasContent("Reference management");
     }
 
     @Then("^Book is added$")
     public void book_is_added() throws Throwable {
-        pageHasContent("Reference Management");
+        pageHasContent("Reference management");
     }
 
     @Then("^Book is edited$")
@@ -114,7 +113,7 @@ public class Stepdefs {
 
     @Then("^Inproceeding is added$")
     public void inproceeding_is_added() throws Throwable {
-        pageHasContent("Reference Management");
+        pageHasContent("Reference management");
     }
 
     @Then("^Article is not added and error \"([^\"]*)\" is reported$")
