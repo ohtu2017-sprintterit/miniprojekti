@@ -2,6 +2,7 @@ build/
 .gradle
 .DS_Store
 /.nb-gradle/
+nbproject/
 *.db
 .idea
 /driver/chromedriver*

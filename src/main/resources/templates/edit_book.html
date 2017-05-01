@@ -12,20 +12,20 @@
         </div>
         <form method="POST" action="/edit_book">
             <table>
-                <tr><td>BibTex-Key:</td><td><span th:text="${book.id}"/></span><input type="hidden" name="id" id="id" th:value="${book.id}"/></td></tr>
-                <tr><td>Tag(s):</td><td><input type="text" name="tags" id="tags" th:value="${book.tags}"/></td></tr>
+                <tr><td>BibTeX-Key:</td><td><span th:text="${id}"/></span><input type="hidden" name="id" id="id" th:value="${id}"/></td></tr>
+                <tr><td>Tag(s):</td><td><input type="text" name="tags" id="tags" th:value="${tags}"/></td></tr>
                 <tr><td>Authors:*</td>
-                    <td><textarea name="authors" id="authors" rows="5" cols="30" th:text="${book.authorsSeparated}"></textarea></td></tr>
-                <tr><td>Title:*</td><td><input type="text" name="title" id="title" th:value="${book.title}"/></td></tr>
-                <tr><td>Year:*</td><td><input type="text" name="year" id="year" th:value="${book.year}"/></td></tr>
-                <tr><td>Month:</td><td><input type="text" name="month" id="month" th:value="${book.month}"/></td></tr>
-                <tr><td>Volume:</td><td><input type="text" name="volume" id="volume" th:value="${book.volume}"/></td></tr>
-                <tr><td>Series</td><td><input type="text" name="series" id="series" th:value="${book.series}"/></td></tr>
-                <tr><td>Edition:</td><td><input type="text" name="edition" id="edition" th:value="${book.edition}"/></td></tr>
-                <tr><td>Publisher:*</td><td><input type="text" name="publisher" id="publisher" th:value="${book.publisher}"/></td></tr>
-                <tr><td>Address:</td><td><input type="text" name="address" id="address" th:value="${book.address}"/></td></tr>
-                <tr><td>Note:</td><td><textarea name="note" id="note" rows="3" cols="30" th:text="${book.note}"></textarea></td></tr>
-                <tr><td>Key:</td><td><input type="text" name="key" id="key" th:value="${book.key}"/></td></tr>
+                    <td><textarea name="authors" id="authors" rows="5" cols="30" placeholder="Sukunimi, Etunimi&#10;Lastname, Firstname" th:text="${authors}"></textarea></td></tr>
+                <tr><td>Title:*</td><td><input type="text" name="title" id="title" th:value="${title}"/></td></tr>
+                <tr><td>Year:*</td><td><input type="text" name="year" id="year" th:value="${year}"/></td></tr>
+                <tr><td>Month:</td><td><input type="text" name="month" id="month" th:value="${month}"/></td></tr>
+                <tr><td>Volume:</td><td><input type="text" name="volume" id="volume" th:value="${volume}"/></td></tr>
+                <tr><td>Series</td><td><input type="text" name="series" id="series" th:value="${series}"/></td></tr>
+                <tr><td>Edition:</td><td><input type="text" name="edition" id="edition" th:value="${edition}"/></td></tr>
+                <tr><td>Publisher:*</td><td><input type="text" name="publisher" id="publisher" th:value="${publisher}"/></td></tr>
+                <tr><td>Address:</td><td><input type="text" name="address" id="address" th:value="${address}"/></td></tr>
+                <tr><td>Note:</td><td><textarea name="note" id="note" rows="3" cols="30" th:text="${note}"></textarea></td></tr>
+                <tr><td>Key:</td><td><input type="text" name="key" id="key" th:value="${key}"/></td></tr>
             </table>
             <br><div><a href="/" class="btn btn-default">Back</a>
                 <input type="submit" name="save" value="Save" class="btn btn-primary"/></div>

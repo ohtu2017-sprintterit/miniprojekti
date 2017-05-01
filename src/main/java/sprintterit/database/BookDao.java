@@ -39,7 +39,7 @@ public class BookDao {
                 "SELECT * FROM Reference r INNER JOIN Book a ON r.id = a.id");
     }
 
-    public void editBook(String id, String authors, String tags, String title, Integer year, String publisher, String address, Integer volume, String series, String edition, String month, String note, String key) throws SQLException {
+    public void editBook(String id, String tags, String authors, String title, Integer year, String publisher, String address, Integer volume, String series, String edition, String month, String note, String key) throws SQLException {
         query.insert(
                 "UPDATE Reference SET authors = ?, tags = ?, title = ?, year = ? WHERE id = ?",
                 authors, tags, title, year, id);
