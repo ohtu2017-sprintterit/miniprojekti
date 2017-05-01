@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+    <title>Import references from ACM Digital Library</title>
+</head>
+<body>
+    <nav class="navbar navbar-inverse" th:replace="fragments/navbar :: navbar"></nav>
+
+    <div class="container">
+        <h2>Import a reference from the ACM Digital Library</h2>
+
+        <div class="errors">
+            <div class="alert alert-danger" th:each="error : ${errors}" th:text="${error}">Error text</div>
+        </div>
+
+        <div th:if="${success != null}">
+            <div class="alert alert-success">Successfully imported reference: <strong th:text="${success}">Title</strong></div>
+        </div>
+
+        <form method="post">
+            <div class="form-group">
+                <label for="acmurl">ACM DL URL:</label>
+                <input id="acmurl" class="form-control" name="acmurl" type="text" placeholder="e.g. http://dl.acm.org/citation.cfm?id=2380552.2380613">
+            </div>
+            <input class="btn btn-primary" type="submit" value="Import">
+        </form>
+    </div>
+</body>
+</html>
