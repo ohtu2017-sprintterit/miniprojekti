@@ -61,6 +61,13 @@ public class Stepdefs {
         driver.findElement(By.linkText("Edit")).click();
     }
 
+    @Given("^Import from ACM DL is selected$")
+    public void acm_import_is_selected() throws Throwable {
+        driver.get(baseUrl);
+        sleep();
+        driver.findElement(By.linkText("Import from ACM DL")).click();
+    }
+
     @When("^Article with author \"([^\"]*)\", title \"([^\"]*)\", journal \"([^\"]*)\" and year \"([^\"]*)\" are given$")
     public void id_author_title_journal_and_year_are_given(String author, String title, String journal, String year) throws Throwable {
         addArticle(author, title, journal, year);
@@ -89,6 +96,22 @@ public class Stepdefs {
     @When("^Book is changed with author \"([^\"]*)\", title \"([^\"]*)\", publisher \"([^\"]*)\" and year \"([^\"]*)\"$")
     public void book_is_changed_with_id_author_title_publisher_and_year(String author, String title, String publisher, String year) throws Throwable {
         //editBook(author, title, publisher, year);
+    }
+
+    @When("^Import URL \"([^\"]*)\" is entered$")
+    public void enter_import_url(String url) throws Throwable {
+        driver.findElement(By.id("acmurl")).sendKeys(url);
+    }
+
+    @When("^Import is clicked$")
+    public void import_is_clicked() throws Throwable {
+        driver.findElement(By.cssSelector("input[value=\"Import\"]")).click();
+    }
+
+    @Then("^Reference \"([^\"]*)\" is imported$")
+    public void reference_is_imported(String title) {
+        pageHasContent("Successfully imported reference");
+        pageHasContent(title);
     }
 
     @Then("^Article is added$")
