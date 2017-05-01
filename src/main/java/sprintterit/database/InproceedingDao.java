@@ -15,7 +15,7 @@ public class InproceedingDao {
     public InproceedingDao(Database database) {
         this.database = database;
         this.query = new QueryRunner<>(database, new InproceedingCollector());
-        this.keygen = new BibtexKeyGen(database);
+        this.keygen = new BibtexKeyGen(new CheckDatabaseId(database));
     }
 
     public void addInproceeding(String tags, String authors, String title,

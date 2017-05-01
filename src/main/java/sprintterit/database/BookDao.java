@@ -14,7 +14,7 @@ public class BookDao {
     public BookDao(Database database) {
         this.database = database;
         this.query = new QueryRunner<>(database, new BookCollector());
-        this.keygen = new BibtexKeyGen(database);
+        this.keygen = new BibtexKeyGen(new CheckDatabaseId(database));
     }
 
     public void addBook(String tags, String authors, String title, Integer year,

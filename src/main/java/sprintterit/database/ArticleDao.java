@@ -14,7 +14,7 @@ public class ArticleDao {
     public ArticleDao(Database database) {
         this.database = database;
         this.query = new QueryRunner<>(database, new ArticleCollector());
-        this.keygen = new BibtexKeyGen(database);
+        this.keygen = new BibtexKeyGen(new CheckDatabaseId(database));
     }
 
     public void addArticle(String tags, String authors, String title,

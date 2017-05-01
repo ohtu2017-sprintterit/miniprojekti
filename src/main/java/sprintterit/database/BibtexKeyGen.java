@@ -4,10 +4,10 @@ import java.sql.SQLException;
 
 public class BibtexKeyGen {
 
-    private Database database;
+    private final CheckId idCheck;
 
-    public BibtexKeyGen(Database db) {
-        database = db;
+    public BibtexKeyGen(CheckId idCheck) {
+        this.idCheck = idCheck;
     }
 
     public String bibtexKey(String authors, int year) throws SQLException {
@@ -24,11 +24,11 @@ public class BibtexKeyGen {
             key += a[0].replaceAll("\\s+", "");
         }
         String y = Integer.toString(year);
-        y = y.substring(y.length() - 2, y.length());
+        y = y.substring(Math.max(0, y.length() - 2), y.length());
         key += y;
         // Looks horrible, here for now
         for (int i = 2; i < 10; i++) {
-            if (checkThatIdNotInUse(key)) {
+            if (idCheck.checkThatIdNotInUse(key)) {
                 break;
             }
             if (i > 2) {
@@ -39,10 +39,4 @@ public class BibtexKeyGen {
         return key;
     }
 
-    private boolean checkThatIdNotInUse(String id) throws SQLException {
-        ArticleDao articleDao = new ArticleDao(database);
-        BookDao bookDao = new BookDao(database);
-        InproceedingDao inproceedingDao = new InproceedingDao(database);
-        return (articleDao.findOne(id) == null && bookDao.findOne(id) == null && inproceedingDao.findOne(id) == null);
-    }
 }
