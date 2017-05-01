@@ -52,22 +52,29 @@ public class Main {
 
         get("/", (req, res) -> {
             HashMap map = new HashMap<>();
-            if (req.queryParams("search_tag") != null) {
-                map.put("articles", articleDao.findTag(req.queryParams("search_tag")));
-                map.put("books", bookDao.findTag(req.queryParams("search_tag")));
-                map.put("inproceedings", inproceedingDao.findTag(req.queryParams("search_tag")));
-            } else if (req.queryParams("search_author") != null) {
-                map.put("articles", articleDao.findAuthor(req.queryParams("search_author")));
-                map.put("books", bookDao.findAuthor(req.queryParams("search_author")));
-                map.put("inproceedings", inproceedingDao.findAuthor(req.queryParams("search_author")));
-            } else if (req.queryParams("search_title") != null) {
-                map.put("articles", articleDao.findTitle(req.queryParams("search_title")));
-                map.put("books", bookDao.findTitle(req.queryParams("search_title")));
-                map.put("inproceedings", inproceedingDao.findTitle(req.queryParams("search_title")));
-            } else if (req.queryParams("search_year") != null && req.queryParams("search_year").matches("[0-9]+")) {
-                map.put("articles", articleDao.findYear(Integer.parseInt(req.queryParams("search_year"))));
-                map.put("books", bookDao.findYear(Integer.parseInt(req.queryParams("search_year"))));
-                map.put("inproceedings", inproceedingDao.findYear(Integer.parseInt(req.queryParams("search_year"))));
+            if (req.queryParams("search") != null) {
+                if (req.queryParams("searchby") != null && req.queryParams("searchby").equals("tag")) {
+                    map.put("articles", articleDao.findTag(req.queryParams("search")));
+                    map.put("books", bookDao.findTag(req.queryParams("search")));
+                    map.put("inproceedings", inproceedingDao.findTag(req.queryParams("search")));
+                } else if (req.queryParams("searchby") != null && req.queryParams("searchby").equals("author")) {
+                    map.put("articles", articleDao.findAuthor(req.queryParams("search")));
+                    map.put("books", bookDao.findAuthor(req.queryParams("search")));
+                    map.put("inproceedings", inproceedingDao.findAuthor(req.queryParams("search")));
+                } else if (req.queryParams("searchby") != null && req.queryParams("searchby").equals("title")) {
+                    map.put("articles", articleDao.findTitle(req.queryParams("search")));
+                    map.put("books", bookDao.findTitle(req.queryParams("search")));
+                    map.put("inproceedings", inproceedingDao.findTitle(req.queryParams("search")));
+                } else if (req.queryParams("searchby") != null && req.queryParams("searchby").equals("year")
+                        && req.queryParams("search").matches("^[0-9]+$")) {
+                    map.put("articles", articleDao.findYear(Integer.parseInt(req.queryParams("search"))));
+                    map.put("books", bookDao.findYear(Integer.parseInt(req.queryParams("search"))));
+                    map.put("inproceedings", inproceedingDao.findYear(Integer.parseInt(req.queryParams("search"))));
+                } else {
+                    map.put("articles", articleDao.findAll());
+                    map.put("books", bookDao.findAll());
+                    map.put("inproceedings", inproceedingDao.findAll());
+                }
             } else {
                 map.put("articles", articleDao.findAll());
                 map.put("books", bookDao.findAll());

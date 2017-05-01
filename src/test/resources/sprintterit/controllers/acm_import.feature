@@ -5,3 +5,9 @@ Feature: As a user I am able to import references from the ACM Digital Library
     When Import URL "http://dl.acm.org/citation.cfm?id=2380552.2380613" is entered
     And Import is clicked
     Then Reference "Three Years of Design-based Research to Reform a Software Engineering Curriculum" is imported
+
+  Scenario: Trying to import an invalid reference
+    Given Import from ACM DL is selected
+    When Import URL "https://not valid" is entered
+    And Import is clicked
+    Then Import fails

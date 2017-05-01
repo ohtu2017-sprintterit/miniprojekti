@@ -114,6 +114,11 @@ public class Stepdefs {
         pageHasContent(title);
     }
 
+    @Then("^Import fails$")
+    public void import_fails() throws Throwable {
+        pageHasContent("Error");
+    }
+
     @Then("^Article is added$")
     public void article_is_added() throws Throwable {
         pageHasContent("Reference management");

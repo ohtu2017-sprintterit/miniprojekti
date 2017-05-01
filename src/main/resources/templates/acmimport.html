@@ -13,7 +13,7 @@
         <h2>Import a reference from the ACM Digital Library</h2>
 
         <div class="errors">
-            <div class="alert alert-danger" th:each="error : ${errors}" th:text="${error}">Error text</div>
+            <div class="alert alert-danger" th:each="error : ${errors}">Error: <span th:text="${error}">error message</span></div>
         </div>
 
         <div th:if="${success != null}">

@@ -76,11 +76,11 @@ public class ACMImportController implements Route {
                     errors.add("No export URL found in content");
                 }
             } catch (IOException e) {
-                errors.add("Error fetching content from URL");
+                errors.add("fetching content from URL failed");
             } catch (SQLException e) {
-                errors.add("Error saving reference to database");
+                errors.add("saving reference to database failed");
             } catch (IllegalArgumentException e) {
-                errors.add("Error parsing reference: " + e.getMessage());
+                errors.add("parsing reference failed: " + e.getMessage());
             }
         } else {
             errors.add("URL is required");

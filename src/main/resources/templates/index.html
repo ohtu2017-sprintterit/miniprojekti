@@ -10,39 +10,31 @@
 
         <div class="container">
             <h1>Reference management</h1>
-            <h3>Search</h3>
-            <table class="table">
-                <tr>
-                    <td>
-                        <form method="get" action="">
-                            <label>Tag:</label>
-                            <input name="search_tag" type="text">
-                            <button type="submit" class="btn btn-primary btn-sm">Search</button>
-                        </form>
-                    </td>
-                    <td>
-                        <form method="get" action="">
-                            <label>Author:</label>
-                            <input name="search_author" type="text">
-                            <button type="submit" class="btn btn-primary btn-sm">Search</button>
-                        </form>
-                    </td>
-                    <td>
-                        <form method="get" action="">
-                            <label>Title:</label>
-                            <input name="search_title" type="text">
-                            <button type="submit" class="btn btn-primary btn-sm">Search</button>
-                        </form>
-                    </td>
-                    <td>
-                        <form method="get" action="">
-                            <label>Year:</label>
-                            <input name="search_year" type="text">
-                            <button type="submit" class="btn btn-primary btn-sm">Search</button>
-                        </form>
-                    </td>
-                </tr>
-            </table>
+            <div class="row">
+                <div class="col col-md-6">
+                    <h3>Search</h3>
+                    <form method="get" class="form-inline">
+                        <label for="searchby">By:</label>
+                        <select class="form-control" id="searchby" name="searchby">
+                            <option value="author">Author</option>
+                            <option value="title">Title</option>
+                            <option value="tag">Tag</option>
+                            <option value="year">Year</option>
+                        </select>
+                        <label for="search">Find:</label>
+                        <input id="search" class="form-control" type="text" name="search" placeholder="Search terms">
+                        <input class="btn btn-primary btn-small" type="submit" value="Search">
+                    </form>
+                </div>
+                <div class="col col-md-6">
+                    <h3>Export as BibTeX file</h3>
+                    <form class="form-inline" method="post" action="/generatebibtex">
+                        <label for="filename">Filename:</label>
+                        <input class="form-control" type="text" name="filename" id="filename">
+                        <input type="submit" value="Export" class="btn btn-primary btn-sm">
+                    </form>
+                </div>
+            </div>
 
             <h2>Articles</h2>
             <div th:if="${!articles.empty}">
