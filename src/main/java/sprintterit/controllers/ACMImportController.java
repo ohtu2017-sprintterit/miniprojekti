@@ -111,8 +111,14 @@ public class ACMImportController implements Route {
 
         if (fields.containsKey("pages")) {
             String[] pages = fields.get("pages").split("--");
-            fields.put("startpage", pages[0]);
-            fields.put("endpage", pages[1]);
+            try {
+                Integer.parseInt(pages[0]);
+                Integer.parseInt(pages[1]);
+
+                fields.put("startpage", pages[0]);
+                fields.put("endpage", pages[1]);
+            } catch (NumberFormatException e) {
+            }
         }
 
         switch (refType.toLowerCase()) {
