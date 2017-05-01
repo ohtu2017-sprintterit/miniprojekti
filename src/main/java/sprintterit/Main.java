@@ -110,19 +110,19 @@ public class Main {
         post("/edit_book", new EditBook(bookDao));
         post("/edit_inproceeding", new EditInproceeding(inproceedingDao));
 
-        post("/delete_article/:id", (req, res) -> {
+        get("/delete_article/:id", (req, res) -> {
             articleDao.delete(req.params("id"));
             res.redirect("/");
             return "";
         });
 
-        post("/delete_book/:id", (req, res) -> {
+        get("/delete_book/:id", (req, res) -> {
             bookDao.delete(req.params("id"));
             res.redirect("/");
             return "";
         });
 
-        post("/delete_inproceeding/:id", (req, res) -> {
+        get("/delete_inproceeding/:id", (req, res) -> {
             inproceedingDao.delete(req.params("id"));
             res.redirect("/");
             return "";
@@ -130,6 +130,9 @@ public class Main {
 
         post("/generatebibtex", (req, res) -> {
             String filename = "" + req.queryParams("filename");
+            String[] articles = req.queryParamsValues("checked_articles");
+            String[] books = req.queryParamsValues("checked_books");
+            String[] inproceedings = req.queryParamsValues("checked_inproceedings");
             if (filename.length() == 0) {
                 res.redirect("/");
                 return "";
@@ -139,7 +142,7 @@ public class Main {
                 BibtexGenerator gen = new BibtexGenerator();
                 res.type("application/x-bibtex");
                 res.header("Content-Disposition", String.format("attachment; filename=%s", filename));
-                return gen.generateBibtexFile(referenceDao.findAll());
+                return gen.generateBibtexFile(referenceDao.findAll(articles, books, inproceedings));
             }
         });
 
