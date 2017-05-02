@@ -110,19 +110,19 @@ public class Main {
         post("/edit_book", new EditBook(bookDao));
         post("/edit_inproceeding", new EditInproceeding(inproceedingDao));
 
-        get("/delete_article/:id", (req, res) -> {
+        post("/delete_article/:id", (req, res) -> {
             articleDao.delete(req.params("id"));
             res.redirect("/");
             return "";
         });
 
-        get("/delete_book/:id", (req, res) -> {
+        post("/delete_book/:id", (req, res) -> {
             bookDao.delete(req.params("id"));
             res.redirect("/");
             return "";
         });
 
-        get("/delete_inproceeding/:id", (req, res) -> {
+        post("/delete_inproceeding/:id", (req, res) -> {
             inproceedingDao.delete(req.params("id"));
             res.redirect("/");
             return "";

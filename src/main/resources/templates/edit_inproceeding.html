@@ -17,7 +17,7 @@
             <form method="POST" action="/edit_inproceeding">
                 <table>
                     <input type="hidden" name="id" id="id" th:value="${id}"/>
-                    <tr><td>Tags(s):</td><td><input type="text" name="tags" id="tags" th:value="${tags}"/></td></tr>
+                    <tr><td>Tag(s):</td><td><input type="text" name="tags" id="tags" th:value="${tags}"/></td></tr>
                     <tr><td>Authors:*</td>
                         <td><textarea name="authors" id="authors" rows="5" cols="30" placeholder="Sukunimi, Etunimi&#10;Lastname, Firstname" th:text="${authors}"></textarea></td></tr>
                     <tr><td>Title:*</td><td><input type="text" name="title" id="title" th:value="${title}"/></td></tr>
