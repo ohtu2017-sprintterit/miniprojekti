@@ -147,6 +147,8 @@ public class Article extends Reference {
                 getNumber() == null ? "" : "  number = \"" + getNumber() + "\",\n",
                 getPages() == null ? "" : "  pages = \"" + getPages() + "\",\n",
                 (getMonth() == null || getMonth().length() == 0) ? "" : "  month = " + getMonth() + ",\n",
+                (getPublisher() == null || getPublisher().length() == 0) ? "" : "  publisher = {" + getPublisher() + "},\n",
+                (getAddress() == null || getAddress().length() == 0) ? "" : "  address = {" + getAddress() + "},\n",
                 (getNote() == null || getNote().length() == 0) ? "" : "  note = \"" + getNote() + "\",\n",
                 (getKey() == null || getKey().length() == 0) ? "" : "  key = {" + getKey() + "}\n",
                 "}\n"
