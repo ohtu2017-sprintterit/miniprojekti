@@ -34,7 +34,7 @@ public class Stepdefs {
     }
 
     @Given("^Add inproceeding is selected$")
-    public void add_inproceeding_is_selected() throws Throwable {
+    public void add_inproceeding_selected() throws Throwable {
         driver.get(baseUrl);
         sleep();
         driver.findElement(By.linkText("Add inproceeding")).click();
@@ -54,11 +54,21 @@ public class Stepdefs {
         book_is_added();
     }
 
-    @Given("^Edit is selected$")
-    public void edit_is_selected() throws Throwable {
-        driver.get(baseUrl);
-        sleep();
-        driver.findElement(By.linkText("Edit")).click();
+    @Given("^A new inproceeding with author \"([^\"]*)\", title \"([^\"]*)\", booktitle \"([^\"]*)\" and year \"([^\"]*)\" is created$")
+    public void a_new_inproceeding_with_id_author_title_booktitle_and_year_is_created(String author, String title, String booktitle, String year) throws Throwable {
+        add_inproceeding_selected();
+        addInproceeding(author, title, booktitle, year);
+        inproceeding_is_added();
+    }
+
+    @Given("^Edit reference \"([^\"]*)\" is selected$")
+    public void edit_reference_is_selected(String id) throws Throwable {
+        driver.findElement(By.xpath("//a[contains(@href, '" + id + "')]")).click();
+    }
+
+    @Given("^Reference page does not have content \"([^\"]*)\"$")
+    public void reference_page_does_not_have_content(String word) throws Throwable {
+        pageDoesNotHaveContent(word);
     }
 
     @Given("^Import from ACM DL is selected$")
@@ -88,14 +98,19 @@ public class Stepdefs {
         addArticle(author, title, journal, volume, number, year, startpage, endpage);
     }
 
-    @When("^Article is changed with author \"([^\"]*)\", title \"([^\"]*)\", journal \"([^\"]*)\" and year \"([^\"]*)\"$")
-    public void article_is_changed_with_id_author_title_journal_and_year(String author, String title, String journal, String year) throws Throwable {
-        editArticle(author, title, journal, year);
+    @When("^Book title is changed to \"([^\"]*)\"$")
+    public void book_edit(String title) throws Throwable {
+        editBook(title);
     }
 
-    @When("^Book is changed with author \"([^\"]*)\", title \"([^\"]*)\", publisher \"([^\"]*)\" and year \"([^\"]*)\"$")
-    public void book_is_changed_with_id_author_title_publisher_and_year(String author, String title, String publisher, String year) throws Throwable {
-        //editBook(author, title, publisher, year);
+    @When("^Article title is changed to \"([^\"]*)\"$")
+    public void article_edit(String title) throws Throwable {
+        editArticle(title);
+    }
+
+    @When("^Inproceeding title is changed to \"([^\"]*)\"$")
+    public void inproceeding_edit(String title) throws Throwable {
+        editInproceeding(title);
     }
 
     @When("^Import URL \"([^\"]*)\" is entered$")
@@ -124,19 +139,9 @@ public class Stepdefs {
         pageHasContent("Reference management");
     }
 
-    @Then("^Article is edited$")
-    public void article_is_edited() throws Throwable {
-        pageHasContent("Reference management");
-    }
-
     @Then("^Book is added$")
     public void book_is_added() throws Throwable {
         pageHasContent("Reference management");
-    }
-
-    @Then("^Book is edited$")
-    public void book_is_edited() throws Throwable {
-        //pageHasContent("Reference Management");
     }
 
     @Then("^Inproceeding is added$")
@@ -173,6 +178,11 @@ public class Stepdefs {
         pageHasContent(errorMessage);
     }
 
+    @Then("^Reference page has content \"([^\"]*)\"$")
+    public void page_has_content(String content) throws Throwable {
+        pageHasContent(content);
+    }
+
     @After
     public void tearDown() {
         driver.quit();
@@ -181,6 +191,10 @@ public class Stepdefs {
     /* helper methods */
     private void pageHasContent(String content) {
         assertTrue(driver.getPageSource().contains(content));
+    }
+
+    private void pageDoesNotHaveContent(String content) {
+        assertTrue(!driver.getPageSource().contains(content));
     }
 
     private void addArticle(String authors, String title, String journal, String year) {
@@ -209,17 +223,6 @@ public class Stepdefs {
         sleep();
     }
 
-    private void editArticle(String authors, String title, String journal, String year) {
-        pageHasContent("Edit article");
-        driver.findElement(By.name("authors")).sendKeys(authors);
-        driver.findElement(By.name("title")).sendKeys(title);
-        driver.findElement(By.name("journal")).sendKeys(journal);
-        driver.findElement(By.name("year")).sendKeys(year);
-        sleep();
-        driver.findElement(By.name("save")).submit();
-        sleep();
-    }
-
     private void addBook(String authors, String title, String publisher, String year) {
         pageHasContent("New book");
         driver.findElement(By.name("authors")).sendKeys(authors);
@@ -231,17 +234,6 @@ public class Stepdefs {
         sleep();
     }
 
-    private void editBook(String authors, String title, String publisher, String year) {
-        pageHasContent("Edit book");
-        driver.findElement(By.name("authors")).sendKeys(authors);
-        driver.findElement(By.name("title")).sendKeys(title);
-        driver.findElement(By.name("publisher")).sendKeys(publisher);
-        driver.findElement(By.name("year")).sendKeys(year);
-        sleep();
-        driver.findElement(By.name("save")).submit();
-        sleep();
-    }
-
     private void addInproceeding(String authors, String title, String booktitle, String year) {
         pageHasContent("New inproceeding");
         driver.findElement(By.name("authors")).sendKeys(authors);
@@ -250,6 +242,30 @@ public class Stepdefs {
         driver.findElement(By.name("year")).sendKeys(year);
         sleep();
         driver.findElement(By.name("add")).submit();
+        sleep();
+    }
+
+    private void editArticle(String title) {
+        pageHasContent("Edit article");
+        driver.findElement(By.name("title")).sendKeys(title);
+        sleep();
+        driver.findElement(By.name("save")).submit();
+        sleep();
+    }
+
+    private void editBook(String title) {
+        pageHasContent("Edit book");
+        driver.findElement(By.name("title")).sendKeys(title);
+        sleep();
+        driver.findElement(By.name("save")).submit();
+        sleep();
+    }
+
+    private void editInproceeding(String title) {
+        pageHasContent("Edit inproceeding");
+        driver.findElement(By.name("title")).sendKeys(title);
+        sleep();
+        driver.findElement(By.name("save")).submit();
         sleep();
     }
 
