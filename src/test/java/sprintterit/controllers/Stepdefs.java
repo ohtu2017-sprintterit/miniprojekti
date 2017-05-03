@@ -67,8 +67,9 @@ public class Stepdefs {
     }
 
     @Given("^Reference page does not have content \"([^\"]*)\"$")
-    public void reference_page_does_not_have_content(String word) throws Throwable {
-        pageDoesNotHaveContent(word);
+    public void reference_page_does_not_have_content(String content) throws Throwable {
+        pageHasContent("Search");
+        pageDoesNotHaveContent(content);
     }
 
     @Given("^Import from ACM DL is selected$")
@@ -111,6 +112,11 @@ public class Stepdefs {
     @When("^Inproceeding title is changed to \"([^\"]*)\"$")
     public void inproceeding_edit(String title) throws Throwable {
         editInproceeding(title);
+    }
+
+    @When("^Delete reference \"([^\"]*)\" is selected$")
+    public void delete_reference_is_selected(String id) throws Throwable {
+        driver.findElement(By.xpath("//form[contains(@action, '" + id + "')]")).submit();
     }
 
     @When("^Import URL \"([^\"]*)\" is entered$")
@@ -179,7 +185,8 @@ public class Stepdefs {
     }
 
     @Then("^Reference page has content \"([^\"]*)\"$")
-    public void page_has_content(String content) throws Throwable {
+    public void reference_page_has_content(String content) throws Throwable {
+        pageHasContent("Search");
         pageHasContent(content);
     }
 
