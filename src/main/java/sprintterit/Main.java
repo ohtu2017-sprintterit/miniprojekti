@@ -1,6 +1,5 @@
 package sprintterit;
 
-import java.sql.SQLException;
 import java.util.HashMap;
 import spark.ModelAndView;
 import static spark.Spark.*;
@@ -15,35 +14,17 @@ import sprintterit.database.ReferenceDao;
 
 public class Main {
 
-    public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        // Osoite: http://sprintterit-bibtex.herokuapp.com/
-        // Paikallinen versio: http://localhost:4567/
+    /**
+     * This service is available both online and locally
+     *
+     * Web: http://sprintterit-bibtex.herokuapp.com/
+     * Local: http://localhost:4567/
+     */
+    public static void main(String[] args) {
+        setStaticFileLocation();
+        setPort(args);
 
-        // Bootstrapin tyylitiedoston sijainti
-        // Kansion web sisältö näkyy verkkoon sellaisenaan
-        staticFileLocation("/web");
-
-        // Asetetaan portti, jos heroku antaa PORT-ympäristömuuttujan
-        // Vastaavasti Cucumber-testit käyttävät komentoriviparametria
-        if (args != null && args.length >= 1) {
-            port(Integer.valueOf(args[0]));
-        }
-        if (System.getenv("PORT") != null) {
-            port(Integer.valueOf(System.getenv("PORT")));
-        }
-
-        // Käytetään oletuksena paikallista sqlite-tietokantaa
-        // Jos heroku antaa käyttöömme tietokantaosoitteen, otetaan se käyttöön
-        // Vastaavasti Cucumber-testit käyttävät komentoriviparametria
-        String jdbcOsoite = "jdbc:sqlite:tietokantatiedosto.db";
-        if (args != null && args.length >= 2) {
-            jdbcOsoite = args[1];
-        }
-        if (System.getenv("JDBC_DATABASE_URL") != null) {
-            jdbcOsoite = System.getenv("JDBC_DATABASE_URL");
-        }
-        Database database = new Database(jdbcOsoite);
-        database.init();
+        Database database = getDatabase(args);
 
         ArticleDao articleDao = new ArticleDao(database);
         BookDao bookDao = new BookDao(database);
@@ -150,4 +131,50 @@ public class Main {
         get("/acmimport", acmController);
         post("/acmimport", acmController);
     }
+
+    private static void setStaticFileLocation() {
+        // This directory includes the CSS files for Bootstrap
+        // These are static files which the web server will serve as is
+        staticFileLocation("/web");
+    }
+
+    private static void setPort(String[] args) throws NumberFormatException {
+        // Cucumber tests use a command line argument to specify the port
+        if (args != null && args.length >= 1) {
+            port(Integer.valueOf(args[0]));
+        }
+
+        // Heroku specifies the port using an environment variable
+        if (System.getenv("PORT") != null) {
+            port(Integer.valueOf(System.getenv("PORT")));
+        }
+    }
+
+    private static Database getDatabase(String[] args) {
+        String address = getDatabaseAddress(args);
+        Database database = new Database(address);
+        database.init();
+
+        return database;
+    }
+
+    private static String getDatabaseAddress(String[] args) {
+        // If run locally, we use a lightweight SQLite database
+        String jdbcAddress = "jdbc:sqlite:tietokantatiedosto.db";
+
+        // Functional tests (Cucumber) use a different SQLite database file
+        // The file is specified as a command line argument
+        if (args != null && args.length >= 2) {
+            jdbcAddress = args[1];
+        }
+
+        // On Heroku, we use a PostgreSQL database
+        // Heroku specifies the address using an environment variable
+        if (System.getenv("JDBC_DATABASE_URL") != null) {
+            jdbcAddress = System.getenv("JDBC_DATABASE_URL");
+        }
+
+        return jdbcAddress;
+    }
+
 }
