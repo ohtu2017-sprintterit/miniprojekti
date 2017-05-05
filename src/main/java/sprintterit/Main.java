@@ -4,7 +4,6 @@ import java.util.HashMap;
 import spark.ModelAndView;
 import static spark.Spark.*;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
-import sprintterit.bibtexgen.BibtexGenerator;
 import sprintterit.controllers.*;
 import sprintterit.database.ArticleDao;
 import sprintterit.database.BookDao;
@@ -109,23 +108,7 @@ public class Main {
             return "";
         });
 
-        post("/generatebibtex", (req, res) -> {
-            String filename = "" + req.queryParams("filename");
-            String[] articles = req.queryParamsValues("checked_articles");
-            String[] books = req.queryParamsValues("checked_books");
-            String[] inproceedings = req.queryParamsValues("checked_inproceedings");
-            if (filename.length() == 0) {
-                res.redirect("/");
-                return "";
-            } else {
-                filename = filename.replaceAll("\\.bib$", "") + ".bib";
-
-                BibtexGenerator gen = new BibtexGenerator();
-                res.type("application/x-bibtex");
-                res.header("Content-Disposition", String.format("attachment; filename=%s", filename));
-                return gen.generateBibtexFile(referenceDao.findAll(articles, books, inproceedings));
-            }
-        });
+        post("/generatebibtex", new GenerateBibtexFile(referenceDao));
 
         ACMImportController acmController = new ACMImportController(articleDao, bookDao, inproceedingDao);
         get("/acmimport", acmController);
