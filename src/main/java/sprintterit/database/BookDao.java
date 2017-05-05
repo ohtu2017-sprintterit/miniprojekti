@@ -5,9 +5,9 @@ import sprintterit.models.Book;
 import java.sql.SQLException;
 import java.util.List;
 
-public class BookDao {
+public class BookDao implements DaoWithDelete {
 
-    private Database database;
+    private final Database database;
     private final QueryRunner<Book> query;
     private final BibtexKeyGen keygen;
 
@@ -48,7 +48,12 @@ public class BookDao {
                 publisher, address, volume, series, edition, month, note, key, id);
     }
 
+    @Override
     public void delete(String id) throws SQLException {
+        if (findOne(id) == null) {
+            return;
+        }
+
         query.insert("DELETE FROM Book WHERE id = ?", id);
         query.insert("DELETE FROM Reference WHERE id = ?", id);
     }

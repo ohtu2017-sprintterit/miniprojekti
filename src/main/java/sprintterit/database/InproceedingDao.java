@@ -6,9 +6,9 @@ import sprintterit.models.Pages;
 import java.sql.SQLException;
 import java.util.List;
 
-public class InproceedingDao {
+public class InproceedingDao implements DaoWithDelete {
 
-    private Database database;
+    private final Database database;
     private final QueryRunner<Inproceeding> query;
     private final BibtexKeyGen keygen;
 
@@ -61,7 +61,12 @@ public class InproceedingDao {
                 publisher, address, editor, volume, series, month, organization, note, key, id);
     }
 
+    @Override
     public void delete(String id) throws SQLException {
+        if (findOne(id) == null) {
+            return;
+        }
+
         query.insert("DELETE FROM Inproceedings WHERE id = ?", id);
         query.insert("DELETE FROM Reference WHERE id = ?", id);
     }

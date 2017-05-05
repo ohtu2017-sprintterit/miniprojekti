@@ -5,7 +5,7 @@ import java.util.List;
 import sprintterit.models.Article;
 import sprintterit.models.Pages;
 
-public class ArticleDao {
+public class ArticleDao implements DaoWithDelete {
 
     private final Database database;
     private final QueryRunner<Article> query;
@@ -59,7 +59,12 @@ public class ArticleDao {
                 publisher, address, note, key, id);
     }
 
+    @Override
     public void delete(String id) throws SQLException {
+        if (findOne(id) == null) {
+            return;
+        }
+
         query.insert("DELETE FROM Article WHERE id = ?", id);
         query.insert("DELETE FROM Reference WHERE id = ?", id);
     }

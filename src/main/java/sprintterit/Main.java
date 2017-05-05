@@ -90,23 +90,9 @@ public class Main {
         post("/edit_book", new EditBook(bookDao));
         post("/edit_inproceeding", new EditInproceeding(inproceedingDao));
 
-        post("/delete_article/:id", (req, res) -> {
-            articleDao.delete(req.params("id"));
-            res.redirect("/");
-            return "";
-        });
-
-        post("/delete_book/:id", (req, res) -> {
-            bookDao.delete(req.params("id"));
-            res.redirect("/");
-            return "";
-        });
-
-        post("/delete_inproceeding/:id", (req, res) -> {
-            inproceedingDao.delete(req.params("id"));
-            res.redirect("/");
-            return "";
-        });
+        post("/delete_article/:id", new Delete(articleDao));
+        post("/delete_book/:id", new Delete(bookDao));
+        post("/delete_inproceeding/:id", new Delete(inproceedingDao));
 
         post("/generatebibtex", new GenerateBibtexFile(referenceDao));
 
