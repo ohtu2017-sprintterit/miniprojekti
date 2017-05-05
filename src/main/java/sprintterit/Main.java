@@ -10,6 +10,11 @@ import sprintterit.database.ReferenceDao;
 
 public class Main {
 
+    private final ArticleDao articleDao;
+    private final BookDao bookDao;
+    private final InproceedingDao inproceedingDao;
+    private final ReferenceDao referenceDao;
+
     /**
      * This service is available both online and locally
      *
@@ -22,13 +27,30 @@ public class Main {
 
         Database database = getDatabase(args);
 
-        ArticleDao articleDao = new ArticleDao(database);
-        BookDao bookDao = new BookDao(database);
-        InproceedingDao inproceedingDao = new InproceedingDao(database);
-        ReferenceDao referenceDao = new ReferenceDao(database);
+        new Main(database).createControllers();
+    }
 
+    public Main(Database database) {
+        this.articleDao = new ArticleDao(database);
+        this.bookDao = new BookDao(database);
+        this.inproceedingDao = new InproceedingDao(database);
+        this.referenceDao = new ReferenceDao(database);
+    }
+
+    public void createControllers() {
+        createIndex();
+        createAdd();
+        createEdit();
+        createDelete();
+        createBibtexGeneration();
+        createACMImport();
+    }
+
+    private void createIndex() {
         get("/", new GetIndex(articleDao, bookDao, inproceedingDao));
+    }
 
+    private void createAdd() {
         get("/article", new GetView("article"));
         get("/book", new GetView("book"));
         get("/inproceeding", new GetView("inproceeding"));
@@ -36,7 +58,9 @@ public class Main {
         post("/article", new AddArticle(articleDao));
         post("/book", new AddBook(bookDao));
         post("/inproceeding", new AddInproceeding(inproceedingDao));
+    }
 
+    private void createEdit() {
         get("/article/:id", new ViewArticle(articleDao));
         get("/book/:id", new ViewBook(bookDao));
         get("/inproceeding/:id", new ViewInproceeding(inproceedingDao));
@@ -44,13 +68,19 @@ public class Main {
         post("/edit_article", new EditArticle(articleDao));
         post("/edit_book", new EditBook(bookDao));
         post("/edit_inproceeding", new EditInproceeding(inproceedingDao));
+    }
 
+    private void createDelete() {
         post("/delete_article/:id", new Delete(articleDao));
         post("/delete_book/:id", new Delete(bookDao));
         post("/delete_inproceeding/:id", new Delete(inproceedingDao));
+    }
 
+    private void createBibtexGeneration() {
         post("/generatebibtex", new GenerateBibtexFile(referenceDao));
+    }
 
+    private void createACMImport() {
         ACMImportController acmController = new ACMImportController(articleDao, bookDao, inproceedingDao);
         get("/acmimport", acmController);
         post("/acmimport", acmController);
