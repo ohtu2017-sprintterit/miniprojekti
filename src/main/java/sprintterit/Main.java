@@ -63,20 +63,9 @@ public class Main {
             return new ModelAndView(map, "index");
         }, new ThymeleafTemplateEngine());
 
-        get("/article", (req, res) -> {
-            HashMap map = new HashMap<>();
-            return new ModelAndView(map, "article");
-        }, new ThymeleafTemplateEngine());
-
-        get("/book", (req, res) -> {
-            HashMap map = new HashMap<>();
-            return new ModelAndView(map, "book");
-        }, new ThymeleafTemplateEngine());
-
-        get("/inproceeding", (req, res) -> {
-            HashMap map = new HashMap<>();
-            return new ModelAndView(map, "inproceeding");
-        }, new ThymeleafTemplateEngine());
+        get("/article", new GetView("article"));
+        get("/book", new GetView("book"));
+        get("/inproceeding", new GetView("inproceeding"));
 
         post("/article", new AddArticle(articleDao));
         post("/book", new AddBook(bookDao));
