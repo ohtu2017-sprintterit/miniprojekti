@@ -6,3 +6,5 @@
 [Backlog](https://docs.google.com/spreadsheets/d/1jSxhcgDVZt9wurYCuqZEZ7Dv1KNtv_SieJrNIG_zpkk)
 
 [Linkki sovellukseen](https://sprintterit-bibtex.herokuapp.com)
+
+[Linkki loppuraporttiin](./doc/loppuraportti.pdf)
